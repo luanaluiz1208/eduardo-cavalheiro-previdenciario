@@ -1,13 +1,14 @@
 import { ArrowLeft, ArrowUpRight, CalendarDays, Clock3, MessageCircle } from "lucide-react";
 import { Link, useRoute } from "wouter";
 import SiteShell from "@/components/SiteShell";
-import { getBlogArticle } from "@/data/blog";
+import { useBlogArticles } from "@/data/blog";
 import { useSiteContent } from "@/data/siteContent";
 import { whatsappLink } from "@/data/areas";
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
-  const article = params?.slug ? getBlogArticle(params.slug) : undefined;
+  const articles = useBlogArticles();
+  const article = params?.slug ? articles.find((item) => item.slug === params.slug) : undefined;
   const content = useSiteContent();
 
   if (!article) {

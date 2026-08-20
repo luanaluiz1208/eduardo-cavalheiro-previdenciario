@@ -4,6 +4,7 @@ export type BlogSection = {
 };
 
 export type BlogArticle = {
+  id?: string;
   slug: string;
   category: string;
   title: string;
@@ -11,6 +12,7 @@ export type BlogArticle = {
   readTime: string;
   date: string;
   featured?: boolean;
+  published?: boolean;
   sections: BlogSection[];
   sourceLabel: string;
   sourceUrl: string;
@@ -70,3 +72,26 @@ export function getBlogArticle(slug: string) {
 }
 
 export const blogCategories = ["Todos", ...Array.from(new Set(blogArticles.map((article) => article.category)))];
+
+export function useBlogArticles() {
+  const [articles, setArticles] = useState<BlogArticle[]>(blogArticles);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/articles")
+      .then((response) => response.ok ? response.json() : null)
+      .then((payload: { articles?: BlogArticle[] } | null) => {
+        if (!active || !payload?.articles?.length) return;
+        setArticles((current) => {
+          const saved = payload.articles || [];
+          const savedSlugs = new Set(saved.map((article) => article.slug));
+          return [...saved, ...current.filter((article) => !savedSlugs.has(article.slug))];
+        });
+      })
+      .catch(() => undefined);
+    return () => { active = false; };
+  }, []);
+
+  return articles.filter((article) => article.published !== false);
+}
+import { useEffect, useState } from "react";

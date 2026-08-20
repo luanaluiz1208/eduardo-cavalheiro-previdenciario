@@ -1,7 +1,8 @@
 /**
  * Direção visual: Arquivo de Confiança — dados institucionais claros e centralizados.
- * Este projeto público usa conteúdo estático, sem depender de um painel administrativo.
+ * Valores estáticos sustentam o site até que a base conectada ao painel esteja configurada.
  */
+import { useEffect, useState } from "react";
 export const siteContentDefaults = {
   heroTitle: "Dr. Eduardo Ferreira Cavalheiro",
   heroDescription:
@@ -27,5 +28,18 @@ export function mapsDirectionsLink(address: string) {
 }
 
 export function useSiteContent(): SiteContentValues {
-  return siteContentDefaults;
+  const [content, setContent] = useState<SiteContentValues>(siteContentDefaults);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/content")
+      .then((response) => response.ok ? response.json() : null)
+      .then((payload: { content?: Partial<SiteContentValues> } | null) => {
+        if (active && payload?.content) setContent((current) => ({ ...current, ...payload.content }));
+      })
+      .catch(() => undefined);
+    return () => { active = false; };
+  }, []);
+
+  return content;
 }

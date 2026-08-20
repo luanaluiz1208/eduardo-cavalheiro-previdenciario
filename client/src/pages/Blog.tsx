@@ -2,12 +2,14 @@ import { useMemo, useState } from "react";
 import { ArrowUpRight, CalendarDays, Clock3, Filter } from "lucide-react";
 import { Link } from "wouter";
 import SiteShell from "@/components/SiteShell";
-import { blogArticles, blogCategories } from "@/data/blog";
+import { useBlogArticles } from "@/data/blog";
 
 export default function Blog() {
   const [category, setCategory] = useState("Todos");
-  const visibleArticles = useMemo(() => category === "Todos" ? blogArticles : blogArticles.filter((article) => article.category === category), [category]);
-  const featured = blogArticles.find((article) => article.featured) ?? blogArticles[0];
+  const articles = useBlogArticles();
+  const categories = useMemo(() => ["Todos", ...Array.from(new Set(articles.map((article) => article.category)))], [articles]);
+  const visibleArticles = useMemo(() => category === "Todos" ? articles : articles.filter((article) => article.category === category), [articles, category]);
+  const featured = articles.find((article) => article.featured) ?? articles[0];
 
   return (
     <SiteShell>
@@ -26,7 +28,7 @@ export default function Blog() {
         </div>
       </section>
 
-      <section className="content-width blog-featured-section" aria-labelledby="featured-title">
+      {featured ? <section className="content-width blog-featured-section" aria-labelledby="featured-title">
         <div className="section-kicker"><span>Leitura em destaque</span><span className="kicker-line" /></div>
         <Link href={`/blog/${featured.slug}`} className="blog-featured-card">
           <div className="blog-featured-copy">
@@ -37,14 +39,14 @@ export default function Blog() {
           </div>
           <div className="blog-featured-index"><span>ARTIGO</span><strong>01</strong><small>{featured.date}</small></div>
         </Link>
-      </section>
+      </section> : null}
 
       <section className="content-width blog-list-section" id="artigos" aria-labelledby="articles-title">
         <div className="blog-list-header">
           <div><p className="eyebrow"><span /> Arquivo de orientação</p><h2 id="articles-title">Artigos recentes</h2></div>
           <div className="category-filter" aria-label="Filtrar artigos por categoria">
             <Filter size={15} aria-hidden="true" />
-            {blogCategories.map((item) => <button key={item} type="button" className={category === item ? "active" : ""} aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>)}
+            {categories.map((item) => <button key={item} type="button" className={category === item ? "active" : ""} aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>)}
           </div>
         </div>
         <div className="blog-grid">
