@@ -4,14 +4,12 @@ import { isAdmin } from "../lib/auth";
 import { database, ensureSchema, fromRow, normalizeArticle } from "../lib/database";
 import { ensureSameOrigin, methodNotAllowed, readBody, sendJson } from "../lib/http";
 
-const selectArticles = `SELECT id, slug, category, title, excerpt, read_time AS "readTime", published_date AS date, featured, published, sections, source_label AS "sourceLabel", source_url AS "sourceUrl" FROM articles`;
-
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   const sql = database();
   if (request.method === "GET") {
     if (!sql) return sendJson(response, 200, { articles: [] });
     await ensureSchema(sql);
-    const rows = await sql(`${selectArticles} ORDER BY updated_at DESC`);
+    const rows = await sql`SELECT id, slug, category, title, excerpt, read_time AS "readTime", published_date AS date, featured, published, sections, source_label AS "sourceLabel", source_url AS "sourceUrl" FROM articles ORDER BY updated_at DESC`;
     return sendJson(response, 200, { articles: rows.map((row) => fromRow(row as Record<string, unknown>)) });
   }
 
