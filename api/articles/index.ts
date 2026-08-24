@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { isAdmin } from "../lib/auth";
-import { database, ensureSchema, fromRow, normalizeArticle } from "../lib/database";
-import { ensureSameOrigin, methodNotAllowed, readBody, sendJson } from "../lib/http";
+import { isAdmin } from "../lib/auth.js";
+import { database, ensureSchema, fromRow, normalizeArticle } from "../lib/database.js";
+import { ensureSameOrigin, methodNotAllowed, readBody, sendJson } from "../lib/http.js";
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   const sql = database();
