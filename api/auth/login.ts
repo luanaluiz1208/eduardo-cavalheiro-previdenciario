@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { loginMatches, startAdminSession } from "../lib/auth";
-import { ensureSameOrigin, methodNotAllowed, readBody, sendJson } from "../lib/http";
+import { loginMatches, startAdminSession } from "../lib/auth.js";
+import { ensureSameOrigin, methodNotAllowed, readBody, sendJson } from "../lib/http.js";
 
 export default function handler(request: VercelRequest, response: VercelResponse) {
   if (request.method !== "POST") return methodNotAllowed(response, ["POST"]);
