@@ -236,21 +236,6 @@ export default function Home() {
             <p className="form-privacy">Não envie senhas, dados bancários ou informações sigilosas por este formulário. O contato inicial não substitui análise jurídica individual.</p>
           </form>
         </div>
-        <div className="content-width contact-map-block">
-          <div className="contact-map-heading">
-            <div>
-              <p className="eyebrow gold-eyebrow">Como chegar</p>
-              <h3>Encontre o escritório em Itaperuna.</h3>
-            </div>
-            <p>O escritório está em uma região de fácil acesso. Para abrir a localização ou iniciar uma rota, use os botões acima.</p>
-          </div>
-          <div className="contact-map-frame contact-city-photo" style={{ backgroundImage: "linear-gradient(90deg, rgba(7,23,44,0.78), rgba(7,23,44,0.12)), url('/assets/itaperuna-cidade-serena.jpg')" }} aria-label="Contexto urbano de Itaperuna, Rio de Janeiro">
-            <div className="contact-city-caption">
-              <p>Itaperuna · Rio de Janeiro</p>
-              <span>Atendimento presencial mediante agendamento.</span>
-            </div>
-          </div>
-        </div>
       </section>
 
       <section className="source-note">
