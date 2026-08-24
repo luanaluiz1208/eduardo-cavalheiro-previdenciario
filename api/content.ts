@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { isAdmin } from "./lib/auth";
-import { ContentKey, database, ensureSchema } from "./lib/database";
-import { ensureSameOrigin, methodNotAllowed, readBody, sendJson } from "./lib/http";
+import { isAdmin } from "./lib/auth.js";
+import { ContentKey, database, ensureSchema } from "./lib/database.js";
+import { ensureSameOrigin, methodNotAllowed, readBody, sendJson } from "./lib/http.js";
 
 const allowedKeys: ContentKey[] = ["heroTitle", "heroDescription", "officeAddress", "officeHours", "whatsapp", "email", "instagram", "tiktok"];
 
