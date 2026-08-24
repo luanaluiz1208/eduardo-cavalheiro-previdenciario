@@ -113,7 +113,7 @@ export default function Home() {
           <div className="section-intro narrow-intro about-photo" style={{ backgroundImage: "linear-gradient(180deg, rgba(11,31,58,0.06), rgba(11,31,58,0.48)), url('/assets/atendimento-acolhedor.jpg')" }} aria-label="Atendimento jurídico acolhedor" />
           <div className="about-copy">
             <p className="lead-copy">Eduardo Ferreira Cavalheiro é advogado especialista em Direito Previdenciário, com atuação dedicada à defesa dos direitos dos segurados junto ao INSS.</p>
-            <p>Natural de Itaperuna/RJ, realiza atendimento presencial na cidade e, de forma on-line, em todo o território nacional. Seu trabalho combina conhecimento técnico, leitura cuidadosa da documentação e atenção próxima ao cliente — do primeiro contato à análise de cada etapa necessária. Contribuiu para mudança de vida de várias pessoas por meio do seu trabalho.</p>
+            <p>Natural de Itaperuna/RJ, realiza atendimento presencial na cidade e, de forma on-line, em todo o território nacional. Especialista em Benefícios e Planejamento Previdenciário, Aposentadoreias em Geral, entre outras áreas de atuação. Minha missão é auxiliar vocês na busca da melhor solução para o seu caso, combinando conhecimento técnico, leitura cuidadosa da documentação e atenção próxima ao cliente — do primeiro contato à cada etapa necessária. Contribuindo assim para mudança de vida de várias pessoas por meio do seu trabalho.</p>
             <div className="about-signature">
               <span className="signature-line" />
               <div><strong>Eduardo Ferreira Cavalheiro</strong><small>Advogado Previdenciarista · OAB/RJ nº 26.639/23</small></div>
