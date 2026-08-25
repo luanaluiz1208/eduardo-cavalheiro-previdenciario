@@ -18,6 +18,14 @@ export type ArticleInput = {
 
 export type StoredArticle = ArticleInput & { id: string };
 
+export type StoredComment = {
+  id: string;
+  articleSlug: string;
+  name: string;
+  message: string;
+  createdAt: string;
+};
+
 export function database() {
   const url = process.env.DATABASE_URL;
   return url ? neon(url) : null;
@@ -45,6 +53,37 @@ export async function ensureSchema(sql: NonNullable<ReturnType<typeof database>>
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
   )`;
+  await sql`CREATE TABLE IF NOT EXISTS comments (
+    id TEXT PRIMARY KEY,
+    article_slug TEXT NOT NULL,
+    name TEXT NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  )`;
+  await sql`CREATE INDEX IF NOT EXISTS comments_article_slug_idx ON comments (article_slug)`;
+}
+
+export function commentFromRow(row: Record<string, unknown>): StoredComment {
+  return {
+    id: String(row.id),
+    articleSlug: String(row.articleSlug),
+    name: String(row.name),
+    message: String(row.message),
+    createdAt: String(row.createdAt),
+  };
+}
+
+export function normalizeComment(value: unknown): { name: string; message: string } | null {
+  if (!value || typeof value !== "object") return null;
+  const item = value as { name?: unknown; message?: unknown };
+  const name = typeof item.name === "string" ? item.name.trim().slice(0, 120) : "";
+  const message = typeof item.message === "string" ? item.message.trim().slice(0, 2000) : "";
+  if (!name || !message) return null;
+  return { name, message };
+}
+
+export function normalizeSlug(value: unknown): string {
+  return typeof value === "string" ? value.trim().toLowerCase().slice(0, 120).replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "") : "";
 }
 
 export function fromRow(row: Record<string, unknown>): StoredArticle {
