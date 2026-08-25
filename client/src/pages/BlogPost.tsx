@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowUpRight, CalendarDays, Clock3, MessageCircle } from "lucide-react";
 import { Link, useRoute } from "wouter";
+import ArticleComments from "@/components/ArticleComments";
 import SiteShell from "@/components/SiteShell";
 import { useBlogArticles } from "@/data/blog";
 import { useSiteContent } from "@/data/siteContent";
@@ -31,6 +32,7 @@ export default function BlogPost() {
           <div className="article-body">
             {article.sections.map((section) => <section key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}
             <div className="article-source"><p className="eyebrow"><span /> Referência consultada</p><a href={article.sourceUrl} target="_blank" rel="noreferrer">{article.sourceLabel} <ArrowUpRight size={15} /></a></div>
+            <ArticleComments slug={article.slug} />
           </div>
           <aside className="article-aside"><div className="article-aside-card"><span className="note-index">ORIENTAÇÃO INDIVIDUAL</span><h2>Seu histórico merece uma leitura cuidadosa.</h2><p>Se você precisa organizar documentos ou entender uma possibilidade previdenciária, fale diretamente com o escritório.</p><a href={whatsappLink("Olá, Eduardo. Li um artigo no blog e gostaria de orientação previdenciária.", content.whatsapp)} target="_blank" rel="noreferrer" className="button button-gold"><MessageCircle size={17} /> Falar no WhatsApp</a></div></aside>
         </div>
