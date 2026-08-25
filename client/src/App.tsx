@@ -2,6 +2,7 @@
  * Direção visual: Arquivo de Confiança — rotas simples, sem becos sem saída e com contato acessível em todas as páginas.
  */
 
+import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazy, Suspense } from "react";
@@ -40,6 +41,7 @@ function App() {
           <Suspense fallback={<main className="flex min-h-screen items-center justify-center bg-[#f7f4ed] text-sm text-[#0b1f3a]">Carregando…</main>}>
             <Router />
           </Suspense>
+          <Analytics />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
