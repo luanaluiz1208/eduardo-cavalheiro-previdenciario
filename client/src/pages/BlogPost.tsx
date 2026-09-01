@@ -30,7 +30,7 @@ export default function BlogPost() {
         </header>
         <div className="content-width article-layout">
           <div className="article-body">
-            {article.sections.map((section) => <section key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}
+            {article.sections.map((section) => <section key={section.heading}><h2>{section.heading}</h2><div className="article-section-body" dangerouslySetInnerHTML={{ __html: section.body }} /></section>)}
             <div className="article-source"><p className="eyebrow"><span /> Referência consultada</p><a href={article.sourceUrl} target="_blank" rel="noreferrer">{article.sourceLabel} <ArrowUpRight size={15} /></a></div>
             <ArticleComments slug={article.slug} />
           </div>
