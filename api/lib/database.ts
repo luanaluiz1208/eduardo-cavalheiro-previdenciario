@@ -1,4 +1,5 @@
 import { neon } from "@neondatabase/serverless";
+import sanitizeHtml from "sanitize-html";
 
 export type ContentKey = "heroTitle" | "heroDescription" | "officeAddress" | "officeHours" | "whatsapp" | "email" | "instagram" | "tiktok";
 
@@ -11,10 +12,34 @@ export type ArticleInput = {
   date: string;
   featured: boolean;
   published: boolean;
-  sections: Array<{ heading: string; paragraphs: string[] }>;
+  sections: Array<{ heading: string; body: string }>;
   sourceLabel: string;
   sourceUrl: string;
 };
+
+const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
+  allowedTags: ["p", "br", "strong", "b", "em", "i", "u", "s", "mark", "h3", "h4", "ul", "ol", "li", "blockquote", "a", "img", "span"],
+  allowedAttributes: {
+    a: ["href", "target", "rel"],
+    img: ["src", "alt", "width", "height"],
+    span: ["style"],
+    mark: ["style"],
+  },
+  allowedStyles: {
+    "*": {
+      color: [/^#[0-9a-fA-F]{3,8}$/, /^rgb\(.*\)$/],
+      "background-color": [/^#[0-9a-fA-F]{3,8}$/, /^rgb\(.*\)$/],
+    },
+  },
+  allowedSchemes: ["http", "https", "mailto"],
+  transformTags: {
+    a: sanitizeHtml.simpleTransform("a", { target: "_blank", rel: "noreferrer" }),
+  },
+};
+
+export function sanitizeArticleBody(html: string): string {
+  return sanitizeHtml(html, SANITIZE_OPTIONS).trim();
+}
 
 export type StoredArticle = ArticleInput & { id: string };
 
@@ -87,6 +112,15 @@ export function normalizeSlug(value: unknown): string {
 }
 
 export function fromRow(row: Record<string, unknown>): StoredArticle {
+  const rawSections = Array.isArray(row.sections) ? row.sections : JSON.parse(String(row.sections || "[]"));
+  const sections = (rawSections as Array<Record<string, unknown>>).map((section) => ({
+    heading: String(section.heading || ""),
+    body: typeof section.body === "string"
+      ? section.body
+      : Array.isArray(section.paragraphs)
+        ? (section.paragraphs as unknown[]).map((paragraph) => `<p>${String(paragraph)}</p>`).join("")
+        : "",
+  }));
   return {
     id: String(row.id),
     slug: String(row.slug),
@@ -97,7 +131,7 @@ export function fromRow(row: Record<string, unknown>): StoredArticle {
     date: String(row.date),
     featured: Boolean(row.featured),
     published: Boolean(row.published),
-    sections: Array.isArray(row.sections) ? row.sections as ArticleInput["sections"] : JSON.parse(String(row.sections || "[]")),
+    sections,
     sourceLabel: String(row.sourceLabel),
     sourceUrl: String(row.sourceUrl),
   };
@@ -108,12 +142,19 @@ export function normalizeArticle(value: unknown): ArticleInput | null {
   const item = value as Partial<ArticleInput>;
   const clean = (input: unknown, limit = 5000) => typeof input === "string" ? input.trim().slice(0, limit) : "";
   const slug = clean(item.slug, 120).toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "");
-  const sections = Array.isArray(item.sections) ? item.sections.map((section) => ({
-    heading: clean((section as { heading?: unknown }).heading, 180),
-    paragraphs: Array.isArray((section as { paragraphs?: unknown }).paragraphs)
-      ? (section as { paragraphs: unknown[] }).paragraphs.map((paragraph) => clean(paragraph, 7000)).filter(Boolean).slice(0, 16)
-      : [],
-  })).filter((section) => section.heading && section.paragraphs.length).slice(0, 24) : [];
+  const sections = Array.isArray(item.sections) ? item.sections.map((section) => {
+    const rawBody = (section as { body?: unknown; paragraphs?: unknown }).body;
+    const legacyParagraphs = (section as { paragraphs?: unknown }).paragraphs;
+    const html = typeof rawBody === "string"
+      ? rawBody
+      : Array.isArray(legacyParagraphs)
+        ? legacyParagraphs.map((paragraph) => `<p>${clean(paragraph, 7000)}</p>`).join("")
+        : "";
+    return {
+      heading: clean((section as { heading?: unknown }).heading, 180),
+      body: sanitizeArticleBody(html).slice(0, 20000),
+    };
+  }).filter((section) => section.heading && section.body).slice(0, 24) : [];
 
   if (!slug || !clean(item.title, 220) || !clean(item.category, 120) || !clean(item.excerpt, 900) || !sections.length) return null;
   const sourceUrl = clean(item.sourceUrl, 2000);
