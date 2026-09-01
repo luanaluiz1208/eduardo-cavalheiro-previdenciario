@@ -1,6 +1,6 @@
 export type BlogSection = {
   heading: string;
-  paragraphs: string[];
+  body: string;
 };
 
 export type BlogArticle = {
@@ -28,9 +28,9 @@ export const blogArticles: BlogArticle[] = [
     date: "18 ago. 2026",
     featured: true,
     sections: [
-      { heading: "O primeiro passo é olhar o histórico, não apenas a idade", paragraphs: ["A aposentadoria por idade depende de um conjunto de requisitos. A idade mínima é importante, mas a análise também precisa considerar carência, tempo de contribuição e a forma como vínculos e recolhimentos aparecem no Cadastro Nacional de Informações Sociais (CNIS).", "O próprio serviço oficial do INSS indica a necessidade de comprovar carência mínima de 180 contribuições e, em regra, 15 anos de tempo de contribuição para a aposentadoria por idade urbana. A aplicação concreta pode variar conforme a história previdenciária e as regras de transição." ] },
-      { heading: "Documentos que ajudam a evitar lacunas", paragraphs: ["CNIS, carteira de trabalho, carnês, certidões e documentos de atividade rural ou especial formam um ponto de partida útil. Quando há períodos ausentes, contribuições com indicador ou vínculos divergentes, o pedido pode exigir uma preparação documental mais cuidadosa.", "Uma conferência prévia também ajuda a identificar se existe período anterior à Reforma da Previdência, atividade especial, trabalho rural ou outra circunstância que altere a análise." ] },
-      { heading: "Como a orientação profissional pode contribuir", paragraphs: ["O advogado previdenciarista pode organizar o histórico, comparar as regras potencialmente aplicáveis e indicar quais documentos merecem ser buscados antes do requerimento. O objetivo é transformar informações dispersas em uma rota de análise clara, sem prometer resultado antes de conhecer o caso." ] },
+      { heading: "O primeiro passo é olhar o histórico, não apenas a idade", body: "<p>A aposentadoria por idade depende de um conjunto de requisitos. A idade mínima é importante, mas a análise também precisa considerar carência, tempo de contribuição e a forma como vínculos e recolhimentos aparecem no Cadastro Nacional de Informações Sociais (CNIS).</p><p>O próprio serviço oficial do INSS indica a necessidade de comprovar carência mínima de 180 contribuições e, em regra, 15 anos de tempo de contribuição para a aposentadoria por idade urbana. A aplicação concreta pode variar conforme a história previdenciária e as regras de transição.</p>" },
+      { heading: "Documentos que ajudam a evitar lacunas", body: "<p>CNIS, carteira de trabalho, carnês, certidões e documentos de atividade rural ou especial formam um ponto de partida útil. Quando há períodos ausentes, contribuições com indicador ou vínculos divergentes, o pedido pode exigir uma preparação documental mais cuidadosa.</p><p>Uma conferência prévia também ajuda a identificar se existe período anterior à Reforma da Previdência, atividade especial, trabalho rural ou outra circunstância que altere a análise.</p>" },
+      { heading: "Como a orientação profissional pode contribuir", body: "<p>O advogado previdenciarista pode organizar o histórico, comparar as regras potencialmente aplicáveis e indicar quais documentos merecem ser buscados antes do requerimento. O objetivo é transformar informações dispersas em uma rota de análise clara, sem prometer resultado antes de conhecer o caso.</p>" },
     ],
     sourceLabel: "Solicitar Aposentadoria por Idade Urbana — gov.br",
     sourceUrl: "https://www.gov.br/pt-br/servicos/solicitar-aposentadoria-por-idade-trabalhador-urbano",
@@ -43,9 +43,9 @@ export const blogArticles: BlogArticle[] = [
     readTime: "4 min de leitura",
     date: "12 ago. 2026",
     sections: [
-      { heading: "A incapacidade precisa ser analisada em contexto", paragraphs: ["O benefício por incapacidade temporária é destinado a situações em que a pessoa segurada fica temporariamente incapaz para o trabalho ou para sua atividade habitual. A documentação médica deve dialogar com as tarefas efetivamente desempenhadas.", "Atestados genéricos podem não explicar a limitação funcional. Relatórios que descrevem diagnóstico, tratamento, prognóstico e restrições ajudam a formar um conjunto mais compreensível para a análise." ] },
-      { heading: "O que reunir antes de solicitar", paragraphs: ["É recomendável organizar documentos pessoais, CNIS, carteira de trabalho, atestados, exames, receitas e relatórios médicos. Quando houver acidente de trabalho, a Comunicação de Acidente de Trabalho (CAT) também pode ser relevante.", "A carência, a qualidade de segurado e as hipóteses legais de dispensa precisam ser avaliadas conforme o histórico individual. Por isso, uma lista de documentos não substitui a leitura do caso concreto." ] },
-      { heading: "A importância de respeitar o canal adequado", paragraphs: ["O INSS disponibiliza orientações próprias para requerimentos e avaliações de benefícios por incapacidade. A preparação cuidadosa reduz desencontros entre o pedido, os documentos e a realidade do trabalho, mas não permite garantir previamente o resultado da perícia." ] },
+      { heading: "A incapacidade precisa ser analisada em contexto", body: "<p>O benefício por incapacidade temporária é destinado a situações em que a pessoa segurada fica temporariamente incapaz para o trabalho ou para sua atividade habitual. A documentação médica deve dialogar com as tarefas efetivamente desempenhadas.</p><p>Atestados genéricos podem não explicar a limitação funcional. Relatórios que descrevem diagnóstico, tratamento, prognóstico e restrições ajudam a formar um conjunto mais compreensível para a análise.</p>" },
+      { heading: "O que reunir antes de solicitar", body: "<p>É recomendável organizar documentos pessoais, CNIS, carteira de trabalho, atestados, exames, receitas e relatórios médicos. Quando houver acidente de trabalho, a Comunicação de Acidente de Trabalho (CAT) também pode ser relevante.</p><p>A carência, a qualidade de segurado e as hipóteses legais de dispensa precisam ser avaliadas conforme o histórico individual. Por isso, uma lista de documentos não substitui a leitura do caso concreto.</p>" },
+      { heading: "A importância de respeitar o canal adequado", body: "<p>O INSS disponibiliza orientações próprias para requerimentos e avaliações de benefícios por incapacidade. A preparação cuidadosa reduz desencontros entre o pedido, os documentos e a realidade do trabalho, mas não permite garantir previamente o resultado da perícia.</p>" },
     ],
     sourceLabel: "Auxílio por Incapacidade Temporária — gov.br",
     sourceUrl: "https://www.gov.br/inss/pt-br/direitos-e-deveres/beneficios-por-incapacidade/auxilio-por-incapacidade-temporaria",
@@ -58,9 +58,9 @@ export const blogArticles: BlogArticle[] = [
     readTime: "5 min de leitura",
     date: "05 ago. 2026",
     sections: [
-      { heading: "BPC não é aposentadoria", paragraphs: ["O Benefício de Prestação Continuada é uma proteção assistencial destinada à pessoa idosa ou à pessoa com deficiência que atenda aos critérios legais de vulnerabilidade. Ele não exige contribuições prévias como uma aposentadoria, mas possui requisitos próprios e não deve ser confundido com benefício previdenciário." ] },
-      { heading: "Cadastro e composição familiar fazem diferença", paragraphs: ["O CadÚnico precisa estar atualizado, e a análise considera a composição do grupo familiar e as informações socioeconômicas apresentadas. Documentos de identificação, comprovantes de residência, renda e despesas ajudam a explicar a realidade da família." ] },
-      { heading: "Quando há deficiência", paragraphs: ["A avaliação da deficiência envolve aspectos médicos e sociais, além da análise do impedimento de longo prazo e de seus efeitos na participação da pessoa na sociedade. Relatórios médicos e documentos do cotidiano podem contribuir para uma apresentação mais completa, sempre de acordo com a realidade do caso." ] },
+      { heading: "BPC não é aposentadoria", body: "<p>O Benefício de Prestação Continuada é uma proteção assistencial destinada à pessoa idosa ou à pessoa com deficiência que atenda aos critérios legais de vulnerabilidade. Ele não exige contribuições prévias como uma aposentadoria, mas possui requisitos próprios e não deve ser confundido com benefício previdenciário.</p>" },
+      { heading: "Cadastro e composição familiar fazem diferença", body: "<p>O CadÚnico precisa estar atualizado, e a análise considera a composição do grupo familiar e as informações socioeconômicas apresentadas. Documentos de identificação, comprovantes de residência, renda e despesas ajudam a explicar a realidade da família.</p>" },
+      { heading: "Quando há deficiência", body: "<p>A avaliação da deficiência envolve aspectos médicos e sociais, além da análise do impedimento de longo prazo e de seus efeitos na participação da pessoa na sociedade. Relatórios médicos e documentos do cotidiano podem contribuir para uma apresentação mais completa, sempre de acordo com a realidade do caso.</p>" },
     ],
     sourceLabel: "Benefício Assistencial à Pessoa com Deficiência — gov.br",
     sourceUrl: "https://www.gov.br/inss/pt-br/direitos-e-deveres/beneficios-assistenciais/beneficio-assistencial-a-pessoa-com-deficiencia-bpc-loas",
