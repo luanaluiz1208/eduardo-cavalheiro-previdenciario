@@ -40,11 +40,7 @@ export default function SiteShell({ children }: SiteShellProps) {
       <header className="site-header">
         <div className="content-width nav-inner">
           <Link href="/" className="brand" aria-label="Página inicial de Eduardo Ferreira Cavalheiro">
-            <span className="brand-signature">
-              <strong>Eduardo Ferreira Cavalheiro</strong>
-              <small>Direito Previdenciário</small>
-            </span>
-            <img src="/assets/logo-eduardo-ferreira-cavalheiro.webp" alt="Logo oficial de Eduardo Ferreira Cavalheiro" className="brand-logo" />
+            <img src="/assets/logo-eduardo-ferreira-cavalheiro-original.jpeg" alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="brand-logo" />
           </Link>
 
           <nav className="desktop-nav" aria-label="Navegação principal">
@@ -77,8 +73,7 @@ export default function SiteShell({ children }: SiteShellProps) {
         <div className="content-width footer-grid">
           <div className="footer-brand">
             <Link href="/" className="footer-logo-link" aria-label="Voltar ao início">
-              <span className="footer-signature"><strong>Eduardo Ferreira Cavalheiro</strong><small>Direito Previdenciário</small></span>
-              <img src="/assets/logo-eduardo-ferreira-cavalheiro.webp" alt="Logo oficial de Eduardo Ferreira Cavalheiro" className="footer-logo" />
+              <img src="/assets/logo-eduardo-ferreira-cavalheiro-original.jpeg" alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="footer-logo" />
             </Link>
             <p>Orientação previdenciária com atenção ao seu histórico, à sua documentação e ao próximo passo mais adequado.</p>
           </div>
