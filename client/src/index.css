@@ -459,9 +459,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 640px) { .blog-hero { padding: 4.5rem 0 4rem; } .blog-hero h1 { font-size: 3.4rem; } .blog-featured-card { grid-template-columns: 1fr; } .blog-featured-index { min-height: 10rem; } .blog-featured-index strong { font-size: 4rem; } .blog-list-header, .blog-disclaimer-inner { display: block; } .category-filter { justify-content: flex-start; margin-top: 1.5rem; } .blog-grid { grid-template-columns: 1fr; } .article-header { padding: 3.5rem 0 4rem; } .back-link { margin-bottom: 3rem; } .article-header h1 { font-size: 3.3rem; } .article-layout { padding-top: 3.5rem; } .article-meta { flex-wrap: wrap; } }
 
 /* Ajuste de assinatura: uma única logo institucional e leitura de índice de processo. */
-.nav-inner { min-height: 108px; }
+.nav-inner { min-height: 128px; }
 .brand { min-width: 260px; gap: .6rem; }
-.brand-logo { width: 74px; height: 74px; border-left: 0; padding-left: 0; }
+.brand-logo { width: 104px; height: 104px; border-left: 0; padding-left: 0; object-fit: contain; }
 .footer-logo { width: 94px; height: 94px; padding-left: 0; border-left: 0; }
 
 /* Contexto local em linguagem documental, substituindo uma moldura de mapa sem carregamento garantido. */
@@ -471,9 +471,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .contact-city-caption span { display: block; max-width: 19rem; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 600; line-height: .95; }
 
 @media (max-width: 720px) {
-  .nav-inner { min-height: 86px; }
+  .nav-inner { min-height: 96px; }
   .brand { min-width: 0; }
-  .brand-logo { width: 58px; height: 58px; }
+  .brand-logo { width: 76px; height: 76px; }
   .footer-logo { width: 90px; height: 90px; }
   .contact-city-photo { min-height: 20rem; }
   .contact-city-caption { padding: 1.5rem; }
