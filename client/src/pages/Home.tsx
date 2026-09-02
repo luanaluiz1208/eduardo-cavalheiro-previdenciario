@@ -128,6 +128,9 @@ Seu trabalho é pautado em análise técnica, estratégia jurídica e atendiment
       <section className="section proof-section traced-section">
         <div className="content-width proof-grid">
           <div className="proof-copy">
+            <p className="eyebrow gold-eyebrow">Nosso compromisso</p>
+            <h2>Clareza para decidir com segurança.</h2>
+            <p className="proof-lead">Cada história previdenciária merece ser analisada com tempo, técnica e respeito.</p>
           </div>
           <div className="proof-points">
             <article><span>01</span><p><strong>Transparência</strong> sobre documentos, etapas e possibilidades antes de cada decisão.</p></article>
