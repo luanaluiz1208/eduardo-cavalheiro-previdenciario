@@ -8,6 +8,7 @@ import { adminRequest } from "@/lib/adminApi";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 
 type ManagedArticle = BlogArticle & { id?: string; published: boolean; featured: boolean };
+type AdminComment = { id: string; articleSlug: string; name: string; message: string; createdAt: string };
 
 const contentFields: Array<{ key: SiteContentKey; label: string; description: string; multiline?: boolean }> = [
   { key: "heroTitle", label: "Nome exibido na abertura", description: "Título principal da primeira tela." },
@@ -33,6 +34,7 @@ export default function AdminDashboard() {
   const [checking, setChecking] = useState(true);
   const [content, setContent] = useState<SiteContentValues>(siteContentDefaults);
   const [articles, setArticles] = useState<ManagedArticle[]>(() => blogArticles.map(normalizeStaticArticle));
+  const [comments, setComments] = useState<AdminComment[]>([]);
   const [selected, setSelected] = useState<ManagedArticle | null>(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -49,8 +51,10 @@ export default function AdminDashboard() {
           adminRequest<{ content: Partial<SiteContentValues> }>("/api/content"),
           adminRequest<{ articles: ManagedArticle[] }>("/api/articles"),
         ]);
+        const commentResponse = await adminRequest<{ comments: AdminComment[] }>("/api/comments");
         if (!active) return;
         setContent((current) => ({ ...current, ...contentResponse.content }));
+        setComments(commentResponse.comments || []);
         if (articleResponse.articles.length) {
           const storedSlugs = new Set(articleResponse.articles.map((article) => article.slug));
           setArticles([...articleResponse.articles, ...blogArticles.map(normalizeStaticArticle).filter((article) => !storedSlugs.has(article.slug))]);
@@ -119,6 +123,13 @@ export default function AdminDashboard() {
         <div className="space-y-8">
           {message ? <p className="border-l-2 border-[#8d6b31] bg-[#fff7df] px-4 py-3 text-sm text-[#5e451d]">{message}</p> : null}
           {error ? <p role="alert" className="border-l-2 border-red-700 bg-red-50 px-4 py-3 text-sm text-red-800">{error}</p> : null}
+          <section className="border border-[#c3a468]/60 bg-[#fffaf0] p-5 shadow-[8px_8px_0_rgba(195,164,104,0.08)] sm:p-7">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#e5dfd3] pb-4">
+              <div><p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#8d6b31]">03 · Caixa de entrada</p><h2 className="mt-2 font-serif text-3xl">Comentários recebidos</h2></div>
+              <span className="bg-[#0b1f3a] px-3 py-1 text-sm font-bold text-white">{comments.length} {comments.length === 1 ? "comentário recebido" : "comentários recebidos"}</span>
+            </div>
+            {comments.length ? <div className="mt-4 space-y-3">{comments.slice(0, 5).map((comment) => <article key={comment.id} className="border-l-2 border-[#c3a468] bg-white px-4 py-3"><div className="flex flex-wrap justify-between gap-2 text-sm"><strong>{comment.name}</strong><span className="text-slate-500">{comment.articleSlug}</span></div><p className="mt-1 text-sm leading-6 text-slate-600">{comment.message}</p></article>)}</div> : <p className="mt-4 text-sm leading-6 text-slate-600">Ainda não há comentários recebidos. Quando alguém comentar em um artigo, eles aparecerão aqui.</p>}
+          </section>
           <section className="border border-[#d9d3c8] bg-white p-5 shadow-[8px_8px_0_rgba(195,164,104,0.08)] sm:p-7">
             <div className="flex items-end justify-between gap-4 border-b border-[#d9d3c8] pb-5"><div><p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#8d6b31]">01 · Dados do escritório</p><h2 className="mt-2 font-serif text-3xl">Informações institucionais</h2></div></div>
             <form onSubmit={saveContent} className="mt-6 grid gap-5 md:grid-cols-2">

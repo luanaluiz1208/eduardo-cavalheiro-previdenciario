@@ -1,12 +1,19 @@
 import { randomUUID } from "node:crypto";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { commentFromRow, database, ensureSchema, normalizeComment, normalizeSlug } from "./lib/database.js";
+import { isAdmin } from "./lib/auth.js";
 import { ensureSameOrigin, methodNotAllowed, readBody, sendJson } from "./lib/http.js";
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   const sql = database();
 
   if (request.method === "GET") {
+    if (!request.query.slug && isAdmin(request)) {
+      if (!sql) return sendJson(response, 200, { comments: [] });
+      await ensureSchema(sql);
+      const rows = await sql`SELECT id, article_slug AS "articleSlug", name, message, created_at AS "createdAt" FROM comments ORDER BY created_at DESC LIMIT 100`;
+      return sendJson(response, 200, { comments: rows.map((row) => commentFromRow(row as Record<string, unknown>)) });
+    }
     const slug = normalizeSlug(request.query.slug);
     if (!slug) return sendJson(response, 400, { error: "Parâmetro slug é obrigatório." });
     if (!sql) return sendJson(response, 200, { comments: [] });
