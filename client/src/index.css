@@ -505,7 +505,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   border: 3px solid #fff;
   border-radius: 50%;
 }
-.whatsapp-fab svg { display: block; }
+.whatsapp-fab-icon { display: grid; place-items: center; width: 34px; height: 34px; color: #fff; }
+.whatsapp-fab-icon svg { display: block; width: 34px; height: 34px; }
+.whatsapp-fab::after { content: ""; position: absolute; inset: -5px; border: 2px solid rgba(27,134,84,.45); border-radius: 50%; animation: whatsapp-ring 1.8s ease-out infinite; pointer-events: none; }
+@keyframes whatsapp-ring { 0% { opacity: .85; transform: scale(.88); } 70%, 100% { opacity: 0; transform: scale(1.28); } }
 @media (max-width: 720px) {
   .whatsapp-fab { right: 16px; bottom: 16px; width: 58px; height: 58px; }
 }
