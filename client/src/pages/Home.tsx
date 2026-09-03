@@ -162,22 +162,6 @@ Seu trabalho é pautado em análise técnica, estratégia jurídica e atendiment
         </div>
       </section>
 
-      <section className="section process-section traced-section">
-        <div className="content-width process-layout">
-          <div className="process-visual" style={{ backgroundImage: "linear-gradient(180deg, rgba(11,31,58,0.06), rgba(11,31,58,0.55)), url('/assets/documentos-organizacao.jpg')" }}>
-            <p>Organização<br /><em>antes da decisão</em></p>
-          </div>
-          <div className="process-copy">
-            <p className="eyebrow" style={{marginBottom: '30px'}}>Como funciona</p>
-            <div className="process-list">
-              <article><span>01</span><div><h3>Você apresenta sua situação</h3><p>Compartilhe sua dúvida inicial pelo WhatsApp, telefone, e-mail ou formulário.</p></div></article>
-              <article><span>02</span><div><h3>O histórico é compreendido</h3><p>Documentos, vínculos, contribuições e informações relevantes são analisados com cuidado.</p></div></article>
-              <article><span>03</span><div><h3>Você recebe direcionamento</h3><p>As possibilidades e próximos passos são explicados de forma objetiva e transparente.</p></div></article>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section id="duvidas" className="section faq-section traced-section">
         <div className="content-width faq-layout">
           <div className="faq-intro">
