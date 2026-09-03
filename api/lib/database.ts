@@ -49,6 +49,7 @@ export type StoredComment = {
   name: string;
   message: string;
   email: string;
+  replies: Array<{ id: string; message: string; createdAt: string }>;
   createdAt: string;
 };
 
@@ -85,9 +86,11 @@ export async function ensureSchema(sql: NonNullable<ReturnType<typeof database>>
     name TEXT NOT NULL,
     message TEXT NOT NULL,
     email TEXT NOT NULL DEFAULT '',
+    replies JSONB NOT NULL DEFAULT '[]'::jsonb,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
   )`;
   await sql`ALTER TABLE comments ADD COLUMN IF NOT EXISTS email TEXT NOT NULL DEFAULT ''`;
+  await sql`ALTER TABLE comments ADD COLUMN IF NOT EXISTS replies JSONB NOT NULL DEFAULT '[]'::jsonb`;
   await sql`CREATE INDEX IF NOT EXISTS comments_article_slug_idx ON comments (article_slug)`;
 }
 
@@ -98,6 +101,7 @@ export function commentFromRow(row: Record<string, unknown>): StoredComment {
     name: String(row.name),
     message: String(row.message),
     email: String(row.email || ""),
+    replies: Array.isArray(row.replies) ? row.replies as StoredComment["replies"] : JSON.parse(String(row.replies || "[]")),
     createdAt: String(row.createdAt),
   };
 }

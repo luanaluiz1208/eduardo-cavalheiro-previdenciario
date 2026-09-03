@@ -8,7 +8,7 @@ import { adminRequest } from "@/lib/adminApi";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 
 type ManagedArticle = BlogArticle & { id?: string; published: boolean; featured: boolean };
-type AdminComment = { id: string; articleSlug: string; name: string; email: string; message: string; createdAt: string };
+type AdminComment = { id: string; articleSlug: string; name: string; email: string; message: string; replies?: Array<{ id: string; message: string; createdAt: string }>; createdAt: string };
 
 const contentFields: Array<{ key: SiteContentKey; label: string; description: string; multiline?: boolean }> = [
   { key: "heroTitle", label: "Nome exibido na abertura", description: "Título principal da primeira tela." },
@@ -29,12 +29,6 @@ function normalizeStaticArticle(article: BlogArticle): ManagedArticle {
   return { ...article, published: article.published !== false, featured: Boolean(article.featured) };
 }
 
-function replyByEmailHref(comment: AdminComment) {
-  const subject = `Resposta ao seu comentário no blog`;
-  const body = `Olá, ${comment.name}.\n\nObrigado pelo seu comentário.\n\n`;
-  return `mailto:${comment.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
-
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
   const [checking, setChecking] = useState(true);
@@ -46,6 +40,9 @@ export default function AdminDashboard() {
   const [error, setError] = useState("");
   const [savingContent, setSavingContent] = useState(false);
   const [savingArticle, setSavingArticle] = useState(false);
+  const [replyTarget, setReplyTarget] = useState<string | null>(null);
+  const [replyText, setReplyText] = useState("");
+  const [savingReply, setSavingReply] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -110,6 +107,18 @@ export default function AdminDashboard() {
     setLocation("/admin/login");
   }
 
+  async function replyToComment(comment: AdminComment) {
+    if (!replyText.trim()) return;
+    setSavingReply(true); setError(""); setMessage("");
+    try {
+      const response = await adminRequest<{ reply: { id: string; message: string; createdAt: string }; emailSent: boolean }>("/api/comments", { method: "POST", body: JSON.stringify({ action: "reply", commentId: comment.id, reply: replyText }) });
+      setComments((current) => current.map((item) => item.id === comment.id ? { ...item, replies: [...(item.replies || []), response.reply] } : item));
+      setReplyTarget(null); setReplyText("");
+      setMessage(response.emailSent ? "Resposta publicada e aviso enviado por e-mail." : "Resposta publicada. O aviso por e-mail ainda precisa ser configurado.");
+    } catch (reason) { setError(reason instanceof Error ? reason.message : "Não foi possível responder ao comentário."); }
+    finally { setSavingReply(false); }
+  }
+
   function updateSection(index: number, value: BlogSection) {
     if (!selected) return;
     setSelected({ ...selected, sections: selected.sections.map((section, itemIndex) => itemIndex === index ? value : section) });
@@ -134,7 +143,7 @@ export default function AdminDashboard() {
               <div><p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#8d6b31]">03 · Caixa de entrada</p><h2 className="mt-2 font-serif text-3xl">Comentários recebidos</h2></div>
               <span className="bg-[#0b1f3a] px-3 py-1 text-sm font-bold text-white">{comments.length} {comments.length === 1 ? "comentário recebido" : "comentários recebidos"}</span>
             </div>
-            {comments.length ? <div className="mt-4 space-y-2">{comments.slice(0, 8).map((comment) => <article key={comment.id} className="flex items-center justify-between gap-4 border-l-2 border-[#c3a468] bg-white px-4 py-3"><a href={`/blog/${comment.articleSlug}#comentarios`} target="_blank" rel="noreferrer" className="min-w-0 flex-1 transition hover:text-[#8d6b31]"><strong className="block truncate text-sm">{comment.name}</strong><span className="mt-1 block truncate text-xs text-slate-500">Comentou em “{comment.articleSlug}” · Ver comentário →</span></a><a href={replyByEmailHref(comment)} className="shrink-0 text-xs font-bold text-[#8d6b31] hover:underline">Responder por e-mail</a></article>)}</div> : <p className="mt-4 text-sm leading-6 text-slate-600">Ainda não há comentários recebidos. Quando alguém comentar em um artigo, a notificação aparecerá aqui.</p>}
+            {comments.length ? <div className="mt-4 space-y-2">{comments.slice(0, 8).map((comment) => <article key={comment.id} className="border-l-2 border-[#c3a468] bg-white px-4 py-3"><div className="flex items-center justify-between gap-4"><a href={`/blog/${comment.articleSlug}#comentarios`} target="_blank" rel="noreferrer" className="min-w-0 flex-1 transition hover:text-[#8d6b31]"><strong className="block truncate text-sm">{comment.name}</strong><span className="mt-1 block truncate text-xs text-slate-500">Comentou em “{comment.articleSlug}” · Ver comentário →</span></a><button type="button" onClick={() => { setReplyTarget(replyTarget === comment.id ? null : comment.id); setReplyText(""); }} className="shrink-0 text-xs font-bold text-[#8d6b31] hover:underline">Responder</button></div>{replyTarget === comment.id ? <div className="mt-3 border-t border-[#e5dfd3] pt-3"><textarea value={replyText} onChange={(event) => setReplyText(event.target.value)} rows={3} placeholder="Escreva sua resposta..." className="w-full border border-slate-300 p-3 text-sm outline-none focus:border-[#8d6b31]" /><button type="button" disabled={savingReply} onClick={() => void replyToComment(comment)} className="mt-2 bg-[#0b1f3a] px-4 py-2 text-xs font-bold text-white disabled:opacity-60">{savingReply ? "Enviando..." : "Publicar resposta e avisar por e-mail"}</button></div> : null}</article>)}</div> : <p className="mt-4 text-sm leading-6 text-slate-600">Ainda não há comentários recebidos. Quando alguém comentar em um artigo, a notificação aparecerá aqui.</p>}
           </section>
           <section className="border border-[#d9d3c8] bg-white p-5 shadow-[8px_8px_0_rgba(195,164,104,0.08)] sm:p-7">
             <div className="flex items-end justify-between gap-4 border-b border-[#d9d3c8] pb-5"><div><p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#8d6b31]">01 · Dados do escritório</p><h2 className="mt-2 font-serif text-3xl">Informações institucionais</h2></div></div>

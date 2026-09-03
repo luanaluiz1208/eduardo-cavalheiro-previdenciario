@@ -6,6 +6,7 @@ type Comment = {
   name: string;
   message: string;
   createdAt: string;
+  replies?: Array<{ id: string; message: string; createdAt: string }>;
 };
 
 function formatDate(value: string) {
@@ -78,6 +79,7 @@ export default function ArticleComments({ slug }: { slug: string }) {
                 <span>{formatDate(comment.createdAt)}</span>
               </div>
               <p>{comment.message}</p>
+              {comment.replies?.map((reply) => <div key={reply.id} className="comment-reply"><strong>Resposta do escritório</strong><p>{reply.message}</p></div>)}
             </li>
           ))}
         </ul>
