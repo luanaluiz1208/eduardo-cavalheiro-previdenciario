@@ -102,8 +102,7 @@ export default function SiteShell({ children }: SiteShellProps) {
       </footer>
 
       <a href={whatsappLink("Olá, Eduardo. Gostaria de falar sobre meu caso previdenciário.", content.whatsapp)} className="whatsapp-fab" target="_blank" rel="noreferrer" aria-label="Iniciar conversa no WhatsApp" title="Falar com Eduardo pelo WhatsApp">
-        <MessageCircle size={23} aria-hidden="true" />
-        <span>WhatsApp</span>
+        <MessageCircle size={28} strokeWidth={2.2} aria-hidden="true" />
       </a>
     </div>
   );

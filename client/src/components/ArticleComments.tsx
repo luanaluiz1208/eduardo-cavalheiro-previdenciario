@@ -59,7 +59,7 @@ export default function ArticleComments({ slug }: { slug: string }) {
   }
 
   return (
-    <section className="article-comments">
+    <section id="comentarios" className="article-comments">
       <p className="eyebrow"><span /> Comentários {comments.length > 0 ? `(${comments.length})` : ""}</p>
       <h2>O que você achou deste artigo?</h2>
 
