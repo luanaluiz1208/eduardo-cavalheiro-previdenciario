@@ -52,7 +52,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .content-width { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
 .site-shell { overflow: clip; }
 
-.top-line { background: var(--navy-deep); color: rgba(255,255,255,.75); font-size: .71rem; letter-spacing: .06em; text-transform: uppercase; }
+.top-line { background: var(--navy-deep); color: rgba(255,255,255,.75); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
 .top-line-inner { min-height: 34px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .top-line span { display: inline-flex; align-items: center; gap: .35rem; }
 
@@ -65,12 +65,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .brand-signature strong { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1rem; font-weight: 600; letter-spacing: -.03em; }
 .brand-signature small { margin-top: .32rem; color: #7d6b48; font-size: .46rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .brand-logo { width: 96px; height: 96px; object-fit: contain; object-position: center; border-left: 1px solid rgba(11,31,58,.13); padding-left: .68rem; mix-blend-mode: multiply; }
-.desktop-nav { display: flex; align-items: center; gap: 1.5rem; font-size: .78rem; font-weight: 700; color: #455365; }
+.desktop-nav { display: flex; align-items: center; gap: 1.5rem; font-size: .9rem; font-weight: 700; color: #455365; }
 .desktop-nav a { position: relative; padding: .35rem 0; transition: color .2s ease; }
 .desktop-nav a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--gold); transition: width .22s cubic-bezier(.23,1,.32,1); }
 .desktop-nav a:hover { color: var(--navy); }
 .desktop-nav a:hover::after { width: 100%; }
-.header-cta { display: inline-flex; align-items: center; gap: .5rem; padding: .7rem .85rem; background: var(--navy); color: #fff; font-size: .75rem; font-weight: 800; letter-spacing: .01em; transition: transform .16s ease, background .2s ease; }
+.header-cta { display: inline-flex; align-items: center; gap: .5rem; padding: .75rem .95rem; background: var(--navy); color: #fff; font-size: .85rem; font-weight: 800; letter-spacing: .01em; transition: transform .16s ease, background .2s ease; }
 .header-cta:hover { background: var(--navy-soft); transform: translateY(-1px); }
 .header-cta:active, .button:active { transform: scale(.97); }
 .mobile-menu-button { display: none; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px solid var(--line); background: white; color: var(--navy); }
