@@ -103,10 +103,7 @@ export default function SiteShell({ children }: SiteShellProps) {
 
       <a href={whatsappLink("Olá, Eduardo. Gostaria de falar sobre meu caso previdenciário.", content.whatsapp)} className="whatsapp-fab" target="_blank" rel="noreferrer" aria-label="Abrir conversa no WhatsApp" title="Falar com Eduardo pelo WhatsApp">
         <span className="whatsapp-fab-icon" aria-hidden="true">
-          <svg viewBox="0 0 32 32" role="img" focusable="false">
-            <path d="M16 3.5a12.5 12.5 0 0 0-10.7 19L3.8 28l5.7-1.5A12.5 12.5 0 1 0 16 3.5Z" fill="none" stroke="currentColor" strokeWidth="2.4" />
-            <path d="M11.2 10.3c.3-.4.7-.5 1.1-.3l1.5.7c.4.2.6.6.5 1l-.4 1.4c.7 1.4 1.8 2.5 3.2 3.2l1.4-.4c.4-.1.8.1 1 .5l.7 1.5c.2.4.1.8-.3 1.1l-.9.7c-.5.4-1.2.5-1.8.3-3.7-1.2-6.6-4.1-7.8-7.8-.2-.6-.1-1.3.3-1.8l.7-.9Z" fill="currentColor" />
-          </svg>
+          <img src="/assets/whatsapp-mark.svg" alt="" />
         </span>
       </a>
     </div>
