@@ -475,6 +475,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .nav-inner { min-height: 96px; }
   .brand { min-width: 0; }
   .brand-logo { width: 76px; height: 76px; }
+  .top-line { font-size: .8rem; }
+  .mobile-menu { padding-top: 1.2rem; padding-bottom: 1.4rem; }
+  .mobile-menu nav a { padding: .95rem 0; font-size: 1.05rem; line-height: 1.35; }
+  .mobile-menu .button { min-height: 52px; font-size: .9rem; }
   .footer-logo { width: 90px; height: 90px; }
   .contact-city-photo { min-height: 20rem; }
   .contact-city-caption { padding: 1.5rem; }
