@@ -48,6 +48,7 @@ export type StoredComment = {
   articleSlug: string;
   name: string;
   message: string;
+  email: string;
   createdAt: string;
 };
 
@@ -83,8 +84,10 @@ export async function ensureSchema(sql: NonNullable<ReturnType<typeof database>>
     article_slug TEXT NOT NULL,
     name TEXT NOT NULL,
     message TEXT NOT NULL,
+    email TEXT NOT NULL DEFAULT '',
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
   )`;
+  await sql`ALTER TABLE comments ADD COLUMN IF NOT EXISTS email TEXT NOT NULL DEFAULT ''`;
   await sql`CREATE INDEX IF NOT EXISTS comments_article_slug_idx ON comments (article_slug)`;
 }
 
@@ -94,17 +97,19 @@ export function commentFromRow(row: Record<string, unknown>): StoredComment {
     articleSlug: String(row.articleSlug),
     name: String(row.name),
     message: String(row.message),
+    email: String(row.email || ""),
     createdAt: String(row.createdAt),
   };
 }
 
-export function normalizeComment(value: unknown): { name: string; message: string } | null {
+export function normalizeComment(value: unknown): { name: string; message: string; email: string } | null {
   if (!value || typeof value !== "object") return null;
-  const item = value as { name?: unknown; message?: unknown };
+  const item = value as { name?: unknown; message?: unknown; email?: unknown };
   const name = typeof item.name === "string" ? item.name.trim().slice(0, 120) : "";
   const message = typeof item.message === "string" ? item.message.trim().slice(0, 2000) : "";
-  if (!name || !message) return null;
-  return { name, message };
+  const email = typeof item.email === "string" ? item.email.trim().toLowerCase().slice(0, 254) : "";
+  if (!name || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return null;
+  return { name, message, email };
 }
 
 export function normalizeSlug(value: unknown): string {

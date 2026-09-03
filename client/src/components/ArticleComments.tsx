@@ -20,6 +20,7 @@ export default function ArticleComments({ slug }: { slug: string }) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState(""); // campo-armadilha (honeypot), fica oculto para pessoas
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -39,18 +40,19 @@ export default function ArticleComments({ slug }: { slug: string }) {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    if (!name.trim() || !message.trim()) return;
+    if (!name.trim() || !email.trim() || !message.trim()) return;
     setStatus("sending");
     try {
       const response = await fetch("/api/comments", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, name, message, website }),
+        body: JSON.stringify({ slug, name, email, message, website }),
       });
       if (!response.ok) throw new Error("falha");
       const payload = await response.json() as { comment: Comment | null };
       if (payload.comment) setComments((current) => [...current, payload.comment as Comment]);
       setName("");
+      setEmail("");
       setMessage("");
       setStatus("sent");
     } catch {
@@ -86,6 +88,11 @@ export default function ArticleComments({ slug }: { slug: string }) {
         <label>
           Nome
           <input required value={name} onChange={(event) => setName(event.target.value)} placeholder="Seu nome" maxLength={120} />
+        </label>
+        <label>
+          E-mail
+          <input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="seu@email.com" maxLength={254} autoComplete="email" />
+          <small className="comment-email-note">Usaremos apenas para avisar quando houver uma resposta.</small>
         </label>
         {/* Campo invisível para humanos; se vier preenchido, tratamos como spam automatizado. */}
         <label className="comment-honeypot" aria-hidden="true">

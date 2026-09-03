@@ -8,7 +8,7 @@ import { adminRequest } from "@/lib/adminApi";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 
 type ManagedArticle = BlogArticle & { id?: string; published: boolean; featured: boolean };
-type AdminComment = { id: string; articleSlug: string; name: string; message: string; createdAt: string };
+type AdminComment = { id: string; articleSlug: string; name: string; email: string; message: string; createdAt: string };
 
 const contentFields: Array<{ key: SiteContentKey; label: string; description: string; multiline?: boolean }> = [
   { key: "heroTitle", label: "Nome exibido na abertura", description: "Título principal da primeira tela." },
@@ -27,6 +27,12 @@ function initialArticle(): ManagedArticle {
 
 function normalizeStaticArticle(article: BlogArticle): ManagedArticle {
   return { ...article, published: article.published !== false, featured: Boolean(article.featured) };
+}
+
+function replyByEmailHref(comment: AdminComment) {
+  const subject = `Resposta ao seu comentário no blog`;
+  const body = `Olá, ${comment.name}.\n\nObrigado pelo seu comentário.\n\n`;
+  return `mailto:${comment.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 export default function AdminDashboard() {
@@ -128,7 +134,7 @@ export default function AdminDashboard() {
               <div><p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#8d6b31]">03 · Caixa de entrada</p><h2 className="mt-2 font-serif text-3xl">Comentários recebidos</h2></div>
               <span className="bg-[#0b1f3a] px-3 py-1 text-sm font-bold text-white">{comments.length} {comments.length === 1 ? "comentário recebido" : "comentários recebidos"}</span>
             </div>
-            {comments.length ? <div className="mt-4 space-y-2">{comments.slice(0, 8).map((comment) => <a key={comment.id} href={`/blog/${comment.articleSlug}#comentarios`} target="_blank" rel="noreferrer" className="flex items-center justify-between gap-4 border-l-2 border-[#c3a468] bg-white px-4 py-3 transition hover:bg-[#fff7df]"><span className="min-w-0"><strong className="block truncate text-sm">{comment.name}</strong><span className="mt-1 block truncate text-xs text-slate-500">Comentou em “{comment.articleSlug}”</span></span><span className="shrink-0 text-xs font-bold text-[#8d6b31]">Ver comentário →</span></a>)}</div> : <p className="mt-4 text-sm leading-6 text-slate-600">Ainda não há comentários recebidos. Quando alguém comentar em um artigo, a notificação aparecerá aqui.</p>}
+            {comments.length ? <div className="mt-4 space-y-2">{comments.slice(0, 8).map((comment) => <article key={comment.id} className="flex items-center justify-between gap-4 border-l-2 border-[#c3a468] bg-white px-4 py-3"><a href={`/blog/${comment.articleSlug}#comentarios`} target="_blank" rel="noreferrer" className="min-w-0 flex-1 transition hover:text-[#8d6b31]"><strong className="block truncate text-sm">{comment.name}</strong><span className="mt-1 block truncate text-xs text-slate-500">Comentou em “{comment.articleSlug}” · Ver comentário →</span></a><a href={replyByEmailHref(comment)} className="shrink-0 text-xs font-bold text-[#8d6b31] hover:underline">Responder por e-mail</a></article>)}</div> : <p className="mt-4 text-sm leading-6 text-slate-600">Ainda não há comentários recebidos. Quando alguém comentar em um artigo, a notificação aparecerá aqui.</p>}
           </section>
           <section className="border border-[#d9d3c8] bg-white p-5 shadow-[8px_8px_0_rgba(195,164,104,0.08)] sm:p-7">
             <div className="flex items-end justify-between gap-4 border-b border-[#d9d3c8] pb-5"><div><p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#8d6b31]">01 · Dados do escritório</p><h2 className="mt-2 font-serif text-3xl">Informações institucionais</h2></div></div>

@@ -508,3 +508,5 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   .whatsapp-fab { animation: none; }
 }
+
+.comment-email-note { display: block; margin-top: .35rem; color: #718096; font-size: .7rem; font-weight: 400; line-height: 1.5; }
