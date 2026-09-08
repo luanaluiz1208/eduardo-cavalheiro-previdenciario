@@ -110,7 +110,7 @@ export default function Home() {
 
       <section id="sobre" className="section section-paper about-section traced-section">
         <div className="content-width offset-grid">
-          <div className="section-intro narrow-intro about-photo" style={{ backgroundImage: "linear-gradient(180deg, rgba(11,31,58,0.06), rgba(11,31,58,0.48)), url('/assets/atendimento-acolhedor.jpg')" }} aria-label="Atendimento jurídico acolhedor" />
+          <div className="section-intro narrow-intro about-photo" style={{ backgroundImage: "linear-gradient(180deg, rgba(11,31,58,0.06), rgba(11,31,58,0.48)), url('/assets/eduardo-ferreira-cavalheiro-segunda.jpeg')" }} aria-label="Eduardo Ferreira Cavalheiro em atendimento profissional" />
           <div className="about-copy">
             <p className="lead-copy">Eduardo Ferreira Cavalheiro é advogado especializado em Direito Previdenciário, com atuação voltada à defesa dos direitos dos segurados perante o INSS e o Poder Judiciário.</p>
             <p>Natural de Itaperuna/RJ, realiza atendimentos presenciais e on-line para clientes de todo o Brasil. Atua em demandas relacionadas a benefícios por incapacidade, aposentadorias, pensão por morte, auxílio-acidente, BPC/LOAS e planejamento previdenciário.
