@@ -101,7 +101,7 @@ export default function Home() {
           <div className="hero-portrait-wrap" aria-label="Eduardo Ferreira Cavalheiro">
             <div className="portrait-index" aria-hidden="true">EC<br /><span>26.639/23</span></div>
             <div className="portrait-frame">
-              <img src="/assets/eduardo-ferreira-cavalheiro-nova.jpeg" alt="Eduardo Ferreira Cavalheiro" className="hero-portrait" />
+              <img src="/assets/eduardo-ferreira-cavalheiro-principal.jpeg" alt="Eduardo Ferreira Cavalheiro" className="hero-portrait" />
               <div className="portrait-caption"><span>Eduardo Ferreira Cavalheiro</span><small>Advogado Previdenciarista · OAB/RJ nº 26.639/23</small></div>
             </div>
           </div>
