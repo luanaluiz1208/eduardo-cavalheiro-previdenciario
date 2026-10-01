@@ -44,6 +44,7 @@ export default function AdminDashboard() {
   const [replyText, setReplyText] = useState("");
   const [savingReply, setSavingReply] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [readCommentIds, setReadCommentIds] = useState<string[]>([]);
 
   useEffect(() => {
     let active = true;
@@ -59,6 +60,10 @@ export default function AdminDashboard() {
         if (!active) return;
         setContent((current) => ({ ...current, ...contentResponse.content }));
         setComments(commentResponse.comments || []);
+        try {
+          const storedReadIds = JSON.parse(window.localStorage.getItem("admin-read-comment-ids") || "[]");
+          setReadCommentIds(Array.isArray(storedReadIds) ? storedReadIds : []);
+        } catch { setReadCommentIds([]); }
         if (articleResponse.articles.length) {
           const storedSlugs = new Set(articleResponse.articles.map((article) => article.slug));
           setArticles([...articleResponse.articles, ...blogArticles.map(normalizeStaticArticle).filter((article) => !storedSlugs.has(article.slug))]);
@@ -74,6 +79,19 @@ export default function AdminDashboard() {
   }, [setLocation]);
 
   const selectedIndex = useMemo(() => selected ? articles.findIndex((article) => (selected.id && article.id === selected.id) || article.slug === selected.slug) : -1, [articles, selected]);
+  const unreadComments = comments.filter((comment) => !readCommentIds.includes(comment.id));
+
+  function toggleNotifications() {
+    const nextVisible = !showNotifications;
+    setShowNotifications(nextVisible);
+    if (!nextVisible) return;
+    const currentIds = comments.map((comment) => comment.id);
+    setReadCommentIds((current) => {
+      const next = Array.from(new Set([...current, ...currentIds]));
+      window.localStorage.setItem("admin-read-comment-ids", JSON.stringify(next));
+      return next;
+    });
+  }
 
   async function saveContent(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -132,20 +150,13 @@ export default function AdminDashboard() {
       <header className="border-b border-[#c3a468]/60 bg-white">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-8">
           <div><p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8d6b31]">Arquivo de Confiança · Administração</p><h1 className="mt-1 font-serif text-3xl leading-none">Painel do escritório</h1></div>
-          <div className="flex items-center gap-3"><Link href="/" target="_blank" className="inline-flex items-center gap-2 border border-[#0b1f3a]/25 px-3 py-2 text-xs font-bold uppercase tracking-[0.1em] transition hover:bg-[#f7f4ed]"><ExternalLink size={14} /> Ver site</Link><button type="button" onClick={logout} className="inline-flex items-center gap-2 border border-transparent px-2 py-2 text-xs font-bold uppercase tracking-[0.1em] text-slate-600 hover:text-[#0b1f3a]"><LogOut size={14} /> Sair</button></div>
+          <div className="flex items-center gap-3"><div className="relative"><button type="button" onClick={toggleNotifications} aria-label={unreadComments.length ? `${unreadComments.length} comentários não lidos` : "Notificações de comentários"} aria-expanded={showNotifications} className="relative inline-flex h-10 w-10 items-center justify-center border border-[#0b1f3a]/20 text-[#0b1f3a] transition hover:border-[#8d6b31] hover:text-[#8d6b31]"><Bell size={18} />{unreadComments.length ? <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#a32929] px-1 text-[10px] font-bold text-white">{unreadComments.length > 9 ? "9+" : unreadComments.length}</span> : null}</button>{showNotifications ? <div className="absolute right-0 top-12 z-20 w-[min(22rem,calc(100vw-2rem))] border border-[#c3a468]/60 bg-[#fffaf0] p-4 shadow-xl"><div className="flex items-center justify-between gap-3 border-b border-[#e5dfd3] pb-3"><div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8d6b31]">Caixa de entrada</p><strong className="font-serif text-xl">Comentários recebidos</strong></div><span className="text-xs font-bold text-slate-500">{comments.length}</span></div>{comments.length ? <div className="mt-3 max-h-80 space-y-2 overflow-y-auto">{comments.slice(0, 8).map((comment) => <article key={comment.id} className="border-l-2 border-[#c3a468] bg-white px-3 py-2"><div className="flex items-center justify-between gap-3"><a href={`/blog/${comment.articleSlug}#comentarios`} target="_blank" rel="noreferrer" className="min-w-0 flex-1 transition hover:text-[#8d6b31]"><strong className="block truncate text-sm">{comment.name}</strong><span className="mt-1 block truncate text-xs text-slate-500">Comentou em “{comment.articleSlug}” · Ver comentário →</span></a><button type="button" onClick={() => { setReplyTarget(replyTarget === comment.id ? null : comment.id); setReplyText(""); }} className="shrink-0 text-xs font-bold text-[#8d6b31] hover:underline">Responder</button></div>{replyTarget === comment.id ? <div className="mt-3 border-t border-[#e5dfd3] pt-3"><textarea value={replyText} onChange={(event) => setReplyText(event.target.value)} rows={3} placeholder="Escreva sua resposta..." className="w-full border border-slate-300 p-3 text-sm outline-none focus:border-[#8d6b31]" /><button type="button" disabled={savingReply} onClick={() => void replyToComment(comment)} className="mt-2 bg-[#0b1f3a] px-4 py-2 text-xs font-bold text-white disabled:opacity-60">{savingReply ? "Enviando..." : "Publicar resposta e avisar por e-mail"}</button></div> : null}</article>)}</div> : <p className="mt-3 text-sm text-slate-600">Ainda não há comentários recebidos.</p>}</div> : null}</div><Link href="/" target="_blank" className="inline-flex items-center gap-2 border border-[#0b1f3a]/25 px-3 py-2 text-xs font-bold uppercase tracking-[0.1em] transition hover:bg-[#f7f4ed]"><ExternalLink size={14} /> Ver site</Link><button type="button" onClick={logout} className="inline-flex items-center gap-2 border border-transparent px-2 py-2 text-xs font-bold uppercase tracking-[0.1em] text-slate-600 hover:text-[#0b1f3a]"><LogOut size={14} /> Sair</button></div>
         </div>
       </header>
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[minmax(0,1fr)_24rem]">
         <div className="space-y-8">
           {message ? <p className="border-l-2 border-[#8d6b31] bg-[#fff7df] px-4 py-3 text-sm text-[#5e451d]">{message}</p> : null}
           {error ? <p role="alert" className="border-l-2 border-red-700 bg-red-50 px-4 py-3 text-sm text-red-800">{error}</p> : null}
-          <section className="border border-[#c3a468]/60 bg-[#fffaf0] p-5 shadow-[8px_8px_0_rgba(195,164,104,0.08)] sm:p-7">
-            <button type="button" onClick={() => setShowNotifications((visible) => !visible)} className="flex w-full items-center justify-between gap-3 text-left">
-              <span className="flex items-center gap-3"><Bell size={19} className="text-[#8d6b31]" /><span><span className="block text-[11px] font-bold uppercase tracking-[0.18em] text-[#8d6b31]">03 · Caixa de entrada</span><strong className="mt-1 block font-serif text-2xl">Comentários recebidos</strong></span></span>
-              <span className="bg-[#0b1f3a] px-3 py-1 text-sm font-bold text-white">{comments.length} {comments.length === 1 ? "comentário" : "comentários"} {showNotifications ? "↑" : "↓"}</span>
-            </button>
-            {showNotifications ? <>{comments.length ? <div className="mt-4 space-y-2 border-t border-[#e5dfd3] pt-4">{comments.slice(0, 8).map((comment) => <article key={comment.id} className="border-l-2 border-[#c3a468] bg-white px-4 py-3"><div className="flex items-center justify-between gap-4"><a href={`/blog/${comment.articleSlug}#comentarios`} target="_blank" rel="noreferrer" className="min-w-0 flex-1 transition hover:text-[#8d6b31]"><strong className="block truncate text-sm">{comment.name}</strong><span className="mt-1 block truncate text-xs text-slate-500">Comentou em “{comment.articleSlug}” · Ver comentário →</span></a><button type="button" onClick={() => { setReplyTarget(replyTarget === comment.id ? null : comment.id); setReplyText(""); }} className="shrink-0 text-xs font-bold text-[#8d6b31] hover:underline">Responder</button></div>{replyTarget === comment.id ? <div className="mt-3 border-t border-[#e5dfd3] pt-3"><textarea value={replyText} onChange={(event) => setReplyText(event.target.value)} rows={3} placeholder="Escreva sua resposta..." className="w-full border border-slate-300 p-3 text-sm outline-none focus:border-[#8d6b31]" /><button type="button" disabled={savingReply} onClick={() => void replyToComment(comment)} className="mt-2 bg-[#0b1f3a] px-4 py-2 text-xs font-bold text-white disabled:opacity-60">{savingReply ? "Enviando..." : "Publicar resposta e avisar por e-mail"}</button></div> : null}</article>)}</div> : <p className="mt-4 border-t border-[#e5dfd3] pt-4 text-sm leading-6 text-slate-600">Ainda não há comentários recebidos. Quando alguém comentar em um artigo, a notificação aparecerá aqui.</p>}</> : null}
-          </section>
           <section className="border border-[#d9d3c8] bg-white p-5 shadow-[8px_8px_0_rgba(195,164,104,0.08)] sm:p-7">
             <div className="flex items-end justify-between gap-4 border-b border-[#d9d3c8] pb-5"><div><p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#8d6b31]">01 · Dados do escritório</p><h2 className="mt-2 font-serif text-3xl">Informações institucionais</h2></div></div>
             <form onSubmit={saveContent} className="mt-6 grid gap-5 md:grid-cols-2">
