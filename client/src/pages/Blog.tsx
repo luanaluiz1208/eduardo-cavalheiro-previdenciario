@@ -63,7 +63,7 @@ export default function Blog() {
             </Link>
           ))}
         </div>
-        {visibleArticles.length > visibleCount ? <div className="mt-8 flex justify-center"><button type="button" onClick={() => setVisibleCount((current) => current + 9)} className="button button-outline-light !border-[#0b1f3a] !bg-[#0b1f3a] hover:!bg-[#183556]">Ver mais artigos <ArrowUpRight size={16} /></button></div> : null}
+        {visibleArticles.length > visibleCount ? <div className="blog-more-actions"><button type="button" onClick={() => setVisibleCount((current) => current + 9)} className="button button-navy blog-more-button">Ver mais artigos <ArrowUpRight size={16} /></button></div> : null}
       </section>
 
       <section className="blog-disclaimer">

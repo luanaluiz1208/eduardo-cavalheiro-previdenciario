@@ -401,6 +401,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .blog-card p { color: rgba(11,30,53,.68); line-height: 1.65; font-size: .94rem; }
 .blog-card-meta { text-transform: none; letter-spacing: 0; margin-top: auto; padding-top: 1.6rem; justify-content: flex-start; }
 .blog-card-meta span { display: inline-flex; align-items: center; gap: .35rem; }
+.blog-more-actions { display: flex; justify-content: center; margin-top: 2rem; }
+.blog-more-button { min-width: 12rem; }
 .blog-card-arrow { position: absolute; right: 1.5rem; bottom: 1.4rem; color: #a47a29; }
 .blog-disclaimer { border-top: 1px solid rgba(11,30,53,.12); padding: 2.2rem 0 3rem; background: #f1eadc; }
 .blog-disclaimer-inner { display: grid; grid-template-columns: 16rem 1fr; gap: 2rem; align-items: start; }
@@ -457,7 +459,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .article-not-found { padding: 8rem 0; }
 .article-not-found h1 { font-family: var(--font-display, Georgia, serif); color: var(--navy, #0b1e35); font-size: 3.5rem; font-weight: 500; margin: .8rem 0 2rem; }
 @media (max-width: 900px) { .blog-hero-grid, .article-layout { grid-template-columns: 1fr; gap: 2.5rem; } .blog-hero-note { max-width: 30rem; } .blog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .article-aside-card { position: static; max-width: 30rem; } }
-@media (max-width: 640px) { .blog-hero { padding: 4.5rem 0 4rem; } .blog-hero h1 { font-size: 3.4rem; } .blog-featured-card { grid-template-columns: 1fr; } .blog-featured-index { min-height: 10rem; } .blog-featured-index strong { font-size: 4rem; } .blog-list-header, .blog-disclaimer-inner { display: block; } .category-filter { justify-content: flex-start; margin-top: 1.5rem; } .blog-grid { grid-template-columns: 1fr; } .article-header { padding: 3.5rem 0 4rem; } .back-link { margin-bottom: 3rem; } .article-header h1 { font-size: 3.3rem; } .article-layout { padding-top: 3.5rem; } .article-meta { flex-wrap: wrap; } }
+@media (max-width: 640px) { .blog-hero { padding: 4.5rem 0 4rem; } .blog-hero h1 { font-size: 3.4rem; } .blog-featured-card { grid-template-columns: 1fr; } .blog-featured-index { min-height: 10rem; } .blog-featured-index strong { font-size: 4rem; } .blog-list-header, .blog-disclaimer-inner { display: block; } .category-filter { justify-content: flex-start; flex-wrap: nowrap; margin-top: 1.5rem; padding-bottom: .45rem; overflow-x: auto; scrollbar-width: thin; } .category-filter button { min-height: 44px; flex: 0 0 auto; } .blog-grid { grid-template-columns: 1fr; } .blog-more-actions { margin-top: 1.5rem; } .blog-more-button { width: 100%; } .article-header { padding: 3.5rem 0 4rem; } .back-link { margin-bottom: 3rem; } .article-header h1 { font-size: 3.3rem; } .article-layout { padding-top: 3.5rem; } .article-meta { flex-wrap: wrap; } }
 
 /* Ajuste de assinatura: uma única logo institucional e leitura de índice de processo. */
 .nav-inner { min-height: 128px; }
