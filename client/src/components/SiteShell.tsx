@@ -4,8 +4,8 @@
  */
 
 import { useState, type ReactNode } from "react";
-import { Link } from "wouter";
-import { Instagram, Mail, MapPin, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { Link, useLocation } from "wouter";
+import { Instagram, Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { whatsappLink } from "@/data/areas";
 import { mapsSearchLink, useSiteContent } from "@/data/siteContent";
 
@@ -23,6 +23,7 @@ const navItems = [
 
 export default function SiteShell({ children }: SiteShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [location] = useLocation();
   const content = useSiteContent();
   const officeMapsLink = mapsSearchLink(content.officeAddress);
 
@@ -32,7 +33,7 @@ export default function SiteShell({ children }: SiteShellProps) {
     <div className="site-shell">
       <div className="top-line">
         <div className="content-width top-line-inner">
-          <span><MapPin size={14} aria-hidden="true" /> Itaperuna · Rio de Janeiro</span>
+          <span><MapPin size={14} aria-hidden="true" /> Itaperuna · Rio de Janeiro <strong className="top-line-oab">· OAB/RJ nº 26.639/23</strong></span>
           <span className="top-line-availability">Atendimento presencial e online em todo o Brasil</span>
         </div>
       </div>
@@ -40,15 +41,15 @@ export default function SiteShell({ children }: SiteShellProps) {
       <header className="site-header">
         <div className="content-width nav-inner">
           <Link href="/" className="brand" aria-label="Página inicial de Eduardo Ferreira Cavalheiro">
-            <img src="/assets/logo-eduardo-ferreira-cavalheiro-original.jpeg" alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="brand-logo" />
+            <img src="/assets/logo-eduardo-ferreira-cavalheiro-header.png" alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário — OAB/RJ nº 26.639/23" className="brand-logo" />
           </Link>
 
           <nav className="desktop-nav" aria-label="Navegação principal">
-            {navItems.map((item) => <a href={item.href} key={item.href}>{item.label}</a>)}
+            {navItems.map((item) => <a href={item.href} className={location.startsWith("/blog") && item.href === "/blog" ? "active" : undefined} key={item.href}>{item.label}</a>)}
           </nav>
 
           <a href={whatsappLink("Olá, Eduardo. Gostaria de falar sobre meu caso previdenciário.", content.whatsapp)} className="header-cta" target="_blank" rel="noreferrer">
-            <MessageCircle size={17} aria-hidden="true" /> Falar no WhatsApp
+            <img src="/assets/whatsapp-mark.svg" alt="" className="header-whatsapp-icon" /> Falar no WhatsApp
           </a>
 
           <button className="mobile-menu-button" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen}>
@@ -58,10 +59,10 @@ export default function SiteShell({ children }: SiteShellProps) {
         {menuOpen && (
           <div className="mobile-menu">
             <nav aria-label="Navegação móvel">
-              {navItems.map((item) => <a href={item.href} onClick={closeMenu} key={item.href}>{item.label}</a>)}
+              {navItems.map((item) => <a href={item.href} className={location.startsWith("/blog") && item.href === "/blog" ? "active" : undefined} onClick={closeMenu} key={item.href}>{item.label}</a>)}
             </nav>
             <a href={whatsappLink("Olá, Eduardo. Gostaria de falar sobre meu caso previdenciário.", content.whatsapp)} className="button button-gold" target="_blank" rel="noreferrer" onClick={closeMenu}>
-              <MessageCircle size={18} aria-hidden="true" /> Falar no WhatsApp
+              <img src="/assets/whatsapp-mark.svg" alt="" className="header-whatsapp-icon" /> Falar no WhatsApp
             </a>
           </div>
         )}

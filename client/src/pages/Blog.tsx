@@ -13,6 +13,12 @@ export default function Blog() {
   const visibleArticles = useMemo(() => category === "Todos" ? articles : articles.filter((article) => categoryKey(article.category) === categoryKey(category)), [articles, category]);
   const paginatedArticles = visibleArticles.slice(0, visibleCount);
   const featured = articles.find((article) => article.featured) ?? articles[0];
+  const quickTopics = ["Benefícios assistenciais", "Aposentadoria", "Benefícios por incapacidade", "Pensão por Morte"];
+  const selectCategory = (nextCategory: string) => {
+    setCategory(nextCategory);
+    setVisibleCount(9);
+    window.setTimeout(() => document.getElementById("artigos")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+  };
 
   return (
     <SiteShell>
@@ -22,11 +28,15 @@ export default function Blog() {
             <p className="eyebrow"><span /> Blog previdenciário</p>
             <h1>Providenciando a Previdência.</h1>
             <p className="blog-hero-lead">Artigos objetivos sobre Previdência Social, benefícios do INSS e organização documental para quem precisa tomar decisões com mais clareza.</p>
+            <a href="#artigos" className="button button-gold blog-hero-cta">Explorar artigos <ArrowUpRight size={17} /></a>
+            <div className="blog-topic-shortcuts" aria-label="Atalhos por tema">
+              <span>Encontre por tema</span>
+              {quickTopics.map((topic) => <button type="button" key={topic} onClick={() => selectCategory(topic)}>{topic}</button>)}
+            </div>
           </div>
           <div className="blog-hero-note">
-            <span className="note-index">01 / CADERNO</span>
-            <p>Conteúdo informativo, escrito em linguagem acessível e acompanhado de referências oficiais.</p>
-            <a href="#artigos">Explorar artigos <ArrowUpRight size={16} /></a>
+            <span className="note-index">ORIENTAÇÃO PREVIDENCIÁRIA</span>
+            <p>Conteúdo informativo, em linguagem acessível, com referências oficiais para ajudar você a entender o próximo passo.</p>
           </div>
         </div>
       </section>
