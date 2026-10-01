@@ -7,8 +7,9 @@ import { useBlogArticles } from "@/data/blog";
 export default function Blog() {
   const [category, setCategory] = useState("Todos");
   const articles = useBlogArticles();
-  const categories = useMemo(() => ["Todos", ...Array.from(new Set(articles.map((article) => article.category)))], [articles]);
-  const visibleArticles = useMemo(() => category === "Todos" ? articles : articles.filter((article) => article.category === category), [articles, category]);
+  const categoryKey = (value: string) => value.trim().toLocaleLowerCase("pt-BR");
+  const categories = useMemo(() => ["Todos", ...Array.from(new Map(articles.map((article) => [categoryKey(article.category), article.category.trim()])).values())], [articles]);
+  const visibleArticles = useMemo(() => category === "Todos" ? articles : articles.filter((article) => categoryKey(article.category) === categoryKey(category)), [articles, category]);
   const featured = articles.find((article) => article.featured) ?? articles[0];
 
   return (
