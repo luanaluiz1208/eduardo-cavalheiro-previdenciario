@@ -6,10 +6,12 @@ import { useBlogArticles } from "@/data/blog";
 
 export default function Blog() {
   const [category, setCategory] = useState("Todos");
+  const [visibleCount, setVisibleCount] = useState(9);
   const articles = useBlogArticles();
   const categoryKey = (value: string) => value.trim().toLocaleLowerCase("pt-BR");
   const categories = useMemo(() => ["Todos", ...Array.from(new Map(articles.map((article) => [categoryKey(article.category), article.category.trim()])).values())], [articles]);
   const visibleArticles = useMemo(() => category === "Todos" ? articles : articles.filter((article) => categoryKey(article.category) === categoryKey(category)), [articles, category]);
+  const paginatedArticles = visibleArticles.slice(0, visibleCount);
   const featured = articles.find((article) => article.featured) ?? articles[0];
 
   return (
@@ -47,11 +49,11 @@ export default function Blog() {
           <div><p className="eyebrow"><span /> Arquivo de orientação</p><h2 id="articles-title">Artigos recentes</h2></div>
           <div className="category-filter" aria-label="Filtrar artigos por categoria">
             <Filter size={15} aria-hidden="true" />
-            {categories.map((item) => <button key={item} type="button" className={category === item ? "active" : ""} aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>)}
+            {categories.map((item) => <button key={item} type="button" className={category === item ? "active" : ""} aria-pressed={category === item} onClick={() => { setCategory(item); setVisibleCount(9); }}>{item}</button>)}
           </div>
         </div>
         <div className="blog-grid">
-          {visibleArticles.map((article, index) => (
+          {paginatedArticles.map((article, index) => (
             <Link href={`/blog/${article.slug}`} className="blog-card" key={article.slug}>
               <div className="blog-card-top"><span>{String(index + 1).padStart(2, "0")}</span><span>{article.category}</span></div>
               <h3>{article.title}</h3>
@@ -61,6 +63,7 @@ export default function Blog() {
             </Link>
           ))}
         </div>
+        {visibleArticles.length > visibleCount ? <div className="mt-8 flex justify-center"><button type="button" onClick={() => setVisibleCount((current) => current + 9)} className="button button-outline-light !border-[#0b1f3a] !bg-[#0b1f3a] hover:!bg-[#183556]">Ver mais artigos <ArrowUpRight size={16} /></button></div> : null}
       </section>
 
       <section className="blog-disclaimer">
