@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useEditor, EditorContent, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
@@ -10,7 +10,7 @@ import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import {
   Bold, Italic, Underline as UnderlineIcon, Highlighter, Palette, Heading3, Heading4,
-  List, ListOrdered, Quote, LinkIcon, ImageIcon, Undo2, Redo2, Eraser, SmilePlus,
+  List, ListOrdered, Quote, LinkIcon, ImageIcon, Undo2, Redo2, Eraser, SmilePlus, Upload,
 } from "lucide-react";
 
 const TEXT_COLORS = [
@@ -49,6 +49,8 @@ function ToolbarButton({ active, onClick, label, children }: { active?: boolean;
 }
 
 function Toolbar({ editor }: { editor: Editor }) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   function setLink() {
     const previous = editor.getAttributes("link").href as string | undefined;
     const url = window.prompt("Link (URL completa, começando com https://)", previous || "https://");
@@ -62,6 +64,22 @@ function Toolbar({ editor }: { editor: Editor }) {
     if (!url?.trim()) return;
     const alt = window.prompt("Texto alternativo da imagem (opcional)", "Imagem ilustrativa do artigo") || "";
     editor.chain().focus().setImage({ src: url.trim(), alt: alt.trim() }).run();
+  }
+
+  function addLocalImage(file: File) {
+    if (!file.type.startsWith("image/")) {
+      window.alert("Selecione um arquivo de imagem.");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      window.alert("A imagem deve ter no máximo 5 MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") editor.chain().focus().setImage({ src: reader.result, alt: file.name }).run();
+    };
+    reader.readAsDataURL(file);
   }
 
   function addSymbol(symbol: string) {
@@ -83,6 +101,8 @@ function Toolbar({ editor }: { editor: Editor }) {
       <span className="mx-1 h-6 w-px bg-slate-300" />
       <ToolbarButton label="Link" active={editor.isActive("link")} onClick={setLink}><LinkIcon size={15} /></ToolbarButton>
       <ToolbarButton label="Inserir imagem ou GIF" onClick={addImage}><ImageIcon size={15} /></ToolbarButton>
+      <ToolbarButton label="Escolher imagem ou GIF do computador" onClick={() => fileInputRef.current?.click()}><Upload size={15} /></ToolbarButton>
+      <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="hidden" onChange={(event) => { const file = event.target.files?.[0]; if (file) addLocalImage(file); event.target.value = ""; }} />
       <div className="group relative">
         <ToolbarButton label="Inserir símbolo ou seta"><SmilePlus size={15} /></ToolbarButton>
         <div className="absolute left-0 top-full z-20 hidden grid-cols-4 gap-1 border border-slate-300 bg-white p-1.5 shadow-lg group-focus-within:grid group-hover:grid">
@@ -118,7 +138,7 @@ export default function RichTextEditor({ value, onChange, placeholder }: { value
       TextStyle,
       Color,
       Highlight.configure({ multicolor: true }),
-      ImageExtension.configure({ allowBase64: false, HTMLAttributes: { class: "article-image" } }),
+      ImageExtension.configure({ allowBase64: true, HTMLAttributes: { class: "article-image" } }),
       Link.configure({ openOnClick: false, autolink: false }),
       Placeholder.configure({ placeholder: placeholder || "Escreva o conteúdo desta seção…" }),
     ],
@@ -140,7 +160,7 @@ export default function RichTextEditor({ value, onChange, placeholder }: { value
       <div className="max-h-[32rem] min-h-40 overflow-y-auto border border-slate-300 bg-white focus-within:border-[#8d6b31]">
         <EditorContent editor={editor} className="p-3 text-sm leading-6 outline-none" />
       </div>
-      <p className="mt-2 text-xs leading-5 text-slate-500">Use a rolagem interna para textos longos. Imagens e GIFs entram exatamente no ponto onde o cursor estiver.</p>
+      <p className="mt-2 text-xs leading-5 text-slate-500">Use a rolagem interna para textos longos. O ícone de upload escolhe uma imagem ou GIF do computador; o ícone de imagem continua aceitando URLs.</p>
     </div>
   );
 }

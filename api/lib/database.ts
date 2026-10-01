@@ -32,6 +32,7 @@ const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
     },
   },
   allowedSchemes: ["http", "https", "mailto"],
+  allowedSchemesByTag: { img: ["http", "https", "data"] },
   transformTags: {
     a: sanitizeHtml.simpleTransform("a", { target: "_blank", rel: "noreferrer" }),
   },
