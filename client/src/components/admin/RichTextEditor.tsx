@@ -10,20 +10,29 @@ import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import {
   Bold, Italic, Underline as UnderlineIcon, Highlighter, Palette, Heading3, Heading4,
-  List, ListOrdered, Quote, LinkIcon, ImageIcon, Undo2, Redo2, Eraser,
+  List, ListOrdered, Quote, LinkIcon, ImageIcon, Undo2, Redo2, Eraser, SmilePlus,
 } from "lucide-react";
 
 const TEXT_COLORS = [
   { label: "Padrão", value: "" },
+  { label: "Azul-marinho", value: "#0b1f3a" },
   { label: "Dourado", value: "#a47a29" },
   { label: "Vermelho", value: "#a3402f" },
   { label: "Verde", value: "#3d6b4c" },
+  { label: "Azul", value: "#245b8f" },
+  { label: "Roxo", value: "#69458f" },
+  { label: "Cinza", value: "#667080" },
 ];
 
 const HIGHLIGHT_COLORS = [
   { label: "Dourado claro", value: "#f7e7c1" },
   { label: "Amarelo", value: "#fff3a3" },
+  { label: "Azul claro", value: "#d9ecff" },
+  { label: "Verde claro", value: "#dff1e2" },
+  { label: "Rosa claro", value: "#ffe0e5" },
 ];
+
+const SYMBOLS = ["•", "→", "➜", "✓", "⚖", "§", "★", "※"];
 
 function ToolbarButton({ active, onClick, label, children }: { active?: boolean; onClick?: () => void; label: string; children: React.ReactNode }) {
   return (
@@ -32,7 +41,7 @@ function ToolbarButton({ active, onClick, label, children }: { active?: boolean;
       title={label}
       aria-label={label}
       onMouseDown={(event) => { event.preventDefault(); onClick?.(); }}
-      className={`inline-flex h-8 w-8 items-center justify-center border transition ${active ? "border-[#8d6b31] bg-[#fff3d6] text-[#5e451d]" : "border-slate-300 text-slate-600 hover:border-[#8d6b31] hover:text-[#5e451d]"}`}
+      className={`inline-flex h-8 w-8 shrink-0 items-center justify-center border transition ${active ? "border-[#8d6b31] bg-[#fff3d6] text-[#5e451d]" : "border-slate-300 text-slate-600 hover:border-[#8d6b31] hover:text-[#5e451d]"}`}
     >
       {children}
     </button>
@@ -49,12 +58,18 @@ function Toolbar({ editor }: { editor: Editor }) {
   }
 
   function addImage() {
-    const url = window.prompt("URL da imagem (link direto para o arquivo .jpg/.png/.webp)");
-    if (url && url.trim()) editor.chain().focus().setImage({ src: url.trim() }).run();
+    const url = window.prompt("Cole a URL direta da imagem ou GIF (JPG, PNG, WEBP ou GIF)");
+    if (!url?.trim()) return;
+    const alt = window.prompt("Texto alternativo da imagem (opcional)", "Imagem ilustrativa do artigo") || "";
+    editor.chain().focus().setImage({ src: url.trim(), alt: alt.trim() }).run();
+  }
+
+  function addSymbol(symbol: string) {
+    editor.chain().focus().insertContent(symbol).run();
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-1 border border-b-0 border-slate-300 bg-[#fbf8f0] p-2">
+    <div className="sticky top-0 z-10 flex max-h-28 flex-wrap items-center gap-1 overflow-y-auto border border-b-0 border-slate-300 bg-[#fbf8f0] p-2">
       <ToolbarButton label="Negrito" active={editor.isActive("bold")} onClick={() => editor.chain().focus().toggleBold().run()}><Bold size={15} /></ToolbarButton>
       <ToolbarButton label="Itálico" active={editor.isActive("italic")} onClick={() => editor.chain().focus().toggleItalic().run()}><Italic size={15} /></ToolbarButton>
       <ToolbarButton label="Sublinhado" active={editor.isActive("underline")} onClick={() => editor.chain().focus().toggleUnderline().run()}><UnderlineIcon size={15} /></ToolbarButton>
@@ -67,23 +82,24 @@ function Toolbar({ editor }: { editor: Editor }) {
       <ToolbarButton label="Citação" active={editor.isActive("blockquote")} onClick={() => editor.chain().focus().toggleBlockquote().run()}><Quote size={15} /></ToolbarButton>
       <span className="mx-1 h-6 w-px bg-slate-300" />
       <ToolbarButton label="Link" active={editor.isActive("link")} onClick={setLink}><LinkIcon size={15} /></ToolbarButton>
-      <ToolbarButton label="Inserir imagem" onClick={addImage}><ImageIcon size={15} /></ToolbarButton>
-      <span className="mx-1 h-6 w-px bg-slate-300" />
+      <ToolbarButton label="Inserir imagem ou GIF" onClick={addImage}><ImageIcon size={15} /></ToolbarButton>
       <div className="group relative">
-        <ToolbarButton label="Cor do texto" active={Boolean(editor.getAttributes("textStyle").color)}><Palette size={15} /></ToolbarButton>
-        <div className="absolute left-0 top-full z-10 hidden gap-1 border border-slate-300 bg-white p-1.5 group-focus-within:flex group-hover:flex">
-          {TEXT_COLORS.map((color) => (
-            <button key={color.label} type="button" title={color.label} onMouseDown={(event) => { event.preventDefault(); if (color.value) editor.chain().focus().setColor(color.value).run(); else editor.chain().focus().unsetColor().run(); }} className="h-6 w-6 rounded-full border border-slate-300" style={{ backgroundColor: color.value || "#0b1f3a" }} />
-          ))}
+        <ToolbarButton label="Inserir símbolo ou seta"><SmilePlus size={15} /></ToolbarButton>
+        <div className="absolute left-0 top-full z-20 hidden grid-cols-4 gap-1 border border-slate-300 bg-white p-1.5 shadow-lg group-focus-within:grid group-hover:grid">
+          {SYMBOLS.map((symbol) => <button key={symbol} type="button" title={`Inserir ${symbol}`} onMouseDown={(event) => { event.preventDefault(); addSymbol(symbol); }} className="flex h-7 w-7 items-center justify-center border border-slate-200 text-base hover:border-[#8d6b31] hover:bg-[#fff3d6]">{symbol}</button>)}
         </div>
       </div>
       <div className="group relative">
-        <ToolbarButton label="Grifar (marca-texto)" active={editor.isActive("highlight")}><Highlighter size={15} /></ToolbarButton>
-        <div className="absolute left-0 top-full z-10 hidden gap-1 border border-slate-300 bg-white p-1.5 group-focus-within:flex group-hover:flex">
-          {HIGHLIGHT_COLORS.map((color) => (
-            <button key={color.label} type="button" title={color.label} onMouseDown={(event) => { event.preventDefault(); editor.chain().focus().toggleHighlight({ color: color.value }).run(); }} className="h-6 w-6 rounded-full border border-slate-300" style={{ backgroundColor: color.value }} />
-          ))}
-          <button type="button" title="Remover grifo" onMouseDown={(event) => { event.preventDefault(); editor.chain().focus().unsetHighlight().run(); }} className="flex h-6 w-6 items-center justify-center rounded-full border border-slate-300 text-[10px]">✕</button>
+        <ToolbarButton label="Mais cores para o texto" active={Boolean(editor.getAttributes("textStyle").color)}><Palette size={15} /></ToolbarButton>
+        <div className="absolute left-0 top-full z-20 hidden grid-cols-4 gap-1 border border-slate-300 bg-white p-1.5 shadow-lg group-focus-within:grid group-hover:grid">
+          {TEXT_COLORS.map((color) => <button key={color.label} type="button" title={color.label} onMouseDown={(event) => { event.preventDefault(); if (color.value) editor.chain().focus().setColor(color.value).run(); else editor.chain().focus().unsetColor().run(); }} className="h-6 w-6 rounded-full border border-slate-300" style={{ backgroundColor: color.value || "#ffffff" }} />)}
+        </div>
+      </div>
+      <div className="group relative">
+        <ToolbarButton label="Mais cores de marca-texto" active={editor.isActive("highlight")}><Highlighter size={15} /></ToolbarButton>
+        <div className="absolute left-0 top-full z-20 hidden grid-cols-4 gap-1 border border-slate-300 bg-white p-1.5 shadow-lg group-focus-within:grid group-hover:grid">
+          {HIGHLIGHT_COLORS.map((color) => <button key={color.label} type="button" title={color.label} onMouseDown={(event) => { event.preventDefault(); editor.chain().focus().toggleHighlight({ color: color.value }).run(); }} className="h-6 w-6 rounded-full border border-slate-300" style={{ backgroundColor: color.value }} />)}
+          <button type="button" title="Remover marca-texto" onMouseDown={(event) => { event.preventDefault(); editor.chain().focus().unsetHighlight().run(); }} className="flex h-6 w-6 items-center justify-center rounded-full border border-slate-300 text-[10px]">✕</button>
         </div>
       </div>
       <span className="mx-1 h-6 w-px bg-slate-300" />
@@ -102,15 +118,13 @@ export default function RichTextEditor({ value, onChange, placeholder }: { value
       TextStyle,
       Color,
       Highlight.configure({ multicolor: true }),
-      ImageExtension.configure({ HTMLAttributes: { class: "article-image" } }),
+      ImageExtension.configure({ allowBase64: false, HTMLAttributes: { class: "article-image" } }),
       Link.configure({ openOnClick: false, autolink: false }),
       Placeholder.configure({ placeholder: placeholder || "Escreva o conteúdo desta seção…" }),
     ],
     content: value,
     onUpdate: ({ editor: currentEditor }) => onChange(currentEditor.getHTML()),
-    editorProps: {
-      attributes: { class: "rich-editor-content" },
-    },
+    editorProps: { attributes: { class: "rich-editor-content" } },
   });
 
   useEffect(() => {
@@ -123,7 +137,10 @@ export default function RichTextEditor({ value, onChange, placeholder }: { value
   return (
     <div className="rich-editor">
       <Toolbar editor={editor} />
-      <EditorContent editor={editor} className="min-h-40 w-full border border-slate-300 bg-white p-3 text-sm leading-6 outline-none focus-within:border-[#8d6b31]" />
+      <div className="max-h-[32rem] min-h-40 overflow-y-auto border border-slate-300 bg-white focus-within:border-[#8d6b31]">
+        <EditorContent editor={editor} className="p-3 text-sm leading-6 outline-none" />
+      </div>
+      <p className="mt-2 text-xs leading-5 text-slate-500">Use a rolagem interna para textos longos. Imagens e GIFs entram exatamente no ponto onde o cursor estiver.</p>
     </div>
   );
 }
