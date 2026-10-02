@@ -74,7 +74,7 @@ export default function SiteShell({ children }: SiteShellProps) {
         <div className="content-width footer-grid">
           <div className="footer-brand">
             <Link href="/" className="footer-logo-link" aria-label="Voltar ao início">
-              <img src="/assets/logo-eduardo-ferreira-cavalheiro-original.jpeg" alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="footer-logo" />
+              <img src="/assets/logo-eduardo-ferreira-cavalheiro-header.png" alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="footer-logo" />
             </Link>
             <p>Orientação previdenciária com atenção ao seu histórico, à sua documentação e ao próximo passo mais adequado.</p>
           </div>
