@@ -26,17 +26,12 @@ export default function Blog() {
         <div className="content-width blog-hero-grid">
           <div>
             <p className="eyebrow"><span /> Blog previdenciário</p>
-            <h1>Providenciando a Previdência.</h1>
-            <p className="blog-hero-lead">Artigos objetivos sobre Previdência Social, benefícios do INSS e organização documental para quem precisa tomar decisões com mais clareza.</p>
+            <h1>Providenciando a Previdência</h1>
             <a href="#artigos" className="button button-gold blog-hero-cta">Explorar artigos <ArrowUpRight size={17} /></a>
             <div className="blog-topic-shortcuts" aria-label="Atalhos por tema">
               <span>Encontre por tema</span>
               {quickTopics.map((topic) => <button type="button" key={topic} onClick={() => selectCategory(topic)}>{topic}</button>)}
             </div>
-          </div>
-          <div className="blog-hero-note">
-            <span className="note-index">ORIENTAÇÃO PREVIDENCIÁRIA</span>
-            <p>Conteúdo informativo, em linguagem acessível, com referências oficiais para ajudar você a entender o próximo passo.</p>
           </div>
         </div>
       </section>
