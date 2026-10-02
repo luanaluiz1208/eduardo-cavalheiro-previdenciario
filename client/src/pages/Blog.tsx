@@ -71,12 +71,6 @@ export default function Blog() {
         {visibleArticles.length > visibleCount ? <div className="blog-more-actions"><button type="button" onClick={() => setVisibleCount((current) => current + 9)} className="button button-navy blog-more-button">Ver mais artigos <ArrowUpRight size={16} /></button></div> : null}
       </section>
 
-      <section className="blog-disclaimer">
-        <div className="content-width blog-disclaimer-inner">
-          <p className="eyebrow"><span /> Nota editorial</p>
-          <p>As publicações são informativas e não substituem a análise individual de documentos e histórico previdenciário. Regras e procedimentos podem ser atualizados pelos órgãos oficiais.</p>
-        </div>
-      </section>
     </SiteShell>
   );
 }
