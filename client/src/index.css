@@ -546,3 +546,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .footer-grid > .footer-brand { display: block; }
   .footer-grid .footer-column:last-child { grid-template-columns: 1fr; }
 }
+
+/* Nome do advogado destacado no topo da apresentação institucional. */
+.about-name { margin: 0 0 1.15rem; color: var(--navy); font-family: var(--font-display, Georgia, serif); font-size: clamp(2.2rem, 4vw, 3.8rem); font-weight: 500; line-height: .95; letter-spacing: -.045em; }
+@media (max-width: 720px) { .about-name { font-size: 2.45rem; } }
