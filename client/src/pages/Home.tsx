@@ -187,7 +187,7 @@ Seu trabalho é pautado em análise técnica, estratégia jurídica e atendiment
         <div className="content-width contact-layout">
           <div className="contact-copy">
             <p className="eyebrow">Entre em contato</p>
-            <h2>Conte o que aconteceu. Vamos identificar o melhor ponto de partida.</h2>
+            <h2>Fale com quem entende de Previdência</h2>
             <p>Você pode enviar uma mensagem pelo formulário, falar diretamente no WhatsApp ou utilizar um dos canais abaixo.</p>
             <div className="contact-direct-list">
               <a href="tel:+5522998037866"><span><Phone size={18} aria-hidden="true" /></span><div><small>Telefone e WhatsApp</small><strong>(22) 99803-7866</strong></div></a>
