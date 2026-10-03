@@ -141,12 +141,10 @@ Seu trabalho é pautado em análise técnica, estratégia jurídica e atendiment
       </section>
 
       <section id="areas" className="section section-stone areas-section traced-section">
-        <div className="content-width section-heading-row">
-          <div>
-            <p className="eyebrow">Áreas de atuação</p>
-            <h2>Entenda o ponto de partida do seu direito.</h2>
-          </div>
-          <p className="section-side-copy">Cada área possui uma página própria com informações sobre quem pode ter direito, requisitos gerais e como o apoio jurídico pode ajudar.</p>
+        <div className="content-width section-heading-row areas-heading">
+          <p className="eyebrow areas-eyebrow"><span aria-hidden="true" /> ÁREAS DE ATUAÇÃO</p>
+          <h2>Em que podemos ajudar você?</h2>
+          <p className="section-side-copy">Escolha o tema e veja quem pode ter direito, os requisitos e como o apoio jurídico pode ajudar.</p>
         </div>
         <div className="content-width areas-grid">
           {areas.map((area) => {
