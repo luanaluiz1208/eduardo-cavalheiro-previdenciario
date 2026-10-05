@@ -577,3 +577,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .desktop-nav a { padding: .62rem .12rem; font-size: .88rem; letter-spacing: .005em; white-space: nowrap; }
   .header-cta { flex: 0 0 auto; min-height: 48px; padding: .78rem 1.1rem; }
 }
+
+/* Refinamento visual mais evidente do hero e do menu principal. */
+@media (min-width: 1021px) {
+  .portrait-index { margin-right: -1rem; transform: translateX(1rem); }
+  .desktop-nav { padding: .7rem 1.15rem; border: 1px solid rgba(195,164,104,.28); border-radius: 999px; background: rgba(255,255,255,.58); box-shadow: 0 8px 22px rgba(11,31,58,.06); }
+  .desktop-nav a { padding: .5rem .2rem; }
+  .desktop-nav a.active { color: var(--navy); }
+}
