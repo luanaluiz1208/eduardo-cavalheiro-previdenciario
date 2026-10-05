@@ -83,7 +83,12 @@ function Toolbar({ editor }: { editor: Editor }) {
   }
 
   function addSymbol(symbol: string) {
-    editor.chain().focus().insertContent(symbol).run();
+    const { from, to } = editor.state.selection;
+    editor.chain().focus().insertContentAt({ from, to }, `${symbol} `).run();
+  }
+
+  function toggleList(type: "bulletList" | "orderedList") {
+    editor.chain().focus().command(({ commands }) => type === "bulletList" ? commands.toggleBulletList() : commands.toggleOrderedList()).run();
   }
 
   return (
@@ -95,8 +100,8 @@ function Toolbar({ editor }: { editor: Editor }) {
       <ToolbarButton label="Subtítulo" active={editor.isActive("heading", { level: 3 })} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}><Heading3 size={15} /></ToolbarButton>
       <ToolbarButton label="Subtítulo menor" active={editor.isActive("heading", { level: 4 })} onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}><Heading4 size={15} /></ToolbarButton>
       <span className="mx-1 h-6 w-px bg-slate-300" />
-      <ToolbarButton label="Lista com marcadores" active={editor.isActive("bulletList")} onClick={() => editor.chain().focus().toggleBulletList().run()}><List size={15} /></ToolbarButton>
-      <ToolbarButton label="Lista numerada" active={editor.isActive("orderedList")} onClick={() => editor.chain().focus().toggleOrderedList().run()}><ListOrdered size={15} /></ToolbarButton>
+      <ToolbarButton label="Lista com marcadores" active={editor.isActive("bulletList")} onClick={() => toggleList("bulletList")}><List size={15} /></ToolbarButton>
+      <ToolbarButton label="Lista numerada" active={editor.isActive("orderedList")} onClick={() => toggleList("orderedList")}><ListOrdered size={15} /></ToolbarButton>
       <ToolbarButton label="Citação" active={editor.isActive("blockquote")} onClick={() => editor.chain().focus().toggleBlockquote().run()}><Quote size={15} /></ToolbarButton>
       <span className="mx-1 h-6 w-px bg-slate-300" />
       <ToolbarButton label="Link" active={editor.isActive("link")} onClick={setLink}><LinkIcon size={15} /></ToolbarButton>
@@ -104,7 +109,7 @@ function Toolbar({ editor }: { editor: Editor }) {
       <ToolbarButton label="Escolher imagem ou GIF do computador" onClick={() => fileInputRef.current?.click()}><Upload size={15} /></ToolbarButton>
       <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="hidden" onChange={(event) => { const file = event.target.files?.[0]; if (file) addLocalImage(file); event.target.value = ""; }} />
       <div className="group relative">
-        <ToolbarButton label="Inserir símbolo ou seta"><SmilePlus size={15} /></ToolbarButton>
+        <ToolbarButton label="Inserir símbolo ou seta (clique para inserir uma bolinha)" onClick={() => addSymbol("•")}><SmilePlus size={15} /></ToolbarButton>
         <div className="absolute left-0 top-full z-20 hidden grid-cols-4 gap-1 border border-slate-300 bg-white p-1.5 shadow-lg group-focus-within:grid group-hover:grid">
           {SYMBOLS.map((symbol) => <button key={symbol} type="button" title={`Inserir ${symbol}`} onMouseDown={(event) => { event.preventDefault(); addSymbol(symbol); }} className="flex h-7 w-7 items-center justify-center border border-slate-200 text-base hover:border-[#8d6b31] hover:bg-[#fff3d6]">{symbol}</button>)}
         </div>

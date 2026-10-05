@@ -503,7 +503,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .rich-editor-content p:last-child { margin-bottom: 0; }
 .rich-editor-content h3 { font-family: var(--font-display, Georgia, serif); font-size: 1.25rem; font-weight: 600; margin: 1rem 0 .5rem; }
 .rich-editor-content h4 { font-family: var(--font-display, Georgia, serif); font-size: 1.08rem; font-weight: 600; margin: .9rem 0 .4rem; }
-.rich-editor-content ul, .rich-editor-content ol { margin: 0 0 .9rem; padding-left: 1.3rem; }
+.rich-editor-content ul, .rich-editor-content ol { margin: 0 0 .9rem; padding-left: 1.8rem; }
+.rich-editor-content ul { list-style: disc outside; }
+.rich-editor-content ol { list-style: decimal outside; }
+.rich-editor-content li { display: list-item; padding-left: .2rem; }
 .rich-editor-content blockquote { margin: .8rem 0; padding-left: 1rem; border-left: 3px solid #c3a468; color: #555; font-style: italic; }
 .rich-editor-content a { color: #a47a29; text-decoration: underline; }
 .rich-editor-content mark { padding: .05em .15em; border-radius: 2px; }
