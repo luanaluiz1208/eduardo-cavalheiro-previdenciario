@@ -110,7 +110,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-portrait { display: block; width: 100%; height: 520px; object-fit: cover; object-position: 50% 12%; filter: saturate(.91) contrast(1.01); }
 .portrait-caption { display: flex; flex-direction: column; gap: .15rem; padding: .85rem 0 1.05rem; color: #fff; }
 .portrait-caption span { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.32rem; line-height: 1; }.portrait-caption small { color: rgba(255,255,255,.65); font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; }
-.portrait-index { position: absolute; right: 100%; bottom: 105px; margin-right: 1rem; color: var(--gold); font-family: "Cormorant Garamond", Georgia, serif; font-size: 5.8rem; font-weight: 600; line-height: .7; letter-spacing: -.06em; opacity: .82; text-align: right; }.portrait-index span { display: inline-block; margin-top: .55rem; font-family: "Manrope", sans-serif; font-size: .61rem; letter-spacing: .12em; }
+.portrait-index { position: absolute; right: 100%; bottom: 105px; margin-right: .2rem; color: var(--gold); font-family: "Cormorant Garamond", Georgia, serif; font-size: 5.8rem; font-weight: 600; line-height: .7; letter-spacing: -.06em; opacity: .82; text-align: right; }.portrait-index span { display: inline-block; margin-top: .55rem; font-family: "Manrope", sans-serif; font-size: .61rem; letter-spacing: .12em; }
 
 .section { padding: 7.5rem 0; }.section-paper { background: var(--paper); }.section-stone { background: var(--stone); }
 .about-photo { min-height: 430px; background-position: 50% 12%; background-size: cover; border-top: 1px solid rgba(195,164,104,.76); border-right: 1px solid rgba(195,164,104,.76); box-shadow: 24px 24px 0 rgba(195,164,104,.09); }
