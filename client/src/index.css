@@ -568,3 +568,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 /* Texto introdutório da seção Sobre no mesmo padrão do corpo do texto. */
 @media (max-width: 720px) { .about-copy .lead-copy { font-family: inherit; font-size: .95rem; line-height: 1.95; } }
+
+/* Cabeçalho refinado: navegação centralizada, equilibrada e com melhor aproveitamento do espaço. */
+@media (min-width: 1021px) {
+  .nav-inner { min-height: 112px; gap: 2rem; }
+  .brand { flex: 0 0 260px; min-width: 260px; }
+  .desktop-nav { flex: 1 1 auto; justify-content: center; gap: clamp(1rem, 1.8vw, 2rem); padding: .45rem .8rem; }
+  .desktop-nav a { padding: .62rem .12rem; font-size: .88rem; letter-spacing: .005em; white-space: nowrap; }
+  .header-cta { flex: 0 0 auto; min-height: 48px; padding: .78rem 1.1rem; }
+}
