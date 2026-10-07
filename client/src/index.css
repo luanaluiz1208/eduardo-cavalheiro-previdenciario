@@ -725,3 +725,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .hero-portrait { height: 455px; }
   .portrait-index { bottom: 78px; }
 }
+
+/* Segunda foto com lateral limpa, sem o trilho decorativo excedente. */
+.about-section.traced-section::before,
+.about-section.traced-section::after { display: none; }
