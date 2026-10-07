@@ -110,7 +110,9 @@ export default function Home() {
 
       <section id="sobre" className="section section-paper about-section traced-section">
         <div className="content-width offset-grid">
-          <div className="section-intro narrow-intro about-photo" style={{ backgroundImage: "linear-gradient(180deg, rgba(11,31,58,0.06), rgba(11,31,58,0.48)), url('/assets/eduardo-ferreira-cavalheiro-segunda.jpeg')" }} aria-label="Eduardo Ferreira Cavalheiro em atendimento profissional" />
+          <div className="section-intro narrow-intro about-photo" aria-label="Eduardo Ferreira Cavalheiro em apresentação profissional">
+            <img src="/assets/eduardo-ferreira-cavalheiro-segunda.jpeg" alt="Eduardo Ferreira Cavalheiro" />
+          </div>
           <div className="about-copy">
             <h2 className="about-name">Eduardo Ferreira Cavalheiro</h2>
             <p className="lead-copy">É advogado especializado em Direito Previdenciário, com atuação voltada à defesa dos direitos dos segurados perante o INSS e o Poder Judiciário.</p>
