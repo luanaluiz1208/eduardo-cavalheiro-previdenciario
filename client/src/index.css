@@ -605,3 +605,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (min-width: 1021px) {
   .portrait-index { right: 100%; z-index: 4; margin-right: .45rem; transform: none; white-space: nowrap; }
 }
+
+/* Nosso compromisso: seção mais estreita, com a altura guiada pelo conteúdo. */
+.proof-section { padding: 3.6rem 0 4rem; overflow: hidden; }
+.proof-grid { gap: 4.5rem; align-items: start; }
+.proof-copy .gold-eyebrow { margin-bottom: 1rem; }
+.proof-logo { width: min(100%, 360px); margin-top: 0; }
+.proof-points article { padding: 1.2rem 0; }
+@media (max-width: 720px) {
+  .proof-section { padding: 3.4rem 0 3.6rem; }
+  .proof-grid { gap: 2.5rem; }
+  .proof-logo { width: min(100%, 360px); }
+}
