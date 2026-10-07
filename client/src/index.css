@@ -625,3 +625,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .proof-section { padding-bottom: 2.8rem; }
   .proof-logo { width: min(100%, 285px); }
 }
+
+/* Dúvidas frequentes com altura proporcional ao conteúdo, sem reduzir as letras. */
+.faq-section { padding: 4rem 0 4.5rem; overflow: hidden; }
+.faq-layout { gap: 4rem; }
+.faq-intro > p:not(.eyebrow) { margin-bottom: 1.2rem; }
+.faq-intro .button { margin-top: .35rem; }
+.faq-accordion [data-slot="accordion-trigger"] { padding: 1rem 0; }
+@media (max-width: 720px) {
+  .faq-section { padding: 3.5rem 0 3.8rem; }
+  .faq-layout { gap: 2.2rem; }
+}
