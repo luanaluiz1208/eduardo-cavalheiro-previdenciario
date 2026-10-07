@@ -651,3 +651,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .proof-section { padding-top: 2rem; padding-bottom: 2rem; }
   .faq-section { padding-top: 2.4rem; padding-bottom: 2.6rem; }
 }
+
+/* Contato otimizado: menos vazio, mais conteúdo útil na mesma área. */
+.contact-section { padding: 4rem 0 4.2rem; overflow: hidden; }
+.contact-layout { grid-template-columns: .9fr 1.1fr; gap: 3.5rem; }
+.contact-direct-list { gap: .35rem; margin-top: 1.4rem; }
+.location-note { margin-top: 1.25rem; padding: .7rem 0; }
+.contact-location-card { margin-top: 1rem; padding: .8rem .9rem; }
+.contact-form { padding: 1.4rem; }
+.form-heading { margin-bottom: 1rem; }
+.contact-form label { margin-bottom: .75rem; }
+.form-privacy { margin-top: .7rem; }
+@media (max-width: 720px) {
+  .contact-section { padding: 3.4rem 0 3.8rem; }
+  .contact-layout { gap: 2rem; }
+  .contact-form { padding: 1.2rem; }
+}
