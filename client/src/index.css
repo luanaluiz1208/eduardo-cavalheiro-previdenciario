@@ -600,3 +600,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .about-photo { min-height: 0; height: auto; display: block; overflow: hidden; background: transparent; }
 .about-photo > img { display: block; width: 100%; height: auto; object-fit: contain; object-position: center top; border-top: 1px solid rgba(195,164,104,.76); border-right: 1px solid rgba(195,164,104,.76); box-shadow: 24px 24px 0 rgba(195,164,104,.09); }
 @media (max-width: 720px) { .about-photo > img { width: 100%; height: auto; } }
+
+/* EC sempre visível ao lado da foto, sem ficar atrás do retrato. */
+@media (min-width: 1021px) {
+  .portrait-index { right: 100%; z-index: 4; margin-right: .45rem; transform: none; white-space: nowrap; }
+}
