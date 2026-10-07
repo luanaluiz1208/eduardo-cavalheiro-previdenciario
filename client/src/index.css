@@ -716,3 +716,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .faq-section { padding-top: 2.4rem; padding-bottom: 2.6rem; }
   .contact-section { padding-top: 3.4rem; padding-bottom: 3.8rem; }
 }
+
+/* Hero inicial mais fino, com conteúdo proporcional e melhor aproveitamento vertical. */
+@media (min-width: 1021px) {
+  .hero-section, .hero-grid { min-height: 570px; }
+  .hero-grid { padding-top: 2.4rem; }
+  .hero-copy { padding: 1.6rem 0 2.4rem; }
+  .hero-portrait { height: 455px; }
+  .portrait-index { bottom: 78px; }
+}
