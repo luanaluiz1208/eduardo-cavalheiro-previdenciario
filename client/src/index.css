@@ -676,3 +676,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 720px) {
   .area-card { padding: 1.2rem; }
 }
+
+/* Segunda foto menor, preservando integralmente a proporção original. */
+.about-photo > img { width: min(100%, 400px); margin-inline: auto; }
+@media (max-width: 720px) {
+  .about-photo > img { width: min(100%, 360px); margin-inline: auto; }
+}
