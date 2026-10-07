@@ -643,3 +643,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 720px) {
   .proof-section { padding-top: 2.8rem; padding-bottom: 2.6rem; }
 }
+
+/* Compactação final das seções institucionais, preservando texto e imagem. */
+.proof-section { padding-top: 1.8rem; padding-bottom: 1.6rem; }
+.faq-section { padding-top: 2.5rem; padding-bottom: 2.8rem; }
+@media (max-width: 720px) {
+  .proof-section { padding-top: 2rem; padding-bottom: 2rem; }
+  .faq-section { padding-top: 2.4rem; padding-bottom: 2.6rem; }
+}
