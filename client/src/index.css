@@ -617,3 +617,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .proof-grid { gap: 2.5rem; }
   .proof-logo { width: min(100%, 360px); }
 }
+
+/* Logo proporcional ao bloco textual e rodapé da seção mais enxuto. */
+.proof-section { padding-bottom: 2.4rem; }
+.proof-logo { width: min(100%, 285px); }
+@media (max-width: 720px) {
+  .proof-section { padding-bottom: 2.8rem; }
+  .proof-logo { width: min(100%, 285px); }
+}
