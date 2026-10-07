@@ -588,3 +588,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .desktop-nav a { padding: .5rem .2rem; }
   .desktop-nav a.active { color: var(--navy); }
 }
+
+/* Título principal em uma linha no desktop, aproveitando a largura disponível sem reduzir a tipografia. */
+@media (min-width: 1021px) {
+  .hero-grid { grid-template-columns: minmax(0, 1.55fr) minmax(280px, .65fr); gap: 2rem; }
+  .hero-copy { max-width: none; }
+  .hero-copy h1 { max-width: none; white-space: nowrap; }
+}
