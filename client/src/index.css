@@ -682,3 +682,22 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 720px) {
   .about-photo > img { width: min(100%, 360px); margin-inline: auto; }
 }
+
+/* Ritmo global refinado: melhor aproveitamento das laterais e menos áreas vazias. */
+.content-width { width: min(1440px, calc(100% - 64px)); }
+.section { padding-top: 5.6rem; padding-bottom: 5.6rem; }
+.offset-grid { gap: 5rem; }
+.process-layout { gap: 4.8rem; }
+.section-heading-row { margin-bottom: 2.4rem; }
+
+@media (max-width: 1020px) {
+  .content-width { width: min(100% - 48px, 920px); }
+  .offset-grid, .process-layout, .faq-layout, .contact-layout { gap: 3rem; }
+}
+
+@media (max-width: 720px) {
+  .content-width { width: min(100% - 32px, 620px); }
+  .section { padding-top: 4rem; padding-bottom: 4rem; }
+  .offset-grid, .process-layout, .faq-layout, .contact-layout { gap: 2rem; }
+  .section-heading-row { margin-bottom: 1.8rem; }
+}
