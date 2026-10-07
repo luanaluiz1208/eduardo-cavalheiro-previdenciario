@@ -667,3 +667,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .contact-layout { gap: 2rem; }
   .contact-form { padding: 1.2rem; }
 }
+
+/* Cards de áreas com altura guiada pelo conteúdo, sem quadrados vazios. */
+.areas-grid { align-items: start; }
+.area-card { min-height: 0; height: auto; justify-content: flex-start; align-self: start; gap: 1rem; padding: 1.3rem; }
+.area-card > div:nth-child(2) { flex: 0 0 auto; }
+.area-card .card-link { margin-top: .35rem; }
+@media (max-width: 720px) {
+  .area-card { padding: 1.2rem; }
+}
