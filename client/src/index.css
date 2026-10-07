@@ -701,3 +701,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .offset-grid, .process-layout, .faq-layout, .contact-layout { gap: 2rem; }
   .section-heading-row { margin-bottom: 1.8rem; }
 }
+
+/* Aproximação visual entre assuntos: menos vazio entre seções, sem reduzir a tipografia. */
+.section { padding-top: 4.2rem; padding-bottom: 4.2rem; }
+.about-section, .areas-section, .process-section { padding-top: 4rem; padding-bottom: 4rem; }
+.proof-section { padding-top: 1.8rem; padding-bottom: 1.6rem; }
+.faq-section { padding-top: 2.5rem; padding-bottom: 2.8rem; }
+.contact-section { padding-top: 4rem; padding-bottom: 4.2rem; }
+
+@media (max-width: 720px) {
+  .section { padding-top: 3.2rem; padding-bottom: 3.2rem; }
+  .about-section, .areas-section, .process-section { padding-top: 3.3rem; padding-bottom: 3.3rem; }
+  .proof-section { padding-top: 2rem; padding-bottom: 2rem; }
+  .faq-section { padding-top: 2.4rem; padding-bottom: 2.6rem; }
+  .contact-section { padding-top: 3.4rem; padding-bottom: 3.8rem; }
+}
