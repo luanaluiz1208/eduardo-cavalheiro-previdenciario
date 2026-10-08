@@ -739,3 +739,49 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 /* Primeira foto mais limpa, sem monograma e número da OAB sobrepostos. */
 .portrait-index { display: none; }
+
+/* Compactação estética global: máximo aproveitamento sem comprometer a leitura. */
+.content-width { width: min(1440px, calc(100% - 40px)); }
+.section { padding-top: 3.2rem; padding-bottom: 3.2rem; }
+.offset-grid, .process-layout, .faq-layout, .contact-layout { gap: 2.5rem; }
+.section-heading-row { margin-bottom: 1.7rem; }
+.areas-section, .about-section, .process-section { padding-top: 3.2rem; padding-bottom: 3.2rem; }
+.proof-section { padding-top: 1.5rem; padding-bottom: 1.3rem; }
+.faq-section { padding-top: 2rem; padding-bottom: 2.2rem; }
+.contact-section { padding-top: 3rem; padding-bottom: 3.2rem; }
+
+/* Blog: primeira dobra, destaque, grade e artigos com menos espaço improdutivo. */
+.blog-hero { padding: 3rem 0 2.7rem; }
+.blog-featured-section { padding: 2.6rem 0 2.3rem; }
+.blog-featured-card { min-height: 0; }
+.blog-featured-copy { padding: 2.5rem; }
+.blog-list-section { padding: 1.6rem 0 3.5rem; }
+.blog-list-header { gap: 1rem; }
+.blog-grid { gap: .75rem; }
+.blog-card { min-height: 0; padding: 1.25rem; }
+.blog-card h3 { margin-top: 1.8rem; }
+.blog-disclaimer { padding: .8rem 0 1rem; }
+.blog-disclaimer-inner { gap: 1.2rem; }
+.article-header { padding: 3.2rem 0 3.5rem; }
+.article-layout { gap: 3rem; padding-top: 3.2rem; padding-bottom: 3.8rem; }
+
+@media (max-width: 1020px) {
+  .content-width { width: min(100% - 32px, 920px); }
+}
+
+@media (max-width: 720px) {
+  .content-width { width: min(100% - 24px, 620px); }
+  .section { padding-top: 2.7rem; padding-bottom: 2.7rem; }
+  .areas-section, .about-section, .process-section { padding-top: 2.7rem; padding-bottom: 2.7rem; }
+  .proof-section { padding-top: 1.8rem; padding-bottom: 1.8rem; }
+  .faq-section { padding-top: 2rem; padding-bottom: 2.2rem; }
+  .contact-section { padding-top: 2.8rem; padding-bottom: 3rem; }
+  .blog-hero { padding: 2.6rem 0 2.3rem; }
+  .blog-featured-section { padding: 2rem 0 1.8rem; }
+  .blog-featured-copy { padding: 1.5rem; }
+  .blog-list-section { padding: 1.2rem 0 2.8rem; }
+  .blog-card { padding: 1.1rem; }
+  .blog-disclaimer { padding: .7rem 0 .8rem; }
+  .article-header { padding: 2.7rem 0 3rem; }
+  .article-layout { gap: 2rem; padding-top: 2.5rem; padding-bottom: 3rem; }
+}
