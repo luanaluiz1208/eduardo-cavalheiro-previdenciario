@@ -732,3 +732,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 /* Moldura lateral da segunda foto: linha dourada diretamente junto à imagem. */
 .about-photo > img { border-left: 1px solid rgba(195,164,104,.76); }
+
+/* Linha decorativa da seção de apresentação restaurada. */
+.about-section.traced-section::before { display: block; }
+.about-section.traced-section::after { display: block; }
