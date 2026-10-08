@@ -736,3 +736,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 /* Linha decorativa da seção de apresentação restaurada. */
 .about-section.traced-section::before { display: block; }
 .about-section.traced-section::after { display: block; }
+
+/* Primeira foto mais limpa, sem monograma e número da OAB sobrepostos. */
+.portrait-index { display: none; }
