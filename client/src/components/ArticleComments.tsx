@@ -105,6 +105,7 @@ export default function ArticleComments({ slug }: { slug: string }) {
           Comentário
           <textarea required value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Escreva seu comentário" rows={4} maxLength={2000} />
         </label>
+        <p className="comment-privacy-note">Não publique documentos ou dados sensíveis. Seu e-mail não aparece no site e é usado apenas para avisar sobre respostas. Consulte o <a href="/privacidade">aviso de privacidade</a>.</p>
         <button type="submit" className="button button-navy form-submit" disabled={status === "sending"}>
           {status === "sending" ? "Enviando..." : "Publicar comentário"}
         </button>

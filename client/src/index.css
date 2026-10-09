@@ -794,3 +794,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
   border-bottom: 0;
   border-left: 1px solid rgba(195,164,104,.76);
 }
+
+/* Aviso público de privacidade: leitura clara e acessível a partir dos formulários. */
+.privacy-page { background: var(--paper); padding: 4.5rem 0 5.5rem; }
+.privacy-page-inner { max-width: 900px; }
+.privacy-page h1 { max-width: 720px; margin: .7rem 0 .8rem; color: var(--navy); font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(3.2rem, 7vw, 5.8rem); line-height: .92; letter-spacing: -.04em; }
+.privacy-lead { max-width: 680px; margin: 0; color: #526172; font-size: 1.08rem; line-height: 1.75; }
+.privacy-updated { margin: 1rem 0 3rem; color: #77818c; font-size: .78rem; }
+.privacy-content { max-width: 760px; border-top: 1px solid var(--line); }
+.privacy-content section { padding: 1.8rem 0; border-bottom: 1px solid var(--line); }
+.privacy-content h2 { margin: 0 0 .65rem; color: var(--navy); font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(1.65rem, 3vw, 2.25rem); line-height: 1; }
+.privacy-content p { margin: 0; color: #526172; font-size: .92rem; line-height: 1.85; }
+.privacy-contact { display: inline-flex; align-items: center; gap: .45rem; margin-top: 1rem; color: var(--navy); font-weight: 700; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: .2rem; }
+.form-privacy a, .comment-privacy-note a { color: var(--navy); font-weight: 700; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: .15rem; }
+.comment-privacy-note { margin: -.2rem 0 1rem; color: #6c7886; font-size: .74rem; line-height: 1.6; }
+@media (max-width: 700px) { .privacy-page { padding: 3rem 0 4rem; } .privacy-updated { margin-bottom: 2rem; } }

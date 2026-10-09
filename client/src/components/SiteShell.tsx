@@ -98,6 +98,7 @@ export default function SiteShell({ children }: SiteShellProps) {
         <div className="content-width footer-bottom">
           <p>© {new Date().getFullYear()} Eduardo Ferreira Cavalheiro. OAB/RJ nº 26.639/23.</p>
           <p>Conteúdo informativo. A análise depende das particularidades de cada caso.</p>
+          <Link href="/privacidade">Aviso de privacidade</Link>
         </div>
       </footer>
 

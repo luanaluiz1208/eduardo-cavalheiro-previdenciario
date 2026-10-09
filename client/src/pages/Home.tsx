@@ -222,7 +222,7 @@ Seu trabalho é pautado em análise técnica, estratégia jurídica e atendiment
             <label>Como podemos ajudar?<textarea value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} rows={4} placeholder="Descreva brevemente sua dúvida ou situação." /></label>
             <button className="button button-navy form-submit" type="submit"><Send size={18} aria-hidden="true" /> Enviar para o WhatsApp</button>
             {sentMessage && <p className="form-message" role="status">{sentMessage}</p>}
-            <p className="form-privacy">Não envie senhas, dados bancários ou informações sigilosas por este formulário. O contato inicial não substitui análise jurídica individual.</p>
+            <p className="form-privacy">Não envie senhas, dados bancários, documentos ou informações sigilosas por este formulário. O contato inicial não substitui análise jurídica individual. Consulte o <Link href="/privacidade">aviso de privacidade</Link>.</p>
           </form>
         </div>
       </section>

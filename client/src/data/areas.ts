@@ -176,7 +176,7 @@ export const areas: PracticeArea[] = [
   },
   {
     slug: "aposentadoria-do-professor",
-    number: "15",
+    number: "14",
     title: "Aposentadoria do Professor",
     shortTitle: "Professor",
     summary: "Orientação para professores da educação infantil, ensino fundamental e ensino médio, com análise do efetivo exercício do magistério.",
@@ -187,7 +187,7 @@ export const areas: PracticeArea[] = [
   },
   {
     slug: "auxilio-reclusao",
-    number: "16",
+    number: "15",
     title: "Auxílio-Reclusão",
     shortTitle: "Auxílio-reclusão",
     summary: "Benefício destinado aos dependentes de segurado de baixa renda preso em regime fechado, conforme os requisitos legais.",
@@ -198,7 +198,7 @@ export const areas: PracticeArea[] = [
   },
   {
     slug: "reconhecimento-tempo-ctc",
-    number: "17",
+    number: "16",
     title: "Reconhecimento de Tempo, Averbação e CTC",
     shortTitle: "Tempo e CTC",
     summary: "Reconhecimento de períodos de trabalho, serviço militar, atividade rural e regimes próprios que não aparecem corretamente no CNIS.",
@@ -209,7 +209,7 @@ export const areas: PracticeArea[] = [
   },
   {
     slug: "servidores-publicos-rpps",
-    number: "18",
+    number: "17",
     title: "Servidores Públicos",
     shortTitle: "Serviço público",
     summary: "Análise de aposentadoria e pensão para servidores vinculados a regimes próprios da União, estados e municípios.",
@@ -220,7 +220,7 @@ export const areas: PracticeArea[] = [
   },
   {
     slug: "cortes-cancelamentos-descontos",
-    number: "19",
+    number: "18",
     title: "Cortes, Cancelamentos e Descontos Indevidos",
     shortTitle: "Cortes e descontos",
     summary: "Defesa de beneficiários diante de suspensões, cancelamentos, cobranças de devolução e descontos não autorizados.",
@@ -231,7 +231,7 @@ export const areas: PracticeArea[] = [
   },
   {
     slug: "acoes-judiciais-previdenciarias",
-    number: "20",
+    number: "19",
     title: "Ações Judiciais Previdenciárias e Recursos",
     shortTitle: "Ações e recursos",
     summary: "Atuação quando o benefício foi negado, cortado, concedido em valor menor ou quando há demora excessiva do INSS.",
