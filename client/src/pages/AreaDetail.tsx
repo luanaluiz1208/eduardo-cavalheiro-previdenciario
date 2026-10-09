@@ -3,7 +3,7 @@
  * Conteúdo: informativo, com requisitos gerais e alerta de análise individual para não induzir promessa de concessão.
  */
 
-import { ArrowLeft, ArrowRight, Check, FileText, MessageCircle, Scale, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, MessageCircle, Scale, ShieldCheck } from "lucide-react";
 import { Link, useParams } from "wouter";
 import SiteShell from "@/components/SiteShell";
 import { areas, whatsappLink } from "@/data/areas";
@@ -48,7 +48,6 @@ export default function AreaDetail() {
             <a href="#quem-tem-direito">Quem pode ter direito</a>
             <a href="#requisitos-gerais">Requisitos gerais</a>
             <a href="#como-auxiliamos">Como podemos auxiliar</a>
-            <a href="#documentos-iniciais">Documentos iniciais</a>
             <a className="aside-contact" href={whatsappLink(contactMessage)} target="_blank" rel="noreferrer"><MessageCircle size={16} aria-hidden="true" /> Tirar uma dúvida</a>
           </aside>
 
@@ -77,13 +76,6 @@ export default function AreaDetail() {
               <a href={whatsappLink(contactMessage)} className="button button-navy" target="_blank" rel="noreferrer"><MessageCircle size={18} aria-hidden="true" /> Solicitar orientação</a>
             </article>
 
-            <article className="detail-block documents-block" id="documentos-iniciais">
-              <div className="documents-heading"><FileText size={23} strokeWidth={1.5} aria-hidden="true" /><div><p className="eyebrow">Para começar</p><h2>Documentos que podem ajudar na primeira análise</h2></div></div>
-              <div className="documents-grid">
-                {area.documents.map((document) => <div key={document}><span>{area.number}</span><p>{document}</p></div>)}
-              </div>
-              <p className="documents-note">A documentação necessária pode ser ampliada após a análise da sua situação. Não é preciso reunir tudo antes do primeiro contato.</p>
-            </article>
           </div>
         </div>
       </section>
