@@ -785,3 +785,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .article-header { padding: 2.7rem 0 3rem; }
   .article-layout { gap: 2rem; padding-top: 2.5rem; padding-bottom: 3rem; }
 }
+
+/* Limpeza definitiva: a moldura pertence à imagem, não ao contêiner externo. */
+.about-photo { border: 0; box-shadow: none; }
+.about-photo > img {
+  border-top: 1px solid rgba(195,164,104,.76);
+  border-right: 1px solid rgba(195,164,104,.76);
+  border-bottom: 0;
+  border-left: 1px solid rgba(195,164,104,.76);
+}
