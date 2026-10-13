@@ -809,3 +809,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .form-privacy a, .comment-privacy-note a { color: var(--navy); font-weight: 700; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: .15rem; }
 .comment-privacy-note { margin: -.2rem 0 1rem; color: #6c7886; font-size: .74rem; line-height: 1.6; }
 @media (max-width: 700px) { .privacy-page { padding: 3rem 0 4rem; } .privacy-updated { margin-bottom: 2rem; } }
+
+/* Cards de áreas alinhados: cada linha da grade usa a mesma altura e o conteúdo não cria degraus laterais. */
+.areas-grid { align-items: stretch; }
+.area-card { min-height: 0; height: 100%; align-self: stretch; justify-content: space-between; }
+@media (max-width: 720px) {
+  .area-card { height: auto; min-height: 230px; }
+}
