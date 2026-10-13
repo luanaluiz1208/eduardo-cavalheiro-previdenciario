@@ -962,3 +962,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .blog-featured-index { min-height: 5.5rem; padding: 1rem 1.25rem; }
   .blog-featured-index strong { font-size: 3.5rem; }
 }
+
+/* Nota de leitura compacta: informação preservada com presença visual mínima. */
+.blog-disclaimer { padding: .45rem 0 .55rem; }
+.blog-disclaimer-inner { grid-template-columns: 10rem 1fr; gap: 1rem; }
+.blog-disclaimer-inner .eyebrow { font-size: .57rem; letter-spacing: .12em; }
+.blog-disclaimer-inner p:last-child { font-size: .68rem; line-height: 1.35; }
+@media (max-width: 640px) {
+  .blog-disclaimer { padding: .5rem 0 .6rem; }
+  .blog-disclaimer-inner { display: grid; grid-template-columns: 7.5rem 1fr; gap: .7rem; align-items: center; }
+  .blog-disclaimer-inner p:last-child { font-size: .63rem; }
+}
