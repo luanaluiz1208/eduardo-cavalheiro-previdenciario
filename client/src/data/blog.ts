@@ -74,16 +74,19 @@ export function getBlogArticle(slug: string) {
 export const blogCategories = ["Todos", ...Array.from(new Set(blogArticles.map((article) => article.category)))];
 
 const monthIndexes: Record<string, number> = {
-  jan: 0, fev: 1, mar: 2, abr: 3, mai: 4, jun: 5,
-  jul: 6, ago: 7, set: 8, out: 9, nov: 10, dez: 11,
+  jan: 0, janeiro: 0, fev: 1, fevereiro: 1, mar: 2, março: 2, abr: 3, abril: 3,
+  mai: 4, maio: 4, jun: 5, junho: 5, jul: 6, julho: 6, ago: 7, agosto: 7,
+  set: 8, setembro: 8, out: 9, outubro: 9, nov: 10, novembro: 10, dez: 11, dezembro: 11,
 };
 
 function articleTimestamp(article: BlogArticle) {
-  const nativeDate = Date.parse(article.date);
+  const normalizedDate = article.date.toLocaleLowerCase("pt-BR").replace(/\s+de\s+/g, " ").replace(/\s+/g, " ").trim();
+  const nativeDate = Date.parse(normalizedDate);
   if (!Number.isNaN(nativeDate)) return nativeDate;
-  const match = article.date.toLocaleLowerCase("pt-BR").match(/(\d{1,2})\s+([a-zç]{3})\.?\s+(\d{4})/);
+  const match = normalizedDate.match(/(\d{1,2})\s+([a-zç]+)\.?\s+(\d{4})/);
   if (!match) return 0;
-  return new Date(Number(match[3]), monthIndexes[match[2]] ?? 0, Number(match[1])).getTime();
+  const month = monthIndexes[match[2].replace(/\.$/, "").trim()];
+  return month === undefined ? 0 : new Date(Number(match[3]), month, Number(match[1])).getTime();
 }
 
 export function sortBlogArticles(articles: BlogArticle[]) {
