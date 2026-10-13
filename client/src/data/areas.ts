@@ -16,7 +16,13 @@ export type AreaIcon =
   | "family"
   | "wheat"
   | "refresh"
-  | "accessibility";
+  | "accessibility"
+  | "graduation"
+  | "lock"
+  | "fileClock"
+  | "building"
+  | "scale"
+  | "gavel";
 
 export type PracticeArea = {
   slug: string;
@@ -183,7 +189,7 @@ export const areas: PracticeArea[] = [
     who: "Professores que comprovam efetivo exercício de magistério na educação infantil, no ensino fundamental ou no ensino médio. Funções fora da sala de aula exigem análise do caso.",
     requirements: ["Regra permanente: 60 anos para homens e 57 para mulheres, com 25 anos de efetivo exercício de magistério.", "Regras de transição específicas para quem já era filiado ao INSS.", "Direito adquirido para quem completou os requisitos antes da reforma.", "Prova por declarações escolares, contratos, folhas de pagamento e registros funcionais."],
     support: "Verificação do enquadramento, planejamento da transição, simulação das datas, reconhecimento de períodos de docência e atuação judicial quando houver negativa.",
-    icon: "compass",
+    icon: "graduation",
   },
   {
     slug: "auxilio-reclusao",
@@ -194,7 +200,7 @@ export const areas: PracticeArea[] = [
     who: "Dependentes do segurado do INSS de baixa renda que esteja preso em regime fechado.",
     requirements: ["Qualidade de segurado na data da prisão.", "Último salário de contribuição abaixo do limite atualizado em portaria.", "Carência de 24 contribuições mensais.", "Prisão em regime fechado e comprovação periódica da permanência nessa condição."],
     support: "Reunião da certidão carcerária e das provas de dependência, requerimento administrativo, recurso e ação judicial para concessão e cobrança de atrasados.",
-    icon: "shield",
+    icon: "lock",
   },
   {
     slug: "reconhecimento-tempo-ctc",
@@ -205,7 +211,7 @@ export const areas: PracticeArea[] = [
     who: "Trabalhadores com períodos sem registro, serviço militar, atividade rural, tempo em regime próprio ou outros períodos ausentes no CNIS.",
     requirements: ["Prova do período por documentos da época, testemunhas e, quando cabível, decisões trabalhistas.", "Para alguns períodos, pode ser necessário pagar contribuições em atraso.", "A CTC permite levar tempo do INSS para regime próprio e vice-versa."],
     support: "Pedido de justificação administrativa ou judicial, uso de sentenças trabalhistas, solicitação e conferência de CTC e ação para reconhecimento de tempo recusado.",
-    icon: "route",
+    icon: "fileClock",
   },
   {
     slug: "servidores-publicos-rpps",
@@ -216,7 +222,7 @@ export const areas: PracticeArea[] = [
     who: "Servidores titulares de cargo efetivo vinculados a regimes próprios e seus dependentes, inclusive em pedidos de pensão por morte.",
     requirements: ["Regras próprias de cada ente, com idade, tempo de contribuição, serviço público e tempo no cargo.", "Regras de transição para quem ingressou antes da reforma, inclusive integralidade e paridade quando cabíveis.", "Os requisitos variam conforme o ente federativo e a data de ingresso."],
     support: "Análise da regra e da melhor data, reconhecimento de tempo anterior por CTC e medidas administrativas ou judiciais contra indeferimento ou cálculo incorreto.",
-    icon: "badge",
+    icon: "building",
   },
   {
     slug: "cortes-cancelamentos-descontos",
@@ -227,7 +233,7 @@ export const areas: PracticeArea[] = [
     who: "Beneficiários com benefício suspenso, cessado ou reduzido sem justificativa, cobrança de valores ou descontos associativos e consignados não autorizados.",
     requirements: ["O INSS deve respeitar contraditório e ampla defesa antes de cortar ou cobrar valores.", "Valores recebidos de boa-fé podem ter proteção contra devolução, conforme o caso.", "Descontos não autorizados podem gerar devolução e indenização.", "Recursos e ações devem observar os prazos específicos."],
     support: "Recurso contra corte ou cobrança, restabelecimento judicial com urgência, cancelamento de descontos, devolução quando cabível e defesa em processos de revisão.",
-    icon: "refresh",
+    icon: "scale",
   },
   {
     slug: "acoes-judiciais-previdenciarias",
@@ -238,7 +244,7 @@ export const areas: PracticeArea[] = [
     who: "Qualquer segurado ou dependente que teve benefício negado, cortado, concedido com valor menor ou que enfrenta demora injustificada.",
     requirements: ["Requerimento administrativo prévio, em regra, ou comprovação da negativa.", "Juizados Especiais Federais para causas de até 60 salários mínimos e Justiça Federal comum para valores maiores.", "Possibilidade de recurso ao CRPS e de mandado de segurança em caso de demora injustificada."],
     support: "Elaboração da ação com tutela de urgência quando cabível, acompanhamento de perícias e audiências, recursos, execução da sentença e recebimento de atrasados.",
-    icon: "route",
+    icon: "gavel",
   },
 ];
 

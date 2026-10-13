@@ -7,9 +7,9 @@ import { FormEvent, useState, type ComponentType } from "react";
 import { Link } from "wouter";
 import {
   Accessibility, Activity, ArrowDownRight, ArrowRight, Baby, BadgeCheck, BookOpen,
-  CalendarDays, Check, Compass, FileCheck2, HandHeart, HeartPulse, Instagram,
-  Mail, MapPin, MessageCircle, Phone, Quote, RefreshCcw, Route, Send, ShieldCheck,
-  UsersRound, Wheat,
+  Building2, CalendarDays, Check, Compass, FileCheck2, FileClock, Gavel, GraduationCap,
+  HandHeart, HeartPulse, Instagram, LockKeyhole, Mail, MapPin, MessageCircle,
+  Phone, Quote, RefreshCcw, Route, Scale, Send, ShieldCheck, UsersRound, Wheat,
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SiteShell from "@/components/SiteShell";
@@ -30,6 +30,12 @@ const iconMap: Record<AreaIcon, ComponentType<{ size?: number; strokeWidth?: num
   wheat: Wheat,
   refresh: RefreshCcw,
   accessibility: Accessibility,
+  graduation: GraduationCap,
+  lock: LockKeyhole,
+  fileClock: FileClock,
+  building: Building2,
+  scale: Scale,
+  gavel: Gavel,
 };
 
 
@@ -153,7 +159,7 @@ Seu trabalho é pautado em análise técnica, estratégia jurídica e atendiment
             const Icon = iconMap[area.icon];
             return (
               <Link href={`/areas/${area.slug}`} className="area-card" key={area.slug}>
-                <div className="area-card-top"><span className="area-number">{area.number}</span><Icon size={22} strokeWidth={1.6} aria-hidden="true" /></div>
+                <div className="area-card-top"><span className="area-number">{area.number}</span><span className="area-icon"><Icon size={21} strokeWidth={1.7} aria-hidden="true" /></span></div>
                 <div><h3>{area.title}</h3><p>{area.summary}</p></div>
                 <span className="card-link">Ver orientações <ArrowRight size={16} aria-hidden="true" /></span>
               </Link>
