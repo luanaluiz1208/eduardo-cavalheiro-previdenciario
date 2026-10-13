@@ -73,6 +73,23 @@ export function getBlogArticle(slug: string) {
 
 export const blogCategories = ["Todos", ...Array.from(new Set(blogArticles.map((article) => article.category)))];
 
+const monthIndexes: Record<string, number> = {
+  jan: 0, fev: 1, mar: 2, abr: 3, mai: 4, jun: 5,
+  jul: 6, ago: 7, set: 8, out: 9, nov: 10, dez: 11,
+};
+
+function articleTimestamp(article: BlogArticle) {
+  const nativeDate = Date.parse(article.date);
+  if (!Number.isNaN(nativeDate)) return nativeDate;
+  const match = article.date.toLocaleLowerCase("pt-BR").match(/(\d{1,2})\s+([a-zç]{3})\.?\s+(\d{4})/);
+  if (!match) return 0;
+  return new Date(Number(match[3]), monthIndexes[match[2]] ?? 0, Number(match[1])).getTime();
+}
+
+export function sortBlogArticles(articles: BlogArticle[]) {
+  return [...articles].sort((first, second) => articleTimestamp(second) - articleTimestamp(first));
+}
+
 export function useBlogArticles() {
   const [articles, setArticles] = useState<BlogArticle[]>(blogArticles);
 
@@ -92,6 +109,6 @@ export function useBlogArticles() {
     return () => { active = false; };
   }, []);
 
-  return articles.filter((article) => article.published !== false);
+  return sortBlogArticles(articles.filter((article) => article.published !== false));
 }
 import { useEffect, useState } from "react";
