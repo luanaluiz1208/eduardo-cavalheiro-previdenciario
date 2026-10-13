@@ -973,3 +973,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .blog-disclaimer-inner { display: grid; grid-template-columns: 7.5rem 1fr; gap: .7rem; align-items: center; }
   .blog-disclaimer-inner p:last-child { font-size: .63rem; }
 }
+
+/* Hero do blog mais fino: aproxima o conteúdo das bordas sem perder respiro editorial. */
+.blog-hero { padding: 2.9rem 0 2.15rem; }
+.blog-topic-shortcuts { margin-top: 1.55rem; }
+@media (max-width: 640px) {
+  .blog-hero { padding: 2.35rem 0 1.75rem; }
+  .blog-topic-shortcuts { margin-top: 1.35rem; }
+}
