@@ -6,13 +6,14 @@ import { whatsappLink } from "@/data/areas";
 
 type Mode = "login" | "email" | "phone";
 const inputClass = "mt-2 w-full rounded-none border border-slate-300 bg-white px-3 py-3 text-sm outline-none transition focus:border-[#8d6b31] focus:ring-2 focus:ring-[#c3a468]/30";
+const adminRecoveryPhone = "22 998037866";
 
 export default function AdminLogin() {
   const [, setLocation] = useLocation();
   const [mode, setMode] = useState<Mode>("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(adminRecoveryPhone);
   const [loading, setLoading] = useState(false);
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
