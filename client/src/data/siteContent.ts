@@ -43,6 +43,16 @@ export type HomeEditableContent = {
   areas: PracticeArea[];
 };
 
+export type SiteImageKey = "heroBackground" | "heroPortrait" | "aboutPortrait" | "commitmentLogo" | "headerLogo";
+export type SiteImages = Record<SiteImageKey, string>;
+export const siteImageDefaults: SiteImages = {
+  heroBackground: "/assets/hero-arquivo-previdenciario.jpg",
+  heroPortrait: "/assets/eduardo-ferreira-cavalheiro-principal.jpeg",
+  aboutPortrait: "/assets/eduardo-ferreira-cavalheiro-segunda.jpeg",
+  commitmentLogo: "/assets/logo-eduardo-ferreira-cavalheiro-original.jpeg",
+  headerLogo: "/assets/logo-eduardo-ferreira-cavalheiro-header.png",
+};
+
 export const homeContentDefaults: HomeEditableContent = {
   heroKicker: "Direito Previdenciário",
   heroPrimaryCta: "Conversar pelo WhatsApp",
@@ -95,6 +105,11 @@ export function parseHomeContent(value?: string): HomeEditableContent {
   } catch { return homeContentDefaults; }
 }
 
+export function parseSiteImages(value?: string): SiteImages {
+  if (!value) return siteImageDefaults;
+  try { return { ...siteImageDefaults, ...(JSON.parse(value) as Partial<SiteImages>) }; } catch { return siteImageDefaults; }
+}
+
 export function mapsSearchLink(address: string) { return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`; }
 export function mapsDirectionsLink(address: string) { return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`; }
 
@@ -120,4 +135,16 @@ export function useHomeContent(): HomeEditableContent {
     return () => { active = false; };
   }, []);
   return content;
+}
+
+export function useSiteImages(): SiteImages {
+  const [images, setImages] = useState<SiteImages>(siteImageDefaults);
+  useEffect(() => {
+    let active = true;
+    fetch("/api/content").then((response) => response.ok ? response.json() : null).then((payload: { content?: Record<string, string> } | null) => {
+      if (active) setImages(parseSiteImages(payload?.content?.homeImages));
+    }).catch(() => undefined);
+    return () => { active = false; };
+  }, []);
+  return images;
 }

@@ -7,7 +7,7 @@ import { useState, type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
 import { Instagram, Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { whatsappLink } from "@/data/areas";
-import { mapsSearchLink, useSiteContent } from "@/data/siteContent";
+import { mapsSearchLink, useSiteContent, useSiteImages } from "@/data/siteContent";
 
 type SiteShellProps = {
   children: ReactNode;
@@ -25,6 +25,7 @@ export default function SiteShell({ children }: SiteShellProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [location] = useLocation();
   const content = useSiteContent();
+  const images = useSiteImages();
   const officeMapsLink = mapsSearchLink(content.officeAddress);
 
   const closeMenu = () => setMenuOpen(false);
@@ -41,7 +42,7 @@ export default function SiteShell({ children }: SiteShellProps) {
       <header className="site-header">
         <div className="content-width nav-inner">
           <Link href="/" className="brand" aria-label="Página inicial de Eduardo Ferreira Cavalheiro">
-            <img src="/assets/logo-eduardo-ferreira-cavalheiro-header.png" alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário — OAB/RJ nº 26.639/23" className="brand-logo" />
+            <img src={images.headerLogo} alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário — OAB/RJ nº 26.639/23" className="brand-logo" />
           </Link>
 
           <nav className="desktop-nav" aria-label="Navegação principal">
@@ -74,7 +75,7 @@ export default function SiteShell({ children }: SiteShellProps) {
         <div className="content-width footer-grid">
           <div className="footer-brand">
             <Link href="/" className="footer-logo-link" aria-label="Voltar ao início">
-              <img src="/assets/logo-eduardo-ferreira-cavalheiro-header.png" alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="footer-logo" />
+              <img src={images.headerLogo} alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="footer-logo" />
             </Link>
           </div>
           <div className="footer-column">

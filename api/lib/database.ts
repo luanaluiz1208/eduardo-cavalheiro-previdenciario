@@ -1,7 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 import sanitizeHtml from "sanitize-html";
 
-export type ContentKey = "heroTitle" | "heroDescription" | "officeAddress" | "officeHours" | "whatsapp" | "email" | "instagram" | "tiktok" | "homeContent";
+export type ContentKey = "heroTitle" | "heroDescription" | "officeAddress" | "officeHours" | "whatsapp" | "email" | "instagram" | "tiktok" | "homeContent" | "homeImages";
 
 export type ArticleInput = {
   slug: string;

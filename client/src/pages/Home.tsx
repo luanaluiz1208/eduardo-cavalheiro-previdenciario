@@ -14,7 +14,7 @@ import {
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SiteShell from "@/components/SiteShell";
 import { type AreaIcon, whatsappLink } from "@/data/areas";
-import { mapsDirectionsLink, mapsSearchLink, useHomeContent, useSiteContent } from "@/data/siteContent";
+import { mapsDirectionsLink, mapsSearchLink, useHomeContent, useSiteContent, useSiteImages } from "@/data/siteContent";
 
 const iconMap: Record<AreaIcon, ComponentType<{ size?: number; strokeWidth?: number }>> = {
   calendar: CalendarDays,
@@ -43,6 +43,7 @@ const iconMap: Record<AreaIcon, ComponentType<{ size?: number; strokeWidth?: num
 export default function Home() {
   const content = useSiteContent();
   const home = useHomeContent();
+  const images = useSiteImages();
   const officeAddress = content.officeAddress;
   const officeMapsLink = mapsSearchLink(officeAddress);
   const officeDirectionsLink = mapsDirectionsLink(officeAddress);
@@ -59,7 +60,7 @@ export default function Home() {
   return (
     <SiteShell>
       <section className="hero-section" aria-labelledby="hero-title">
-        <div className="hero-background" style={{ backgroundImage: "linear-gradient(90deg, rgba(11,31,58,0.98) 0%, rgba(11,31,58,0.93) 47%, rgba(11,31,58,0.66) 100%), url('/assets/hero-arquivo-previdenciario.jpg')" }} />
+        <div className="hero-background" style={{ backgroundImage: `linear-gradient(90deg, rgba(11,31,58,0.98) 0%, rgba(11,31,58,0.93) 47%, rgba(11,31,58,0.66) 100%), url('${images.heroBackground}')` }} />
         <div className="hero-journey-rail" aria-hidden="true"><span>01</span><i /></div>
         <div className="content-width hero-grid">
           <div className="hero-copy">
@@ -80,7 +81,7 @@ export default function Home() {
           <div className="hero-portrait-wrap" aria-label="Eduardo Ferreira Cavalheiro">
             <div className="portrait-index" aria-hidden="true">EC<br /><span>26.639/23</span></div>
             <div className="portrait-frame">
-              <img src="/assets/eduardo-ferreira-cavalheiro-principal.jpeg" alt="Eduardo Ferreira Cavalheiro" className="hero-portrait" />
+              <img src={images.heroPortrait} alt="Eduardo Ferreira Cavalheiro" className="hero-portrait" />
               <div className="portrait-caption"><span>Eduardo Ferreira Cavalheiro</span><small>Advogado Previdenciarista · OAB/RJ nº 26.639/23</small></div>
             </div>
           </div>
@@ -90,7 +91,7 @@ export default function Home() {
       <section id="sobre" className="section section-paper about-section traced-section">
         <div className="content-width offset-grid">
           <div className="section-intro narrow-intro about-photo" aria-label="Eduardo Ferreira Cavalheiro em apresentação profissional">
-            <img src="/assets/eduardo-ferreira-cavalheiro-segunda.jpeg" alt="Eduardo Ferreira Cavalheiro" />
+            <img src={images.aboutPortrait} alt="Eduardo Ferreira Cavalheiro" />
           </div>
           <div className="about-copy">
             <h2 className="about-name">{home.aboutName}</h2>
@@ -109,7 +110,7 @@ export default function Home() {
         <div className="content-width proof-grid">
           <div className="proof-copy">
             <p className="eyebrow gold-eyebrow">{home.commitmentEyebrow}</p>
-            <img src="/assets/logo-eduardo-ferreira-cavalheiro-original.jpeg" alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="proof-logo" />
+            <img src={images.commitmentLogo} alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="proof-logo" />
           </div>
           <div className="proof-points">
             {home.commitmentPoints.map((point, index) => <article key={point.title}><span>{String(index + 1).padStart(2, "0")}</span><p><strong>{point.title}</strong> {point.text}</p></article>)}
