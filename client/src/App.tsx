@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminResetPassword = lazy(() => import("./pages/AdminResetPassword"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 function Router() {
   return (
@@ -26,6 +27,7 @@ function Router() {
       <Route path="/blog/:slug" component={BlogPost} />
       <Route path="/privacidade" component={PrivacyPolicy} />
       <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin/reset-password" component={AdminResetPassword} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

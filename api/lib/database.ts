@@ -93,6 +93,20 @@ export async function ensureSchema(sql: NonNullable<ReturnType<typeof database>>
   await sql`ALTER TABLE comments ADD COLUMN IF NOT EXISTS email TEXT NOT NULL DEFAULT ''`;
   await sql`ALTER TABLE comments ADD COLUMN IF NOT EXISTS replies JSONB NOT NULL DEFAULT '[]'::jsonb`;
   await sql`CREATE INDEX IF NOT EXISTS comments_article_slug_idx ON comments (article_slug)`;
+  await sql`CREATE TABLE IF NOT EXISTS admin_password_overrides (
+    id INTEGER PRIMARY KEY,
+    password_hash TEXT NOT NULL,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  )`;
+  await sql`CREATE TABLE IF NOT EXISTS admin_password_reset_tokens (
+    id TEXT PRIMARY KEY,
+    token_hash TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL,
+    expires_at TIMESTAMPTZ NOT NULL,
+    used_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  )`;
+  await sql`CREATE INDEX IF NOT EXISTS admin_password_reset_tokens_expiry_idx ON admin_password_reset_tokens (expires_at)`;
 }
 
 export function commentFromRow(row: Record<string, unknown>): StoredComment {
