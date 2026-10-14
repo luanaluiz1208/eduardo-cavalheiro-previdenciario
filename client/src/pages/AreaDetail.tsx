@@ -6,11 +6,14 @@
 import { ArrowLeft, ArrowRight, Check, MessageCircle, Scale, ShieldCheck } from "lucide-react";
 import { Link, useParams } from "wouter";
 import SiteShell from "@/components/SiteShell";
-import { areas, whatsappLink } from "@/data/areas";
+import { whatsappLink } from "@/data/areas";
+import { useHomeContent, useSiteContent } from "@/data/siteContent";
 
 export default function AreaDetail() {
   const params = useParams<{ slug: string }>();
-  const area = areas.find((item) => item.slug === params.slug);
+  const home = useHomeContent();
+  const site = useSiteContent();
+  const area = home.areas.find((item) => item.slug === params.slug);
 
   if (!area) {
     return (
@@ -35,7 +38,7 @@ export default function AreaDetail() {
           <h1>{area.title}</h1>
           <p>{area.summary}</p>
           <div className="detail-hero-actions">
-            <a className="button button-gold" href={whatsappLink(contactMessage)} target="_blank" rel="noreferrer"><MessageCircle size={18} aria-hidden="true" /> Falar sobre esta área</a>
+            <a className="button button-gold" href={whatsappLink(contactMessage, site.whatsapp)} target="_blank" rel="noreferrer"><MessageCircle size={18} aria-hidden="true" /> Falar sobre esta área</a>
             <a href="#requisitos" className="text-link light-link">Ver informações gerais <ArrowRight size={17} aria-hidden="true" /></a>
           </div>
         </div>
@@ -48,7 +51,7 @@ export default function AreaDetail() {
             <a href="#quem-tem-direito">Quem pode ter direito</a>
             <a href="#requisitos-gerais">Requisitos gerais</a>
             <a href="#como-auxiliamos">Como podemos auxiliar</a>
-            <a className="aside-contact" href={whatsappLink(contactMessage)} target="_blank" rel="noreferrer"><MessageCircle size={16} aria-hidden="true" /> Tirar uma dúvida</a>
+            <a className="aside-contact" href={whatsappLink(contactMessage, site.whatsapp)} target="_blank" rel="noreferrer"><MessageCircle size={16} aria-hidden="true" /> Tirar uma dúvida</a>
           </aside>
 
           <div className="detail-main">
@@ -73,7 +76,7 @@ export default function AreaDetail() {
               <p className="eyebrow">Como um advogado pode auxiliar</p>
               <h2>Documentos bem organizados e uma rota compreensível fazem diferença.</h2>
               <p className="detail-lead">{area.support}</p>
-              <a href={whatsappLink(contactMessage)} className="button button-navy" target="_blank" rel="noreferrer"><MessageCircle size={18} aria-hidden="true" /> Solicitar orientação</a>
+              <a href={whatsappLink(contactMessage, site.whatsapp)} className="button button-navy" target="_blank" rel="noreferrer"><MessageCircle size={18} aria-hidden="true" /> Solicitar orientação</a>
             </article>
 
           </div>
@@ -83,7 +86,7 @@ export default function AreaDetail() {
       <section className="detail-cta">
         <div className="content-width detail-cta-content">
           <div><p className="eyebrow gold-eyebrow">Próximo passo</p><h2>Tem uma dúvida sobre {area.shortTitle.toLowerCase()}?</h2><p>Envie uma mensagem e explique brevemente sua situação. O contato inicial é o primeiro passo para compreender as possibilidades do seu caso.</p></div>
-          <a className="button button-gold" href={whatsappLink(contactMessage)} target="_blank" rel="noreferrer"><MessageCircle size={19} aria-hidden="true" /> Falar no WhatsApp</a>
+          <a className="button button-gold" href={whatsappLink(contactMessage, site.whatsapp)} target="_blank" rel="noreferrer"><MessageCircle size={19} aria-hidden="true" /> Falar no WhatsApp</a>
         </div>
       </section>
     </SiteShell>

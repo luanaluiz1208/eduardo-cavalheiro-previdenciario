@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { isAdmin } from "./lib/auth.js";
-import { ContentKey, database, ensureSchema } from "./lib/database.js";
+import { database, ensureSchema } from "./lib/database.js";
 import { ensureSameOrigin, methodNotAllowed, readBody, sendJson } from "./lib/http.js";
 
-const allowedKeys: ContentKey[] = ["heroTitle", "heroDescription", "officeAddress", "officeHours", "whatsapp", "email", "instagram", "tiktok"];
+const allowedKeys = ["heroTitle", "heroDescription", "officeAddress", "officeHours", "whatsapp", "email", "instagram", "tiktok", "homeContent"] as const;
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   const sql = database();
@@ -24,7 +24,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
   await ensureSchema(sql);
   for (const key of allowedKeys) {
     const value = content[key];
-    if (typeof value !== "string" || value.length > 5000) return sendJson(response, 400, { error: "Um campo institucional é inválido." });
+    if (typeof value !== "string" || value.length > 200000) return sendJson(response, 400, { error: "Um campo institucional é inválido." });
     await sql`INSERT INTO site_content (content_key, value, updated_at) VALUES (${key}, ${value.trim()}, NOW()) ON CONFLICT (content_key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()`;
   }
   return sendJson(response, 200, { saved: true });

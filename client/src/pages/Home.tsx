@@ -13,8 +13,8 @@ import {
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SiteShell from "@/components/SiteShell";
-import { areas, type AreaIcon, whatsappLink } from "@/data/areas";
-import { mapsDirectionsLink, mapsSearchLink, useSiteContent } from "@/data/siteContent";
+import { type AreaIcon, whatsappLink } from "@/data/areas";
+import { mapsDirectionsLink, mapsSearchLink, useHomeContent, useSiteContent } from "@/data/siteContent";
 
 const iconMap: Record<AreaIcon, ComponentType<{ size?: number; strokeWidth?: number }>> = {
   calendar: CalendarDays,
@@ -40,35 +40,9 @@ const iconMap: Record<AreaIcon, ComponentType<{ size?: number; strokeWidth?: num
 
 
 
-const faqs = [
-  {
-    question: "Preciso ter contribuído para o INSS para buscar o BPC/LOAS?",
-    answer: "Não. O BPC/LOAS é um benefício assistencial, por isso não exige contribuição prévia ao INSS. Ele possui critérios próprios de idade ou deficiência, renda familiar, CadÚnico e, conforme o caso, avaliações do INSS.",
-  },
-  {
-    question: "Quais documentos devo separar para uma primeira análise?",
-    answer: "Identificação e CPF, CNIS, carteira de trabalho, carnês de contribuição e documentos específicos do seu caso. Para incapacidade, são úteis laudos e exames; para trabalho rural, documentos que comprovem a atividade; para aposentadoria especial, PPP e documentos técnicos.",
-  },
-  {
-    question: "Todo pedido exige perícia médica?",
-    answer: "Não. A perícia costuma ser importante em benefícios por incapacidade, BPC da pessoa com deficiência e aposentadorias que dependam da avaliação da deficiência. Outros benefícios têm fluxos diferentes. A necessidade é verificada de acordo com o pedido e com a exigência do INSS.",
-  },
-  {
-    question: "O atendimento pode ser realizado on-line?",
-    answer: "Sim. O escritório atende presencialmente em Itaperuna/RJ e também realiza atendimento on-line para pessoas de todo o território nacional, com orientação adequada a cada etapa.",
-  },
-  {
-    question: "Meu benefício foi indeferido. Ainda é possível avaliar o caso?",
-    answer: "Sim. Uma decisão negativa pode ser analisada com base no motivo apresentado pelo INSS, nos documentos disponíveis e nos prazos aplicáveis. O primeiro passo é compreender exatamente o que foi reconhecido e o que precisa ser demonstrado.",
-  },
-  {
-    question: "A orientação jurídica garante a concessão do benefício?",
-    answer: "Não. A concessão depende da legislação, das provas, do histórico contributivo e da análise do órgão competente. O trabalho jurídico é apresentar o caso com organização, coerência técnica e transparência sobre as possibilidades.",
-  },
-];
-
 export default function Home() {
   const content = useSiteContent();
+  const home = useHomeContent();
   const officeAddress = content.officeAddress;
   const officeMapsLink = mapsSearchLink(officeAddress);
   const officeDirectionsLink = mapsDirectionsLink(officeAddress);
@@ -89,18 +63,17 @@ export default function Home() {
         <div className="hero-journey-rail" aria-hidden="true"><span>01</span><i /></div>
         <div className="content-width hero-grid">
           <div className="hero-copy">
-            <div className="hero-kicker"><span /> Direito Previdenciário</div>
+            <div className="hero-kicker"><span /> {home.heroKicker}</div>
             <h1 id="hero-title">{content.heroTitle}</h1>
             <p>{content.heroDescription}</p>
             <div className="hero-actions">
               <a className="button button-gold" href={whatsappLink("Olá, Eduardo. Quero entender melhor a minha situação previdenciária.", content.whatsapp)} target="_blank" rel="noreferrer">
-                <MessageCircle size={19} aria-hidden="true" /> Conversar pelo WhatsApp
+                <MessageCircle size={19} aria-hidden="true" /> {home.heroPrimaryCta}
               </a>
-              <a className="text-link light-link" href="#areas">Conheça as áreas <ArrowDownRight size={18} aria-hidden="true" /></a>
+              <a className="text-link light-link" href="#areas">{home.heroSecondaryCta} <ArrowDownRight size={18} aria-hidden="true" /></a>
             </div>
             <div className="hero-notes">
-              <span><Check size={15} aria-hidden="true" /> Atendimento presencial em Itaperuna</span>
-              <span><Check size={15} aria-hidden="true" /> Consultas on-line em todo o país</span>
+              {home.heroNotes.map((note) => <span key={note}><Check size={15} aria-hidden="true" /> {note}</span>)}
             </div>
           </div>
 
@@ -120,16 +93,14 @@ export default function Home() {
             <img src="/assets/eduardo-ferreira-cavalheiro-segunda.jpeg" alt="Eduardo Ferreira Cavalheiro" />
           </div>
           <div className="about-copy">
-            <h2 className="about-name">Eduardo Ferreira Cavalheiro</h2>
-            <p className="lead-copy">É advogado especializado em Direito Previdenciário, com atuação voltada à defesa dos direitos dos segurados perante o INSS e o Poder Judiciário.</p>
-            <p>Natural de Itaperuna/RJ, realiza atendimentos presenciais e on-line para clientes de todo o Brasil. Atua em demandas relacionadas a benefícios por incapacidade, aposentadorias, pensão por morte, auxílio-acidente, BPC/LOAS e planejamento previdenciário.
-
-Seu trabalho é pautado em análise técnica, estratégia jurídica e atendimento próximo, buscando identificar a melhor solução para cada caso e conduzir o cliente com segurança desde a análise da documentação até a conclusão do processo.</p>
+            <h2 className="about-name">{home.aboutName}</h2>
+            <p className="lead-copy">{home.aboutLead}</p>
+            <p>{home.aboutBody}</p>
             <div className="about-signature">
               <span className="signature-line" />
               <div><strong>Eduardo Ferreira Cavalheiro</strong><small>Advogado Previdenciarista · OAB/RJ nº 26.639/23</small></div>
             </div>
-            <a className="text-link dark-link" href={whatsappLink("Olá, Eduardo. Gostaria de agendar uma conversa sobre Direito Previdenciário.", content.whatsapp)} target="_blank" rel="noreferrer">Agendar uma conversa <ArrowRight size={18} aria-hidden="true" /></a>
+            <a className="text-link dark-link" href={whatsappLink("Olá, Eduardo. Gostaria de agendar uma conversa sobre Direito Previdenciário.", content.whatsapp)} target="_blank" rel="noreferrer">{home.aboutCta} <ArrowRight size={18} aria-hidden="true" /></a>
           </div>
         </div>
       </section>
@@ -137,25 +108,23 @@ Seu trabalho é pautado em análise técnica, estratégia jurídica e atendiment
       <section className="section proof-section traced-section">
         <div className="content-width proof-grid">
           <div className="proof-copy">
-            <p className="eyebrow gold-eyebrow">Nosso compromisso</p>
+            <p className="eyebrow gold-eyebrow">{home.commitmentEyebrow}</p>
             <img src="/assets/logo-eduardo-ferreira-cavalheiro-original.jpeg" alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="proof-logo" />
           </div>
           <div className="proof-points">
-            <article><span>01</span><p><strong>Transparência</strong> sobre documentos, etapas e possibilidades antes de cada decisão.</p></article>
-            <article><span>02</span><p><strong>Atenção individual</strong> ao histórico de contribuições e às particularidades de cada segurado.</p></article>
-            <article><span>03</span><p><strong>Orientação responsável</strong> para que você compreenda os próximos passos do seu pedido.</p></article>
+            {home.commitmentPoints.map((point, index) => <article key={point.title}><span>{String(index + 1).padStart(2, "0")}</span><p><strong>{point.title}</strong> {point.text}</p></article>)}
           </div>
         </div>
       </section>
 
       <section id="areas" className="section section-stone areas-section traced-section">
         <div className="content-width section-heading-row areas-heading">
-          <p className="eyebrow areas-eyebrow"><span aria-hidden="true" /> ÁREAS DE ATUAÇÃO</p>
-          <h2>Em que podemos ajudar você?</h2>
-          <p className="section-side-copy">Escolha o tema e veja quem pode ter direito, os requisitos e como o apoio jurídico pode ajudar.</p>
+          <p className="eyebrow areas-eyebrow"><span aria-hidden="true" /> {home.areasEyebrow}</p>
+          <h2>{home.areasTitle}</h2>
+          <p className="section-side-copy">{home.areasDescription}</p>
         </div>
         <div className="content-width areas-grid">
-          {areas.map((area) => {
+          {home.areas.map((area) => {
             const Icon = iconMap[area.icon];
             return (
               <Link href={`/areas/${area.slug}`} className="area-card" key={area.slug}>
@@ -171,16 +140,16 @@ Seu trabalho é pautado em análise técnica, estratégia jurídica e atendiment
       <section id="duvidas" className="section faq-section traced-section">
         <div className="content-width faq-layout">
           <div className="faq-intro">
-            <p className="eyebrow gold-eyebrow">Dúvidas frequentes</p>
-            <h2>Informação é o primeiro passo para uma decisão mais segura.</h2>
-            <p>As respostas abaixo são gerais. Cada caso exige análise do histórico, da documentação e da legislação aplicável.</p>
+            <p className="eyebrow gold-eyebrow">{home.faqsEyebrow}</p>
+            <h2>{home.faqsTitle}</h2>
+            <p>{home.faqsDescription}</p>
             <div className="flex flex-wrap gap-3">
               <a className="button button-outline-light" href={whatsappLink("Olá, Eduardo. Tenho uma dúvida previdenciária e gostaria de receber orientação.", content.whatsapp)} target="_blank" rel="noreferrer"><MessageCircle size={18} aria-hidden="true" /> Enviar minha dúvida</a>
               <Link className="button button-outline-light" href="/blog"><BookOpen size={18} aria-hidden="true" /> Ler o blog</Link>
             </div>
           </div>
           <Accordion type="single" collapsible className="faq-accordion">
-            {faqs.map((faq, index) => (
+            {home.faqs.map((faq, index) => (
               <AccordionItem value={`faq-${index}`} key={faq.question}>
                 <AccordionTrigger>{faq.question}</AccordionTrigger>
                 <AccordionContent>{faq.answer}</AccordionContent>
@@ -193,16 +162,16 @@ Seu trabalho é pautado em análise técnica, estratégia jurídica e atendiment
       <section id="contato" className="section section-paper contact-section traced-section">
         <div className="content-width contact-layout">
           <div className="contact-copy">
-            <p className="eyebrow">Entre em contato</p>
-            <h2>Fale com quem entende de Previdência</h2>
-            <p>Você pode enviar uma mensagem pelo formulário, falar diretamente no WhatsApp ou utilizar um dos canais abaixo.</p>
+            <p className="eyebrow">{home.contactEyebrow}</p>
+            <h2>{home.contactTitle}</h2>
+            <p>{home.contactDescription}</p>
             <div className="contact-direct-list">
               <a href="tel:+5522998037866"><span><Phone size={18} aria-hidden="true" /></span><div><small>Telefone e WhatsApp</small><strong>(22) 99803-7866</strong></div></a>
               <a href="mailto:adv@eduardocavalheiro.com"><span><Mail size={18} aria-hidden="true" /></span><div><small>E-mail</small><strong>adv@eduardocavalheiro.com</strong></div></a>
               <a href="https://www.instagram.com/eduardof.cavalheiro/" target="_blank" rel="noreferrer"><span><Instagram size={18} aria-hidden="true" /></span><div><small>Instagram</small><strong>@eduardof.cavalheiro</strong></div></a>
               <a href="https://www.tiktok.com/@eduardocavalheiroadv" target="_blank" rel="noreferrer"><span><Quote size={18} aria-hidden="true" /></span><div><small>TikTok</small><strong>@eduardocavalheiroadv</strong></div></a>
             </div>
-            <div className="location-note"><MapPin size={18} aria-hidden="true" /><span><strong>Itaperuna/RJ</strong><br />Atendimento presencial mediante agendamento.</span></div>
+            <div className="location-note"><MapPin size={18} aria-hidden="true" /><span><strong>Itaperuna/RJ</strong><br />{home.locationNote}</span></div>
             <div className="contact-location-card">
               <div className="contact-location-icon"><MapPin size={20} aria-hidden="true" /></div>
               <div>
@@ -224,7 +193,7 @@ Seu trabalho é pautado em análise técnica, estratégia jurídica e atendiment
               <label>Telefone<input value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} placeholder="(00) 00000-0000" /></label>
               <label>E-mail<input type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} placeholder="seuemail@exemplo.com" /></label>
             </div>
-            <label>Assunto<select value={form.subject} onChange={(event) => setForm({ ...form, subject: event.target.value })}><option value="">Selecione uma área</option>{areas.map((area) => <option key={area.slug} value={area.title}>{area.title}</option>)}</select></label>
+            <label>Assunto<select value={form.subject} onChange={(event) => setForm({ ...form, subject: event.target.value })}><option value="">Selecione uma área</option>{home.areas.map((area) => <option key={area.slug} value={area.title}>{area.title}</option>)}</select></label>
             <label>Como podemos ajudar?<textarea value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} rows={4} placeholder="Descreva brevemente sua dúvida ou situação." /></label>
             <button className="button button-navy form-submit" type="submit"><Send size={18} aria-hidden="true" /> Enviar para o WhatsApp</button>
             {sentMessage && <p className="form-message" role="status">{sentMessage}</p>}
@@ -234,7 +203,7 @@ Seu trabalho é pautado em análise técnica, estratégia jurídica e atendiment
       </section>
 
       <section className="source-note">
-        <div className="content-width"><BookOpen size={17} aria-hidden="true" /><p>O conteúdo do site possui caráter informativo e é atualizado a partir de referências institucionais. Consulte sempre o <a href="https://www.gov.br/inss/pt-br" target="_blank" rel="noreferrer">portal oficial do INSS</a> e busque orientação individual para avaliar o seu caso.</p></div>
+        <div className="content-width"><BookOpen size={17} aria-hidden="true" /><p>{home.sourceNote} Consulte o <a href="https://www.gov.br/inss/pt-br" target="_blank" rel="noreferrer">portal oficial do INSS</a> e busque orientação individual para avaliar o seu caso.</p></div>
       </section>
     </SiteShell>
   );
