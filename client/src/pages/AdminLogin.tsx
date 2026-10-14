@@ -24,7 +24,7 @@ export default function AdminLogin() {
   }
   async function handleEmailRecovery(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setLoading(true); setError(""); setNotice("");
-    try { const response = await adminRequest<{ message: string }>("/api/auth/forgot-password", { method: "POST", body: JSON.stringify({ email }) }); setNotice(response.message); }
+    try { const response = await adminRequest<{ message: string }>("/api/auth/login", { method: "POST", body: JSON.stringify({ action: "forgot-password", email }) }); setNotice(response.message); }
     catch (reason) { setError(reason instanceof Error ? reason.message : "Não foi possível solicitar a recuperação."); } finally { setLoading(false); }
   }
   const phoneMessage = `Olá. Sou o responsável pelo painel administrativo e preciso recuperar o acesso. Meu telefone para confirmação é ${phone || "[informe seu telefone]"}.`;
