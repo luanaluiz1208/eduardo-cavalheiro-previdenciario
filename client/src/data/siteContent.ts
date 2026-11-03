@@ -97,10 +97,10 @@ export function parseHomeContent(value?: string): HomeEditableContent {
     return {
       ...homeContentDefaults,
       ...parsed,
-      heroNotes: parsed.heroNotes?.length ? parsed.heroNotes : homeContentDefaults.heroNotes,
-      commitmentPoints: parsed.commitmentPoints?.length ? parsed.commitmentPoints : homeContentDefaults.commitmentPoints,
-      faqs: parsed.faqs?.length ? parsed.faqs : homeContentDefaults.faqs,
-      areas: parsed.areas?.length ? parsed.areas : homeContentDefaults.areas,
+      heroNotes: Array.isArray(parsed.heroNotes) ? parsed.heroNotes : homeContentDefaults.heroNotes,
+      commitmentPoints: Array.isArray(parsed.commitmentPoints) ? parsed.commitmentPoints : homeContentDefaults.commitmentPoints,
+      faqs: Array.isArray(parsed.faqs) ? parsed.faqs : homeContentDefaults.faqs,
+      areas: Array.isArray(parsed.areas) ? parsed.areas : homeContentDefaults.areas,
     };
   } catch { return homeContentDefaults; }
 }

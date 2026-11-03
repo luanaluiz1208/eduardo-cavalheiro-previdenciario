@@ -74,7 +74,7 @@ export default function Home() {
               <a className="text-link light-link" href="#areas">{home.heroSecondaryCta} <ArrowDownRight size={18} aria-hidden="true" /></a>
             </div>
             <div className="hero-notes">
-              {home.heroNotes.map((note) => <span key={note}><Check size={15} aria-hidden="true" /> {note}</span>)}
+              {home.heroNotes.filter((note) => note.trim()).map((note) => <span key={note}><Check size={15} aria-hidden="true" /> {note}</span>)}
             </div>
           </div>
 
@@ -113,7 +113,7 @@ export default function Home() {
             <img src={images.commitmentLogo} alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="proof-logo" />
           </div>
           <div className="proof-points">
-            {home.commitmentPoints.map((point, index) => <article key={point.title}><span>{String(index + 1).padStart(2, "0")}</span><p><strong>{point.title}</strong> {point.text}</p></article>)}
+            {home.commitmentPoints.filter((point) => point.title.trim() || point.text.trim()).map((point, index) => <article key={`${point.title}-${index}`}><span>{String(index + 1).padStart(2, "0")}</span><p><strong>{point.title}</strong>{point.title && point.text ? " " : ""}{point.text}</p></article>)}
           </div>
         </div>
       </section>
@@ -125,7 +125,7 @@ export default function Home() {
           <p className="section-side-copy">{home.areasDescription}</p>
         </div>
         <div className="content-width areas-grid">
-          {home.areas.map((area) => {
+          {home.areas.filter((area) => area.title.trim() || area.summary.trim() || area.slug.trim()).map((area) => {
             const Icon = iconMap[area.icon];
             return (
               <Link href={`/areas/${area.slug}`} className="area-card" key={area.slug}>
@@ -150,7 +150,7 @@ export default function Home() {
             </div>
           </div>
           <Accordion type="single" collapsible className="faq-accordion">
-            {home.faqs.map((faq, index) => (
+            {home.faqs.filter((faq) => faq.question.trim() || faq.answer.trim()).map((faq, index) => (
               <AccordionItem value={`faq-${index}`} key={faq.question}>
                 <AccordionTrigger>{faq.question}</AccordionTrigger>
                 <AccordionContent>{faq.answer}</AccordionContent>
@@ -194,7 +194,7 @@ export default function Home() {
               <label>Telefone<input value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} placeholder="(00) 00000-0000" /></label>
               <label>E-mail<input type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} placeholder="seuemail@exemplo.com" /></label>
             </div>
-            <label>Assunto<select value={form.subject} onChange={(event) => setForm({ ...form, subject: event.target.value })}><option value="">Selecione uma área</option>{home.areas.map((area) => <option key={area.slug} value={area.title}>{area.title}</option>)}</select></label>
+              <label>Assunto<select value={form.subject} onChange={(event) => setForm({ ...form, subject: event.target.value })}><option value="">Selecione uma área</option>{home.areas.filter((area) => area.title.trim()).map((area) => <option key={area.slug} value={area.title}>{area.title}</option>)}</select></label>
             <label>Como podemos ajudar?<textarea value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} rows={4} placeholder="Descreva brevemente sua dúvida ou situação." /></label>
             <button className="button button-navy form-submit" type="submit"><Send size={18} aria-hidden="true" /> Enviar para o WhatsApp</button>
             {sentMessage && <p className="form-message" role="status">{sentMessage}</p>}
