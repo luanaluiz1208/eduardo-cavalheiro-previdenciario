@@ -1010,9 +1010,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 /* Ajuste final do cabeçalho: centro óptico limpo e faixa institucional mais discreta. */
 @media (min-width: 721px) {
-  .site-header .top-line { font-size: .63rem; }
-  .site-header .top-line-inner { min-height: 23px; }
-  .site-header .nav-inner { position: relative; min-height: 55px; justify-content: center; }
+  .site-header .top-line { font-size: .6rem; }
+  .site-header .top-line-inner { min-height: 20px; }
+  .site-header .nav-inner { position: relative; min-height: 48px; justify-content: center; }
   .site-header .desktop-nav {
     position: absolute;
     left: 50%;
@@ -1020,14 +1020,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
     width: max-content;
     flex: 0 0 auto;
     justify-content: center;
-    gap: clamp(1.15rem, 2.3vw, 2.85rem);
+    gap: clamp(1rem, 2vw, 2.5rem);
     padding: 0;
   }
   .site-header .desktop-nav a {
     padding: .35rem 0;
     color: #3e4c5e;
     font-family: "Manrope", Arial, sans-serif;
-    font-size: .92rem;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: .018em;
   }
