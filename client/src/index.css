@@ -1014,20 +1014,25 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .site-header .top-line-inner { min-height: 27px; }
   .site-header .nav-inner { position: relative; min-height: 62px; justify-content: center; }
   .site-header .desktop-nav {
-    flex: 0 1 auto;
-    justify-content: center;
-    gap: clamp(1rem, 1.8vw, 2.25rem);
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    gap: clamp(1.15rem, 1.9vw, 2.4rem);
+    padding-left: clamp(1rem, 7vw, 8rem);
   }
   .site-header .desktop-nav a {
     padding: .35rem 0;
-    color: #536071;
-    font-size: .82rem;
+    color: #3e4c5e;
+    font-size: .86rem;
     font-weight: 750;
+    letter-spacing: .012em;
   }
   .site-header .header-cta {
     position: absolute;
     right: 0;
     padding: .52rem .78rem;
     font-size: .76rem;
+    background: #128c62;
+    border-color: #128c62;
   }
+  .site-header .header-cta:hover { background: #0d704e; }
 }
