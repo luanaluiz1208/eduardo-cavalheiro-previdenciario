@@ -41,10 +41,6 @@ export default function SiteShell({ children }: SiteShellProps) {
 
       <header className="site-header">
         <div className="content-width nav-inner">
-          <Link href="/" className="brand" aria-label="Página inicial de Eduardo Ferreira Cavalheiro">
-            <img src={images.headerLogo} alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário — OAB/RJ nº 26.639/23" className="brand-logo" />
-          </Link>
-
           <nav className="desktop-nav" aria-label="Navegação principal">
             {navItems.map((item) => <a href={item.href} className={location.startsWith("/blog") && item.href === "/blog" ? "active" : undefined} key={item.href}>{item.label}</a>)}
           </nav>
