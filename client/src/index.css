@@ -57,7 +57,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .top-line span { display: inline-flex; align-items: center; gap: .35rem; }
 .top-line-oab { color: var(--gold-light); font-weight: 800; }
 
-.site-header { position: sticky; top: 0; z-index: 50; background: rgba(251,250,246,.94); border-bottom: 1px solid rgba(11,31,58,.08); backdrop-filter: blur(16px); }
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(251,250,246,.94); border-bottom: 0; backdrop-filter: blur(16px); }
+.site-header::after { content: ""; position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: linear-gradient(90deg, rgba(11,31,58,.08), rgba(11,31,58,.16) 34%, rgba(195,164,104,.8) 50%, rgba(11,31,58,.16) 66%, rgba(11,31,58,.08)); pointer-events: none; }
 .nav-inner { min-height: 176px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .brand { display: flex; align-items: center; gap: .7rem; min-width: 380px; }
 .brand-symbol-wrap { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(195,164,104,.8); border-radius: 50%; background: #fffdf7; flex: 0 0 auto; }
