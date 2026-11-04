@@ -1007,3 +1007,27 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .site-header .desktop-nav { display: none; }
   .site-header .mobile-menu-button { margin-left: auto; }
 }
+
+/* Ajuste final do cabeçalho: centro óptico limpo e faixa institucional mais discreta. */
+@media (min-width: 721px) {
+  .site-header .top-line { font-size: .67rem; }
+  .site-header .top-line-inner { min-height: 27px; }
+  .site-header .nav-inner { position: relative; min-height: 62px; justify-content: center; }
+  .site-header .desktop-nav {
+    flex: 0 1 auto;
+    justify-content: center;
+    gap: clamp(1rem, 1.8vw, 2.25rem);
+  }
+  .site-header .desktop-nav a {
+    padding: .35rem 0;
+    color: #536071;
+    font-size: .82rem;
+    font-weight: 750;
+  }
+  .site-header .header-cta {
+    position: absolute;
+    right: 0;
+    padding: .52rem .78rem;
+    font-size: .76rem;
+  }
+}
