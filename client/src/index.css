@@ -1014,17 +1014,22 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .site-header .top-line-inner { min-height: 27px; }
   .site-header .nav-inner { position: relative; min-height: 62px; justify-content: center; }
   .site-header .desktop-nav {
-    flex: 1 1 auto;
-    justify-content: flex-start;
-    gap: clamp(1.15rem, 1.9vw, 2.4rem);
-    padding-left: clamp(1rem, 7vw, 8rem);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    flex: 0 0 auto;
+    justify-content: center;
+    gap: clamp(1.35rem, 2.65vw, 3.3rem);
+    padding: 0;
   }
   .site-header .desktop-nav a {
     padding: .35rem 0;
     color: #3e4c5e;
-    font-size: .86rem;
-    font-weight: 750;
-    letter-spacing: .012em;
+    font-family: "Manrope", Arial, sans-serif;
+    font-size: .83rem;
+    font-weight: 700;
+    letter-spacing: .018em;
   }
   .site-header .header-cta {
     position: absolute;
