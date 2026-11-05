@@ -1054,9 +1054,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .article-index a::before { content: ""; position: absolute; top: .82rem; left: 0; width: 2px; height: 1.05rem; background: var(--gold); }
 .article-index a::after { content: counter(article-topic, decimal-leading-zero); position: absolute; right: .1rem; top: .75rem; color: rgba(164,122,41,.58); font-size: .58rem; font-weight: 800; letter-spacing: .08em; }
 .article-index a:hover { padding-left: 1.35rem; color: var(--navy); }
-.article-aside-contact { margin-top: 1.25rem; padding-top: 1.1rem; border-top: 1px solid rgba(11,30,53,.14); }
-.article-aside-contact p { margin: 0 0 .8rem; font-size: .78rem; line-height: 1.5; }
-.article-aside-contact .button { width: 100%; min-height: 42px; padding: .65rem .7rem; font-size: .7rem; }
 
 @media (max-width: 640px) {
   .article-index-card { max-width: none; }

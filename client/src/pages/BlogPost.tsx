@@ -1,10 +1,8 @@
-import { ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, Clock3, MessageCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, Clock3 } from "lucide-react";
 import { Link, useRoute } from "wouter";
 import ArticleComments from "@/components/ArticleComments";
 import SiteShell from "@/components/SiteShell";
 import { useBlogArticles } from "@/data/blog";
-import { useSiteContent } from "@/data/siteContent";
-import { whatsappLink } from "@/data/areas";
 
 function sectionId(heading: string, index: number) {
   const normalized = heading.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -47,7 +45,6 @@ export default function BlogPost() {
   const articles = useBlogArticles();
   const articleIndex = params?.slug ? articles.findIndex((item) => item.slug === params.slug) : -1;
   const article = articleIndex >= 0 ? articles[articleIndex] : undefined;
-  const content = useSiteContent();
 
   if (!article) {
     return <SiteShell><section className="article-not-found content-width"><p className="eyebrow"><span /> Blog</p><h1>Artigo não encontrado.</h1><Link href="/blog" className="button button-gold">Voltar ao blog</Link></section></SiteShell>;
@@ -88,10 +85,6 @@ export default function BlogPost() {
               <nav className="article-index" aria-label="Assuntos tratados neste artigo">
                 <ol>{tocItems.map((item, index) => <li className={item.level > 2 ? "article-index-subitem" : undefined} key={`${item.id}-${index}`}><a href={`#${item.id}`}>{item.label}</a></li>)}</ol>
               </nav>
-              <div className="article-aside-contact">
-                <p>Ficou com alguma dúvida sobre este assunto?</p>
-                <a href={whatsappLink("Olá, Eduardo. Li um artigo no blog e gostaria de orientação previdenciária.", content.whatsapp)} target="_blank" rel="noreferrer" className="button button-gold"><MessageCircle size={17} /> Falar no WhatsApp</a>
-              </div>
             </div>
           </aside>
         </div>
