@@ -62,10 +62,7 @@ export default function BlogPost() {
 
   const nextArticle = articles[articleIndex + 1];
   const previousArticle = articles[articleIndex - 1];
-  const tocItems: TocItem[] = article.sections.flatMap((section, index) => [
-    { label: section.heading, id: sectionId(section.heading, index), level: 2 },
-    ...headingsFromHtml(section.body, index),
-  ]);
+  const tocItems: TocItem[] = article.sections.flatMap((section, index) => headingsFromHtml(section.body, index));
 
   return (
     <SiteShell>
