@@ -1,4 +1,5 @@
 import { ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, Clock3 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link, useRoute } from "wouter";
 import ArticleComments from "@/components/ArticleComments";
 import SiteShell from "@/components/SiteShell";
@@ -63,6 +64,21 @@ export default function BlogPost() {
   const nextArticle = articles[articleIndex + 1];
   const previousArticle = articles[articleIndex - 1];
   const tocItems: TocItem[] = article.sections.flatMap((section, index) => headingsFromHtml(section.body, index));
+  const [activeTopic, setActiveTopic] = useState(tocItems[0]?.id || "");
+
+  useEffect(() => {
+    if (!tocItems.length) return;
+    setActiveTopic(tocItems[0].id);
+    const elements = tocItems.map((item) => document.getElementById(item.id)).filter((element): element is HTMLElement => Boolean(element));
+    if (!elements.length || !("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting).sort((first, second) => first.boundingClientRect.top - second.boundingClientRect.top);
+      if (visible[0]) setActiveTopic((visible[0].target as HTMLElement).id);
+    }, { rootMargin: "-18% 0px -68% 0px", threshold: [0, 1] });
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, [article.slug, tocItems.map((item) => item.id).join("|")]);
 
   return (
     <SiteShell>
@@ -90,7 +106,7 @@ export default function BlogPost() {
               <span className="note-index">NESTE POST</span>
               <h2>Assuntos tratados</h2>
               <nav className="article-index" aria-label="Assuntos tratados neste artigo">
-                <ol>{tocItems.map((item, index) => <li className={item.level > 2 ? "article-index-subitem" : undefined} key={`${item.id}-${index}`}><a href={`#${item.id}`}>{item.label}</a></li>)}</ol>
+                <ol>{tocItems.map((item, index) => <li className={`${item.level > 2 ? "article-index-subitem " : ""}${activeTopic === item.id ? "is-active" : ""}`} key={`${item.id}-${index}`}><a href={`#${item.id}`} aria-current={activeTopic === item.id ? "location" : undefined} onClick={() => setActiveTopic(item.id)}>{item.label}</a></li>)}</ol>
               </nav>
             </div>
           </aside>
