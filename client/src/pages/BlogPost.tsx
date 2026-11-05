@@ -63,14 +63,29 @@ export default function BlogPost() {
     if (!tocItems.length) return;
     setActiveTopic(tocItems[0].id);
     const elements = tocItems.map((item) => document.getElementById(item.id)).filter((element): element is HTMLElement => Boolean(element));
-    if (!elements.length || !("IntersectionObserver" in window)) return;
+    if (!elements.length) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting).sort((first, second) => first.boundingClientRect.top - second.boundingClientRect.top);
-      if (visible[0]) setActiveTopic((visible[0].target as HTMLElement).id);
-    }, { rootMargin: "-18% 0px -68% 0px", threshold: [0, 1] });
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    let frame = 0;
+    const updateActiveTopic = () => {
+      frame = 0;
+      const marker = Math.min(220, window.innerHeight * .3);
+      let current = elements[0];
+      elements.forEach((element) => {
+        if (element.getBoundingClientRect().top <= marker) current = element;
+      });
+      setActiveTopic((previous) => previous === current.id ? previous : current.id);
+    };
+    const handleScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveTopic);
+    };
+    updateActiveTopic();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, [article?.slug, tocItems.map((item) => item.id).join("|")]);
 
   if (!article) {
