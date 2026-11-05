@@ -1,10 +1,15 @@
-import { ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, Check, Clock3, MessageCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, Clock3, MessageCircle } from "lucide-react";
 import { Link, useRoute } from "wouter";
 import ArticleComments from "@/components/ArticleComments";
 import SiteShell from "@/components/SiteShell";
 import { useBlogArticles } from "@/data/blog";
 import { useSiteContent } from "@/data/siteContent";
 import { whatsappLink } from "@/data/areas";
+
+function sectionId(heading: string, index: number) {
+  const normalized = heading.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return `assunto-${index + 1}-${normalized || "secao"}`;
+}
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
@@ -17,7 +22,6 @@ export default function BlogPost() {
     return <SiteShell><section className="article-not-found content-width"><p className="eyebrow"><span /> Blog</p><h1>Artigo não encontrado.</h1><Link href="/blog" className="button button-gold">Voltar ao blog</Link></section></SiteShell>;
   }
 
-  const readingSections = article.sections.slice(0, 4);
   const nextArticle = articles[articleIndex + 1];
   const previousArticle = articles[articleIndex - 1];
 
@@ -36,14 +40,25 @@ export default function BlogPost() {
         <div className="content-width article-layout">
           <div className="article-body">
             <div className="article-author-note"><div className="article-author-mark">EC</div><div><strong>Eduardo Ferreira Cavalheiro</strong><span>Advogado Previdenciarista · OAB/RJ nº 26.639/23</span></div></div>
-            <div className="article-reading-guide"><p className="eyebrow"><span /> Neste artigo você verá</p><ul>{readingSections.map((section) => <li key={section.heading}><Check size={15} />{section.heading}</li>)}</ul></div>
-            {article.sections.map((section) => <section key={section.heading}><h2>{section.heading}</h2><div className="article-section-body" dangerouslySetInnerHTML={{ __html: section.body }} /></section>)}
+            {article.sections.map((section, index) => <section id={sectionId(section.heading, index)} key={`${section.heading}-${index}`}><h2>{section.heading}</h2><div className="article-section-body" dangerouslySetInnerHTML={{ __html: section.body }} /></section>)}
             <div className="article-responsible-note"><strong>Importante</strong><p>As informações são gerais e podem mudar conforme a legislação, os documentos e o histórico de cada pessoa. Uma análise individual é necessária antes de qualquer decisão.</p></div>
             <div className="article-source"><p className="eyebrow"><span /> Referência consultada</p><a href={article.sourceUrl} target="_blank" rel="noreferrer">{article.sourceLabel} <ArrowUpRight size={15} /></a></div>
             <div className="article-next-nav">{previousArticle ? <Link href={`/blog/${previousArticle.slug}`}><small>Artigo mais recente</small><strong>{previousArticle.title}</strong><ArrowRight size={17} /></Link> : <span />}{nextArticle ? <Link href={`/blog/${nextArticle.slug}`}><small>Próximo artigo</small><strong>{nextArticle.title}</strong><ArrowRight size={17} /></Link> : <span />}</div>
             <ArticleComments slug={article.slug} />
           </div>
-          <aside className="article-aside"><div className="article-aside-card"><span className="note-index">ORIENTAÇÃO INDIVIDUAL</span><h2>Seu histórico merece uma leitura cuidadosa.</h2><p>Se você precisa organizar documentos ou entender uma possibilidade previdenciária, fale diretamente com o escritório.</p><a href={whatsappLink("Olá, Eduardo. Li um artigo no blog e gostaria de orientação previdenciária.", content.whatsapp)} target="_blank" rel="noreferrer" className="button button-gold"><MessageCircle size={17} /> Falar no WhatsApp</a></div></aside>
+          <aside className="article-aside">
+            <div className="article-aside-card article-index-card">
+              <span className="note-index">NESTE POST</span>
+              <h2>Assuntos tratados</h2>
+              <nav className="article-index" aria-label="Assuntos tratados neste artigo">
+                <ol>{article.sections.map((section, index) => <li key={`${section.heading}-${index}`}><a href={`#${sectionId(section.heading, index)}`}>{section.heading}</a></li>)}</ol>
+              </nav>
+              <div className="article-aside-contact">
+                <p>Ficou com alguma dúvida sobre este assunto?</p>
+                <a href={whatsappLink("Olá, Eduardo. Li um artigo no blog e gostaria de orientação previdenciária.", content.whatsapp)} target="_blank" rel="noreferrer" className="button button-gold"><MessageCircle size={17} /> Falar no WhatsApp</a>
+              </div>
+            </div>
+          </aside>
         </div>
       </article>
     </SiteShell>
