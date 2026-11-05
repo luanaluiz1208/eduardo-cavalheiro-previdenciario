@@ -1062,3 +1062,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .article-index-card { max-width: none; }
   .article-index a { font-size: .82rem; }
 }
+.article-index-subitem a { padding-left: 1.8rem; font-size: .74rem; color: rgba(11,30,53,.62); }
+.article-index-subitem a::before { left: .65rem; width: 1px; height: .8rem; background: rgba(195,164,104,.7); }
+.article-index-subitem a:hover { padding-left: 2rem; }

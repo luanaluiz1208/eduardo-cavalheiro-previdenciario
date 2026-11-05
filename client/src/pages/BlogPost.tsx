@@ -11,6 +11,37 @@ function sectionId(heading: string, index: number) {
   return `assunto-${index + 1}-${normalized || "secao"}`;
 }
 
+type TocItem = { label: string; id: string; level: number };
+
+function plainHeading(value: string) {
+  return value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").trim();
+}
+
+function headingsFromHtml(html: string, sectionIndex: number) {
+  const headings: TocItem[] = [];
+  const pattern = /<h([2-6])(?:\s[^>]*)?>([\s\S]*?)<\/h\1>/gi;
+  let match: RegExpExecArray | null;
+  let headingIndex = 0;
+  while ((match = pattern.exec(html))) {
+    const label = plainHeading(match[2]);
+    if (!label) continue;
+    headings.push({ label, id: `assunto-${sectionIndex + 1}-sub-${headingIndex + 1}`, level: Number(match[1]) });
+    headingIndex += 1;
+  }
+  return headings;
+}
+
+function addHeadingIds(html: string, sectionIndex: number) {
+  let headingIndex = 0;
+  return html.replace(/<h([2-6])((?:\s[^>]*)?)>([\s\S]*?)<\/h\1>/gi, (full, level, attributes, inner) => {
+    const label = plainHeading(inner);
+    if (!label) return full;
+    headingIndex += 1;
+    const withoutId = String(attributes).replace(/\s+id=(?:"[^"]*"|'[^']*')/i, "");
+    return `<h${level}${withoutId} id="assunto-${sectionIndex + 1}-sub-${headingIndex}">${inner}</h${level}>`;
+  });
+}
+
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
   const articles = useBlogArticles();
@@ -24,6 +55,10 @@ export default function BlogPost() {
 
   const nextArticle = articles[articleIndex + 1];
   const previousArticle = articles[articleIndex - 1];
+  const tocItems: TocItem[] = article.sections.flatMap((section, index) => [
+    { label: section.heading, id: sectionId(section.heading, index), level: 2 },
+    ...headingsFromHtml(section.body, index),
+  ]);
 
   return (
     <SiteShell>
@@ -40,7 +75,7 @@ export default function BlogPost() {
         <div className="content-width article-layout">
           <div className="article-body">
             <div className="article-author-note"><div className="article-author-mark">EC</div><div><strong>Eduardo Ferreira Cavalheiro</strong><span>Advogado Previdenciarista · OAB/RJ nº 26.639/23</span></div></div>
-            {article.sections.map((section, index) => <section id={sectionId(section.heading, index)} key={`${section.heading}-${index}`}><h2>{section.heading}</h2><div className="article-section-body" dangerouslySetInnerHTML={{ __html: section.body }} /></section>)}
+            {article.sections.map((section, index) => <section id={sectionId(section.heading, index)} key={`${section.heading}-${index}`}><h2>{section.heading}</h2><div className="article-section-body" dangerouslySetInnerHTML={{ __html: addHeadingIds(section.body, index) }} /></section>)}
             <div className="article-responsible-note"><strong>Importante</strong><p>As informações são gerais e podem mudar conforme a legislação, os documentos e o histórico de cada pessoa. Uma análise individual é necessária antes de qualquer decisão.</p></div>
             <div className="article-source"><p className="eyebrow"><span /> Referência consultada</p><a href={article.sourceUrl} target="_blank" rel="noreferrer">{article.sourceLabel} <ArrowUpRight size={15} /></a></div>
             <div className="article-next-nav">{previousArticle ? <Link href={`/blog/${previousArticle.slug}`}><small>Artigo mais recente</small><strong>{previousArticle.title}</strong><ArrowRight size={17} /></Link> : <span />}{nextArticle ? <Link href={`/blog/${nextArticle.slug}`}><small>Próximo artigo</small><strong>{nextArticle.title}</strong><ArrowRight size={17} /></Link> : <span />}</div>
@@ -51,7 +86,7 @@ export default function BlogPost() {
               <span className="note-index">NESTE POST</span>
               <h2>Assuntos tratados</h2>
               <nav className="article-index" aria-label="Assuntos tratados neste artigo">
-                <ol>{article.sections.map((section, index) => <li key={`${section.heading}-${index}`}><a href={`#${sectionId(section.heading, index)}`}>{section.heading}</a></li>)}</ol>
+                <ol>{tocItems.map((item, index) => <li className={item.level > 2 ? "article-index-subitem" : undefined} key={`${item.id}-${index}`}><a href={`#${item.id}`}>{item.label}</a></li>)}</ol>
               </nav>
               <div className="article-aside-contact">
                 <p>Ficou com alguma dúvida sobre este assunto?</p>
