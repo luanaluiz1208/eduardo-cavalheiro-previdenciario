@@ -64,14 +64,20 @@ export default function BlogPost() {
     setActiveTopic(tocItems[0].id);
     const elements = tocItems.map((item) => document.getElementById(item.id)).filter((element): element is HTMLElement => Boolean(element));
     if (!elements.length) return;
+    const orderedElements = [...elements].sort((first, second) => {
+      const firstTop = first.getBoundingClientRect().top + window.scrollY;
+      const secondTop = second.getBoundingClientRect().top + window.scrollY;
+      return firstTop - secondTop;
+    });
 
     let frame = 0;
     const updateActiveTopic = () => {
       frame = 0;
-      const marker = Math.min(220, window.innerHeight * .3);
-      let current = elements[0];
-      elements.forEach((element) => {
-        if (element.getBoundingClientRect().top <= marker) current = element;
+      const marker = window.scrollY + Math.min(220, window.innerHeight * .3);
+      let current = orderedElements[0];
+      orderedElements.forEach((element) => {
+        const elementTop = element.getBoundingClientRect().top + window.scrollY;
+        if (elementTop <= marker) current = element;
       });
       setActiveTopic((previous) => previous === current.id ? previous : current.id);
     };
