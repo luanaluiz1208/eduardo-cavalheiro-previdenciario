@@ -15,15 +15,25 @@ function plainHeading(value: string) {
   return value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").trim();
 }
 
+function isContentHeading(tag: string, inner: string, label: string) {
+  if (!label || /<(ul|ol|img|a)\b/i.test(inner)) return false;
+  if (tag.toLowerCase().startsWith("h")) return true;
+  const strongMatch = inner.match(/<strong(?:\s[^>]*)?>([\s\S]*?)<\/strong>/i);
+  const strongLabel = strongMatch ? plainHeading(strongMatch[1]) : "";
+  const isStrongOnly = Boolean(strongLabel) && strongLabel === label;
+  const isShortQuestion = label.length <= 120 && /[?:]$/.test(label);
+  return isStrongOnly || isShortQuestion;
+}
+
 function headingsFromHtml(html: string, sectionIndex: number) {
   const headings: TocItem[] = [];
-  const pattern = /<h([2-6])(?:\s[^>]*)?>([\s\S]*?)<\/h\1>/gi;
+  const pattern = /<(h[2-6]|p)(?:\s[^>]*)?>([\s\S]*?)<\/\1>/gi;
   let match: RegExpExecArray | null;
   let headingIndex = 0;
   while ((match = pattern.exec(html))) {
     const label = plainHeading(match[2]);
-    if (!label) continue;
-    headings.push({ label, id: `assunto-${sectionIndex + 1}-sub-${headingIndex + 1}`, level: Number(match[1]) });
+    if (!isContentHeading(match[1], match[2], label)) continue;
+    headings.push({ label, id: `assunto-${sectionIndex + 1}-sub-${headingIndex + 1}`, level: match[1].startsWith("h") ? Number(match[1].slice(1)) : 3 });
     headingIndex += 1;
   }
   return headings;
@@ -31,12 +41,12 @@ function headingsFromHtml(html: string, sectionIndex: number) {
 
 function addHeadingIds(html: string, sectionIndex: number) {
   let headingIndex = 0;
-  return html.replace(/<h([2-6])((?:\s[^>]*)?)>([\s\S]*?)<\/h\1>/gi, (full, level, attributes, inner) => {
+  return html.replace(/<(h[2-6]|p)((?:\s[^>]*)?)>([\s\S]*?)<\/\1>/gi, (full, tag, attributes, inner) => {
     const label = plainHeading(inner);
-    if (!label) return full;
+    if (!isContentHeading(tag, inner, label)) return full;
     headingIndex += 1;
     const withoutId = String(attributes).replace(/\s+id=(?:"[^"]*"|'[^']*')/i, "");
-    return `<h${level}${withoutId} id="assunto-${sectionIndex + 1}-sub-${headingIndex}">${inner}</h${level}>`;
+    return `<${tag}${withoutId} id="assunto-${sectionIndex + 1}-sub-${headingIndex}">${inner}</${tag}>`;
   });
 }
 
