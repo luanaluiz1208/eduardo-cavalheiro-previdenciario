@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useRoute } from "wouter";
 import ArticleComments from "@/components/ArticleComments";
 import SiteShell from "@/components/SiteShell";
-import { useBlogArticles } from "@/data/blog";
+import { useBlogArticlesWithStatus } from "@/data/blog";
 
 function sectionId(heading: string, index: number) {
   const normalized = heading.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -53,17 +53,10 @@ function addHeadingIds(html: string, sectionIndex: number) {
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
-  const articles = useBlogArticles();
+  const { articles, loading } = useBlogArticlesWithStatus();
   const articleIndex = params?.slug ? articles.findIndex((item) => item.slug === params.slug) : -1;
   const article = articleIndex >= 0 ? articles[articleIndex] : undefined;
-
-  if (!article) {
-    return <SiteShell><section className="article-not-found content-width"><p className="eyebrow"><span /> Blog</p><h1>Artigo não encontrado.</h1><Link href="/blog" className="button button-gold">Voltar ao blog</Link></section></SiteShell>;
-  }
-
-  const nextArticle = articles[articleIndex + 1];
-  const previousArticle = articles[articleIndex - 1];
-  const tocItems: TocItem[] = article.sections.flatMap((section, index) => headingsFromHtml(section.body, index));
+  const tocItems: TocItem[] = article ? article.sections.flatMap((section, index) => headingsFromHtml(section.body, index)) : [];
   const [activeTopic, setActiveTopic] = useState(tocItems[0]?.id || "");
 
   useEffect(() => {
@@ -78,7 +71,15 @@ export default function BlogPost() {
     }, { rootMargin: "-18% 0px -68% 0px", threshold: [0, 1] });
     elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
-  }, [article.slug, tocItems.map((item) => item.id).join("|")]);
+  }, [article?.slug, tocItems.map((item) => item.id).join("|")]);
+
+  if (!article) {
+    if (loading) return <SiteShell><main className="article-not-found content-width"><p className="eyebrow"><span /> Blog</p><h1>Carregando notícia…</h1></main></SiteShell>;
+    return <SiteShell><section className="article-not-found content-width"><p className="eyebrow"><span /> Blog</p><h1>Artigo não encontrado.</h1><Link href="/blog" className="button button-gold">Voltar ao blog</Link></section></SiteShell>;
+  }
+
+  const nextArticle = articles[articleIndex + 1];
+  const previousArticle = articles[articleIndex - 1];
 
   return (
     <SiteShell>

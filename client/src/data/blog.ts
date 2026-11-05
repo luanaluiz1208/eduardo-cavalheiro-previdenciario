@@ -94,24 +94,36 @@ export function sortBlogArticles(articles: BlogArticle[]) {
 }
 
 export function useBlogArticles() {
+  return useBlogArticlesWithStatus().articles;
+}
+
+export function useBlogArticlesWithStatus() {
   const [articles, setArticles] = useState<BlogArticle[]>(blogArticles);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let active = true;
     fetch("/api/articles")
       .then((response) => response.ok ? response.json() : null)
       .then((payload: { articles?: BlogArticle[] } | null) => {
-        if (!active || !payload?.articles?.length) return;
+        if (!active) return;
+        if (!payload?.articles?.length) {
+          setLoading(false);
+          return;
+        }
         setArticles((current) => {
           const saved = payload.articles || [];
           const savedSlugs = new Set(saved.map((article) => article.slug));
           return [...saved, ...current.filter((article) => !savedSlugs.has(article.slug))];
         });
+        setLoading(false);
       })
-      .catch(() => undefined);
+      .catch(() => {
+        if (active) setLoading(false);
+      });
     return () => { active = false; };
   }, []);
 
-  return sortBlogArticles(articles.filter((article) => article.published !== false));
+  return { articles: sortBlogArticles(articles.filter((article) => article.published !== false)), loading };
 }
 import { useEffect, useState } from "react";
