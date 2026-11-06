@@ -1078,7 +1078,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 /* Compromisso mais compacto: aproveita a altura e mantém o segundo item em uma linha no desktop. */
-.proof-section { padding-top: .65rem; padding-bottom: .7rem; }
+.proof-section { padding-top: .25rem; padding-bottom: .7rem; }
 .proof-points article { padding: .72rem 0; }
 @media (min-width: 1021px) {
   .proof-point-2 p { white-space: nowrap; }
