@@ -113,7 +113,7 @@ export default function Home() {
             <img src={images.commitmentLogo} alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="proof-logo" />
           </div>
           <div className="proof-points">
-            {home.commitmentPoints.filter((point) => point.title.trim() || point.text.trim()).map((point, index) => <article key={`${point.title}-${index}`}><span>{String(index + 1).padStart(2, "0")}</span><p><strong>{point.title}</strong>{point.title && point.text ? " " : ""}{point.text}</p></article>)}
+            {home.commitmentPoints.filter((point) => point.title.trim() || point.text.trim()).map((point, index) => <article className={`proof-point proof-point-${index + 1}`} key={`${point.title}-${index}`}><span>{String(index + 1).padStart(2, "0")}</span><p><strong>{point.title}</strong>{point.title && point.text ? " " : ""}{point.text}</p></article>)}
           </div>
         </div>
       </section>
