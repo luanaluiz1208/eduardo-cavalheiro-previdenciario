@@ -1089,3 +1089,32 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 720px) {
   .proof-section { padding-top: 1.25rem; padding-bottom: 1.25rem; }
 }
+
+/* Correção responsiva final: nenhum bloco deve ultrapassar a largura do celular. */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video, iframe { max-width: 100%; }
+
+@media (max-width: 720px) {
+  .content-width,
+  .site-header .content-width { width: calc(100% - 24px); max-width: 100%; }
+  .content-width > *,
+  .blog-grid > *,
+  .areas-grid > *,
+  .proof-grid > *,
+  .faq-layout > *,
+  .contact-layout > *,
+  .article-layout > * { min-width: 0; }
+  .blog-featured-card { grid-template-columns: minmax(0, 1fr); min-width: 0; }
+  .blog-featured-copy { min-width: 0; }
+  .blog-featured-copy h2,
+  .blog-featured-copy p { max-width: 100%; overflow-wrap: anywhere; }
+  .blog-topic-shortcuts { flex-wrap: wrap; overflow: visible; margin-right: 0; }
+  .blog-topic-shortcuts button { flex: 0 1 auto; margin-top: 0; max-width: 100%; }
+  .category-filter { flex-wrap: wrap; overflow: visible; margin-right: 0; gap: .45rem; }
+  .category-filter button { flex: 0 1 auto; max-width: 100%; }
+  .article-section-body,
+  .article-responsible-note,
+  .form-privacy { overflow-wrap: anywhere; }
+  .article-section-body pre,
+  .article-section-body code { max-width: 100%; overflow-x: auto; }
+}
