@@ -1118,3 +1118,9 @@ img, video, iframe { max-width: 100%; }
   .article-section-body pre,
   .article-section-body code { max-width: 100%; overflow-x: auto; }
 }
+
+/* No mobile, a linha editorial lateral não tem espaço suficiente e atravessa o texto. */
+@media (max-width: 720px) {
+  .traced-section::before,
+  .traced-section::after { display: none; }
+}
