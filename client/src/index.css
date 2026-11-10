@@ -1124,3 +1124,9 @@ img, video, iframe { max-width: 100%; }
   .traced-section::before,
   .traced-section::after { display: none; }
 }
+
+/* A decoração lateral também deve desaparecer em tablets e janelas estreitas. */
+@media (max-width: 1020px) {
+  .traced-section::before,
+  .traced-section::after { display: none; }
+}
