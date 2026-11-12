@@ -1130,3 +1130,33 @@ img, video, iframe { max-width: 100%; }
   .traced-section::before,
   .traced-section::after { display: none; }
 }
+
+
+/* Diferenciais da apresentação: bloco compacto inspirado em fichas de valores profissionais. */
+.about-highlights {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+  margin-top: 1.7rem;
+  padding: .85rem;
+  background: var(--navy-deep);
+}
+.about-highlight {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  min-height: 3rem;
+  padding: .72rem .8rem;
+  border: 1px solid rgba(195,164,104,.24);
+  border-radius: .65rem;
+  color: rgba(248,245,239,.86);
+  font-size: .72rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.about-highlight svg { flex: 0 0 auto; color: var(--gold-light); }
+.about-highlights + .about-signature { margin-top: 1.55rem; }
+@media (max-width: 720px) {
+  .about-highlights { gap: .5rem; margin-top: 1.35rem; padding: .65rem; }
+  .about-highlight { min-height: 2.8rem; padding: .62rem .65rem; font-size: .68rem; }
+}

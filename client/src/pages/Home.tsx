@@ -9,7 +9,7 @@ import {
   Accessibility, Activity, ArrowDownRight, ArrowRight, Baby, BadgeCheck, BookOpen,
   Building2, CalendarDays, Check, Compass, FileCheck2, FileClock, Gavel, GraduationCap,
   HandHeart, HeartPulse, Instagram, LockKeyhole, Mail, MapPin, MessageCircle,
-  Phone, Quote, RefreshCcw, Route, Scale, Send, ShieldCheck, UsersRound, Wheat,
+  Phone, Quote, RefreshCcw, Route, Scale, Send, ShieldCheck, UsersRound, Wheat, Award,
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SiteShell from "@/components/SiteShell";
@@ -37,6 +37,8 @@ const iconMap: Record<AreaIcon, ComponentType<{ size?: number; strokeWidth?: num
   scale: Scale,
   gavel: Gavel,
 };
+
+const aboutHighlightIcons = [BadgeCheck, ShieldCheck, UsersRound, Award];
 
 
 
@@ -97,6 +99,12 @@ export default function Home() {
             <h2 className="about-name">{home.aboutName}</h2>
             <p className="lead-copy">{home.aboutLead}</p>
             <p>{home.aboutBody}</p>
+            <div className="about-highlights" aria-label="Diferenciais do atendimento">
+              {home.aboutHighlights.filter((highlight) => highlight.title.trim()).map((highlight, index) => {
+                const Icon = aboutHighlightIcons[index % aboutHighlightIcons.length];
+                return <div className="about-highlight" key={`${highlight.title}-${index}`}><Icon size={18} strokeWidth={1.7} aria-hidden="true" /><span>{highlight.title}</span></div>;
+              })}
+            </div>
             <div className="about-signature">
               <span className="signature-line" />
               <div><strong>Eduardo Ferreira Cavalheiro</strong><small>Advogado Previdenciarista · OAB/RJ nº 26.639/23</small></div>

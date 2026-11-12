@@ -17,6 +17,7 @@ export type SiteContentValues = Record<SiteContentKey, string>;
 
 export type FaqItem = { question: string; answer: string };
 export type CommitmentPoint = { title: string; text: string };
+export type AboutHighlight = { title: string };
 export type HomeEditableContent = {
   heroKicker: string;
   heroPrimaryCta: string;
@@ -25,6 +26,7 @@ export type HomeEditableContent = {
   aboutName: string;
   aboutLead: string;
   aboutBody: string;
+  aboutHighlights: AboutHighlight[];
   aboutCta: string;
   commitmentEyebrow: string;
   commitmentPoints: CommitmentPoint[];
@@ -61,6 +63,12 @@ export const homeContentDefaults: HomeEditableContent = {
   aboutName: "Eduardo Ferreira Cavalheiro",
   aboutLead: "É advogado especializado em Direito Previdenciário, com atuação voltada à defesa dos direitos dos segurados perante o INSS e o Poder Judiciário.",
   aboutBody: "Natural de Itaperuna/RJ, realiza atendimentos presenciais e on-line para clientes de todo o Brasil. Atua em demandas relacionadas a benefícios por incapacidade, aposentadorias, pensão por morte, auxílio-acidente, BPC/LOAS e planejamento previdenciário.\n\nSeu trabalho é pautado em análise técnica, estratégia jurídica e atendimento próximo, buscando identificar a melhor solução para cada caso e conduzir o cliente com segurança desde a análise da documentação até a conclusão do processo.",
+  aboutHighlights: [
+    { title: "Excelência técnica" },
+    { title: "Ética inabalável" },
+    { title: "Atendimento humanizado" },
+    { title: "Agilidade e comprometimento" },
+  ],
   aboutCta: "Agendar uma conversa",
   commitmentEyebrow: "Nosso compromisso",
   commitmentPoints: [
@@ -98,6 +106,7 @@ export function parseHomeContent(value?: string): HomeEditableContent {
       ...homeContentDefaults,
       ...parsed,
       heroNotes: Array.isArray(parsed.heroNotes) ? parsed.heroNotes : homeContentDefaults.heroNotes,
+      aboutHighlights: Array.isArray(parsed.aboutHighlights) ? parsed.aboutHighlights : homeContentDefaults.aboutHighlights,
       commitmentPoints: Array.isArray(parsed.commitmentPoints) ? parsed.commitmentPoints : homeContentDefaults.commitmentPoints,
       faqs: Array.isArray(parsed.faqs) ? parsed.faqs : homeContentDefaults.faqs,
       areas: Array.isArray(parsed.areas) ? parsed.areas : homeContentDefaults.areas,
