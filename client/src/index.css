@@ -1213,3 +1213,22 @@ img, video, iframe { max-width: 100%; }
   }
   .hero-kicker { letter-spacing: .12em; }
 }
+
+
+/* Legibilidade reforçada no hero: serifada mais robusta, maior corpo e contraste. */
+@media (min-width: 1021px) {
+  .hero-copy h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(3rem, 4.5vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -.025em;
+    line-height: .98;
+  }
+  .hero-copy > p {
+    color: rgba(255,255,255,.9);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .hero-kicker { font-size: .72rem; }
+  .hero-notes { color: rgba(255,255,255,.84); font-size: .7rem; }
+}
