@@ -114,18 +114,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section proof-section traced-section">
-        <div className="content-width proof-grid">
-          <div className="proof-copy">
-            <p className="eyebrow gold-eyebrow">{home.commitmentEyebrow}</p>
-            <img src={images.commitmentLogo} alt="Eduardo Ferreira Cavalheiro — Advogado Previdenciário" className="proof-logo" />
-          </div>
-          <div className="proof-points">
-            {home.commitmentPoints.filter((point) => point.title.trim() || point.text.trim()).map((point, index) => <article className={`proof-point proof-point-${index + 1}`} key={`${point.title}-${index}`}><span>{String(index + 1).padStart(2, "0")}</span><p><strong>{point.title}</strong>{point.title && point.text ? " " : ""}{point.text}</p></article>)}
-          </div>
-        </div>
-      </section>
-
       <section id="areas" className="section section-stone areas-section traced-section">
         <div className="content-width section-heading-row areas-heading">
           <p className="eyebrow areas-eyebrow"><span aria-hidden="true" /> {home.areasEyebrow}</p>
