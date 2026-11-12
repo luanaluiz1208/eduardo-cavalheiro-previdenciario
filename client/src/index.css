@@ -1160,3 +1160,22 @@ img, video, iframe { max-width: 100%; }
   .about-highlights { gap: .5rem; margin-top: 1.35rem; padding: .65rem; }
   .about-highlight { min-height: 2.8rem; padding: .62rem .65rem; font-size: .68rem; }
 }
+
+
+/* Integração visual: os diferenciais acompanham o fundo e a cor tipográfica da apresentação. */
+.about-highlights {
+  margin-top: 1.55rem;
+  padding: 0;
+  background: transparent;
+}
+.about-highlight {
+  min-height: 2.9rem;
+  border-color: rgba(11,31,58,.16);
+  border-radius: .55rem;
+  background: rgba(255,255,255,.42);
+  color: #47586b;
+}
+.about-highlight svg { color: var(--gold); }
+@media (max-width: 720px) {
+  .about-highlights { margin-top: 1.25rem; padding: 0; }
+}
