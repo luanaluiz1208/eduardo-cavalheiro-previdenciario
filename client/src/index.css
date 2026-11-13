@@ -1297,3 +1297,42 @@ img, video, iframe { max-width: 100%; }
   .article-layout { grid-template-columns: minmax(0, 1fr) 20rem; gap: 6rem; }
   .article-body { max-width: 52rem; }
 }
+
+
+/* Blog mais forte: busca evidente, filtros claros e cards com hierarquia editorial. */
+.blog-list-header { margin-bottom: 1.4rem; }
+.blog-search-wrap {
+  min-width: min(100%, 22rem);
+  border: 1px solid rgba(11,30,53,.2);
+  border-radius: 999px;
+  padding: .68rem 1rem;
+  background: rgba(255,255,255,.72);
+  transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.blog-search-wrap:focus-within {
+  border-color: var(--gold);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(195,164,104,.14);
+}
+.blog-search-wrap input { font-size: .88rem; }
+.category-filter { gap: .55rem; margin-bottom: 2rem; padding-bottom: 1rem; }
+.category-filter button { min-height: 42px; font-size: .78rem; font-weight: 700; }
+.category-filter button.active { box-shadow: 0 5px 12px rgba(11,30,53,.12); }
+.blog-grid { gap: 1.25rem; }
+.blog-card {
+  min-height: 25rem;
+  border-top: 2px solid rgba(164,122,41,.58);
+  padding: 1.45rem;
+}
+.blog-card h3 { margin-top: 2.3rem; line-height: 1.08; }
+.blog-card p { line-height: 1.72; }
+.blog-card:hover { border-top-color: var(--gold); }
+.blog-more-actions { margin-top: 2.5rem; }
+.blog-more-button { min-height: 50px; min-width: 14rem; letter-spacing: .02em; }
+@media (max-width: 640px) {
+  .blog-search-wrap { width: 100%; }
+  .category-filter { padding-bottom: .8rem; }
+  .blog-card { min-height: 22rem; }
+  .blog-more-actions { margin-top: 1.8rem; }
+  .blog-more-button { min-width: 0; }
+}
