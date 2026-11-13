@@ -1225,3 +1225,53 @@ img, video, iframe { max-width: 100%; }
   .about-highlights { margin-top: 1.2rem; }
   .about-highlights + .about-signature { margin-top: 1.2rem; }
 }
+
+
+/* Acessibilidade tipográfica: textos secundários maiores e com contraste mais firme. */
+.hero-copy > p { color: rgba(255,255,255,.9); font-size: 1rem; line-height: 1.72; }
+.hero-notes { color: rgba(255,255,255,.86); font-size: .75rem; }
+.portrait-caption small { color: rgba(255,255,255,.76); font-size: .62rem; }
+.about-copy p,
+.about-copy .lead-copy { color: #3f5063; font-size: 1rem; line-height: 1.78; }
+.about-signature strong { font-size: .88rem; }
+.about-signature small { color: #596777; font-size: .72rem; }
+.about-highlight { color: #3f5063; font-size: .76rem; }
+.area-number { font-size: .7rem; }
+.area-card p { color: #536276; font-size: .88rem; line-height: 1.7; }
+.card-link { font-size: .74rem; }
+.process-list h3 { font-size: .96rem; }
+.process-list p { color: #596777; font-size: .9rem; line-height: 1.72; }
+.faq-intro > p:not(.eyebrow) { color: rgba(255,255,255,.8); font-size: .94rem; }
+.faq-accordion [data-slot="accordion-trigger"] { font-size: .94rem; }
+.faq-accordion [data-slot="accordion-content"] { color: rgba(255,255,255,.8); font-size: .9rem; }
+.contact-copy > p:not(.eyebrow) { color: #4d5d70; font-size: .96rem; }
+.contact-direct-list small { font-size: .69rem; }
+.contact-direct-list strong { font-size: .84rem; }
+.location-note { font-size: .82rem; }
+.blog-card-top, .blog-card-meta { font-size: .75rem; }
+.blog-card p { color: rgba(11,30,53,.78); font-size: 1rem; }
+.category-filter button { font-size: .78rem; }
+.blog-disclaimer-inner p:last-child { color: rgba(11,30,53,.76); font-size: .94rem; }
+.article-excerpt { color: rgba(248,245,239,.82); }
+.article-meta { color: rgba(248,245,239,.7); font-size: .88rem; }
+.article-aside-card p { color: rgba(11,30,53,.78); font-size: .96rem; }
+.comments-empty { font-size: .96rem; }
+.comments-list p { font-size: .96rem; }
+.source-note p { font-size: .76rem; }
+.form-privacy { font-size: .7rem; }
+
+@media (max-width: 720px) {
+  .hero-copy > p { font-size: 1rem; line-height: 1.72; }
+  .hero-notes { font-size: .76rem; }
+  .about-copy p,
+  .about-copy .lead-copy { font-size: 1rem; line-height: 1.8; }
+  .about-highlight { font-size: .74rem; }
+  .area-card p { font-size: .9rem; }
+  .process-list p,
+  .faq-accordion [data-slot="accordion-content"],
+  .contact-copy > p:not(.eyebrow) { font-size: .94rem; }
+  .blog-card p { font-size: .98rem; }
+  .article-section-body p,
+  .article-section-body ul,
+  .article-section-body ol { font-size: 1.04rem; line-height: 1.82; }
+}
