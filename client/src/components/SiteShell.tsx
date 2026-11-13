@@ -32,6 +32,7 @@ export default function SiteShell({ children }: SiteShellProps) {
 
   return (
     <div className="site-shell">
+      <a className="skip-link" href="#conteudo-principal">Ir para o conteúdo</a>
       <div className="top-line">
         <div className="content-width top-line-inner">
           <span><MapPin size={14} aria-hidden="true" /> Itaperuna · Rio de Janeiro <strong className="top-line-oab">· OAB/RJ nº 26.639/23</strong></span>
@@ -65,7 +66,7 @@ export default function SiteShell({ children }: SiteShellProps) {
         )}
       </header>
 
-      <main>{children}</main>
+      <main id="conteudo-principal" tabIndex={-1}>{children}</main>
 
       <footer className="site-footer">
         <div className="content-width footer-grid">
@@ -95,7 +96,7 @@ export default function SiteShell({ children }: SiteShellProps) {
         <div className="content-width footer-bottom">
           <p>© {new Date().getFullYear()} Eduardo Ferreira Cavalheiro. OAB/RJ nº 26.639/23.</p>
           <p>Conteúdo informativo. A análise depende das particularidades de cada caso.</p>
-          <Link href="/privacidade">Aviso de privacidade</Link>
+          <Link href="/privacidade" className="footer-privacy-link">Aviso de privacidade</Link>
         </div>
       </footer>
 
