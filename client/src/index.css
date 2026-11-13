@@ -1213,3 +1213,15 @@ img, video, iframe { max-width: 100%; }
   }
   .hero-kicker { letter-spacing: .12em; }
 }
+
+
+/* Apresentação alinhada à foto: mesma linha de partida e ritmo vertical mais equilibrado. */
+@media (min-width: 721px) {
+  .about-section .offset-grid { align-items: start; }
+  .about-copy { padding-top: 0; }
+  .about-name { margin-bottom: 1.35rem; }
+  .about-copy .lead-copy { margin-top: 0; margin-bottom: .85rem; line-height: 1.72; }
+  .about-copy > p:not(.lead-copy) { margin-top: .85rem; margin-bottom: 0; line-height: 1.72; }
+  .about-highlights { margin-top: 1.2rem; }
+  .about-highlights + .about-signature { margin-top: 1.2rem; }
+}
